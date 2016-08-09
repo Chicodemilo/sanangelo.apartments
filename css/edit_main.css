@@ -1,0 +1,789 @@
+/******************************** BODY AND UNIVERSAL  ***************************/
+
+body {font-family: arial;
+    margin: 0px;}
+
+textarea {resize: none;}
+
+.shadow{box-shadow: 5px 5px 5px #dddddd;}
+
+            
+hr {border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); }
+
+
+.righter    {text-align: right;}
+
+.righter_light    {text-align: right;
+                    font-size: .8em;}
+
+.lefter_light    {text-align: left;
+                    font-size: .7em;}
+
+.lefter    {text-align: left;}
+
+.center    {text-align: center;}
+
+.bold   {font-weight: bolder;}
+
+.smaller    {font-size: .7em;}
+
+.error  {color:red;
+        font-size: .8em;
+        font-weight: bold;}
+
+/******************************** WRAPPER ***************************/
+    
+.wrapper    {position: relative;
+            top: 50px;
+            margin: auto;
+            width: 99%;
+            min-width: 900px;
+            margin-bottom: 60px;}
+
+.wrapper table tr {background-color: #eef;}
+
+.wrapper table td {border: 1px solid #ddd;
+        padding: 5px;}
+
+.wrapper table th {/*border: 1px solid #ddd;*/
+        padding: 7px;
+        background-color: #F2EDE5;
+        text-align: center;
+        font-size: 1.3em;
+        color: #3C4568;}
+
+
+.wrapper table   {font-size: .8em;
+        border-collapse: collapse;
+        margin: 20px;
+        box-shadow: 5px 5px 5px #dddddd;
+        width: 96%;}
+
+.bottom_room    {height:100px;}
+
+/******************************** LINKS AND INPUT ***************************/
+a {text-decoration: none;}
+
+        
+#links  {list-style-type: none;}  
+            
+#links li   {display: inline;}
+            
+a:link  {text-decoration: none; 
+        display: block;
+        font-size: .9em;
+        border: none;
+        margin: 3px;
+        padding: 7px;
+        border-radius: 4px;
+        background: #CAE1FF;
+        color: #2b2b2b;}
+
+a:link #noblock{display: inline;}
+
+a:hover   {color:white;
+            background: #A2B5CD;}
+a:visited {}
+a:active  {color:#DEDEDE; 
+          background: #6E7B8B;}
+
+            
+a.not_fancy:link  {text-decoration: none; 
+        display: inline;
+        font-size: .9em;
+        border: none;
+        margin: 1px;
+        padding: 1px;
+        border-radius: 0px;
+        background: none;
+        color: #2b2b2b;}
+
+a.not_fancy:hover   {color:white;
+            background: none;}
+a.not_fancy:visited {}
+a.not_fancy:active  {color:#DEDEDE; 
+          background: none;} 
+
+a.not_fancy_dark:link  {text-decoration: none; 
+        display: inline;
+        font-size: .9em;
+        border: none;
+        margin: 1px;
+        padding: 1px;
+        border-radius: 0px;
+        background: none;
+        color: #3D59AB;}
+
+a.not_fancy_dark:hover   {color:#4169E1;
+            background: none;}
+a.not_fancy_dark:visited {}
+a.not_fancy_dark:active  {color:#C2C2C2; 
+          background: none;}
+
+a.small_link:link  {text-decoration: none; 
+        display: block;
+        font-size: .9em;
+        border: none;
+        margin: 1px;
+        padding: 3px;
+        border-radius: 4px;
+        background: #CAE1FF;
+        color: #2b2b2b;}
+
+a.small_link:link #noblock{display: inline;}
+
+a.small_link:hover   {color:white;
+            background: #A2B5CD;}
+a.small_link:visited {}
+a.small_link:active  {color:#DEDEDE; 
+          background: #6E7B8B;}
+
+
+a.mailto:link  {text-decoration: none; 
+        display: inline;
+        font-size: .9em;
+        border: none;
+        margin: 0px;
+        padding: 0px;
+        /*border-radius: 4px;*/
+        background: white;
+        color: #2b2b2b;}
+
+
+a.mailto:hover   {
+    color:#CD6889;
+            /*background: #A2B5CD;*/
+        }
+a.mailto:visited {}
+a.mailto:active  {color:#DEDEDE; 
+          /*background: #6E7B8B;*/
+        }
+
+textarea{resize:none;}
+
+input[type=text], input[type=password], input[type=email]{
+    display: block;
+    margin: 5px;
+    border: 5px;
+    border-radius: 3px;
+    padding: 7px;
+}
+
+input[type=submit] {
+    font-weight: bold;
+    border: none;
+    padding: 6px;
+    font-size: .9em;
+    border-radius: 4px;
+    background: #CAE1FF;
+    color: #2b2b2b;
+    cursor: pointer;
+}
+
+input[type=submit]:hover{
+    color: white;
+    background: #A2B5CD;
+    cursor: pointer;
+}
+
+select{
+    border: none;
+    height: 20px;
+    padding: 3px;
+    font-size: .8em;
+    border-radius: 3px;
+    background: #CAE1FF;
+    color: #2b2b2b;
+    cursor: pointer;
+}
+
+.select_tiny{
+    border: none;
+    height: 10px;
+    padding: 2px;
+    font-size: .8em;
+    border-radius: 3px;
+    background: #CAE1FF;
+    color: #2b2b2b;
+    cursor: pointer;
+}
+
+/******************************** NAVBAR  ***************************/
+            
+#nav_bar    {
+            background-color: rgba(61, 89, 171, .8);
+            margin-left: 0px;
+            position: fixed;
+            top: 0px;
+            border: none;
+            width: 100%;
+            height: 40px;
+            min-width: 975px;
+            z-index: 2;
+            }
+
+
+#nav_bar_clear    {
+            background-color: none;
+            margin-left: 0px; 
+            position: fixed;
+            top: 0px;
+            border: none;
+            width: 100%;
+            min-width: 410px;
+            z-index: 2;
+            font-size: .8em;
+            list-style-type: none; display: inline;
+            }
+
+#nav_bar_clear table {margin-left: 0px;
+                color: rgba(255, 255, 255, 0.9);}
+
+#nav_bar_clear a.not_fancy:link  {text-decoration: none; 
+        display: inline;
+        font-size: .8em;
+        border: none;
+        margin: 1px;
+        padding: 1px;
+        border-radius: 0px;
+        background: none;
+        color: white;}
+
+#nav_bar_clear a.not_fancy:hover   {color:#DEDEDE;
+                            background: none; font-weight: bold;}
+#nav_bar_clear a.not_fancy:visited {color: white; }
+#nav_bar_clear a.not_fancy:active  {color:#DEDEDE; 
+          background: none;}
+
+.user_info  {float: left; 
+            padding-left:20px;}
+
+.header_links{
+    float:right;
+}
+
+
+
+#nav_bar_clear ul {list-style-type: none;
+                    display: inline-block;
+                    margin: 0px;
+
+                    padding: 20 0 0 0;}
+
+#nav_bar_clear li {display: inline-block;}   
+
+#nav_bar_clear .contact_menu    {position:absolute;
+                                margin: 0px;
+                                padding: 0px;
+
+                                display: none;  }
+
+
+
+#nav_bar_clear .contact_menu   li {display: initial;}
+             
+
+
+/******************************** HEADER AND FOOTER ***************************/
+header {margin-left: 0px;}
+            
+                        
+footer {padding: 5px;
+        height: 50px;
+        position: fixed;
+        bottom:0%;
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 10px;
+        background-color: rgba(139, 134, 130, .5);}      
+
+#footer_info    {text-align: right;
+                color: white;
+                font-size: .7em;
+                position:absolute;
+                bottom:12px;
+                right:20px;}   
+
+#footer_info_left    {text-align: left;
+                color: white;
+                font-size: .65em;
+                position:absolute;
+                bottom:6px;
+                left:10px;}    
+
+.footer_logo{
+    width:200px;
+    height:70px;
+    margin:auto;
+    margin-left:200px;
+}
+     
+
+/******************************** AMENITIES EDIT PAGE ***************************/
+.amenities_wrapper  {width: 900px;
+                    height: 500px;
+                    /*border: 1px solid red;*/
+                    margin: auto;}
+.amenities_box  {width: 420px;
+                float: left;
+                padding: 0px;
+                /*border: 1px solid red;*/
+                box-shadow: 5px 5px 5px #dddddd;
+                }
+
+
+
+.amenities_box table {width: 420px;
+                    margin-top: 0px;
+                    margin-left: 0px;
+                    margin-bottom: 0px;
+                    box-shadow: none;}
+
+.amenities_box tr td{font-size: .8em;
+                    border: 1px solid #e0e0e0;;
+                    border-bottom: 1px solid #e0e0e0;}
+
+.amenities_box tr th{font-size: .8em;}
+
+.amenities_head {/*position:absolute;*/
+                left:0px;
+                top:0px;
+                color: white;
+                font-size: .8em;  
+                height: 20px;  
+                margin: auto;
+                text-align: center;
+                padding-top: 10px;
+                background-color: rgba(139, 134, 130, .5);
+                width: 420px;}
+
+.amenities_table_head {position: absolute;
+                        box-shadow: none;}
+.amenities_table    {width:100%;
+                    margin-top: 0px;
+                    height: 400px;
+                    overflow: scroll;}
+.amenities_table table {margin-top: 5px;}
+
+.amenities_submit  {/*position:absolute;*/
+                    left:0px;
+                    top:450px;
+                    z-index: 1;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    padding-left: 30px;
+                    border-bottom: 1px solid gray;
+                    width: 390px;
+                    background-color: rgba(139, 134, 130, .5);}
+
+.their_amenities_box_maker  {width: 420px;
+                float: right;               
+                box-shadow: 5px 5px 5px #dddddd;
+                top: 0px;}
+
+
+
+.their_amenities_box_maker table    {width: 420px;
+                                    margin-top: 0px;
+                                    margin-left: 0px;
+                                    box-shadow: none;
+                                    /*margin: 0px;*/
+                                    margin-bottom: 49px;}
+
+.their_amenities_box_maker tr td{font-size: .8em;
+                                border: 1px solid #e0e0e0;}
+
+
+.their_amenities_head_maker {left:0px;
+                            top:0px;
+                            color: white;
+                            font-size: .8em;  
+                            height: 20px;  
+                            margin: auto;
+                            text-align: center;
+                            padding-top: 10px;
+                            background-color: rgba(139, 134, 130, .5);
+                            width: 420px;}
+
+
+.their_amenities_table_maker    {width:100%;
+                                /*height: 80px;*/
+                                }
+
+.their_amenities_submit_maker  {position:absolute;
+                                /*left:0px;*/
+                                top:78px;
+                                z-index: 1;
+                                padding-top: 10px;
+                                padding-bottom: 10px;
+                                padding-left: 30px;
+                                border-bottom: 1px solid gray;
+                                width: 390px;
+                                background-color: rgba(139, 134, 130, .5);}
+
+.their_amenities_box    {width: 420px;
+                        margin-top: 40px;
+                        float: right;
+                        background-color: #FCFCFC;
+                        box-shadow: 5px 5px 5px #dddddd;}
+
+
+
+.their_amenities_box table  {width: 420px;
+                            margin-top: 30px;
+                            margin-left: 0px;
+                            margin-bottom: 0px;}
+
+.their_amenities_box tr td  {font-size: .8em;
+                            border: 1px solid #e0e0e0;}
+.their_amenities_box tr th  {font-size: .8em;
+                            height: 30px;}
+
+.their_amenities_head   {
+                        color: white;
+                        font-size: .8em;  
+                        height: 20px;  
+                        margin: auto;
+                        text-align: center;
+                        padding-top: 10px;
+                        background-color: rgba(139, 134, 130, .5);
+                        width: 420px;}
+
+.their_amenities_table_head {position: absolute;}
+.their_amenities_table_head table   {margin-top: 0px;
+                                    box-shadow: none;
+                                    margin-bottom: 0px;}
+
+
+.their_amenities_table  {width:100%;
+                        height: 232px;
+                        overflow: scroll;}
+.their_amenities_table  table {margin-top: 45px;} 
+
+
+.their_amenities_submit {position:relative;
+                        left:0px;
+                        top:0px;
+                        z-index: 1;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        padding-left: 30px;
+                        width: 390px;
+                        border-bottom: 1px solid gray;
+                        background-color: rgba(139, 134, 130, .5);}
+
+
+
+
+
+/******************************** HOURS EDIT PAGE ***************************/
+.hours_box  {width: 800px;
+            /*border: 1px solid red;*/
+            background-color: #FCFCFC;
+            margin: auto;
+            box-shadow: 5px 5px 5px #dddddd;
+            }
+
+
+
+.hours_box table {width: 100%;
+                    margin-top: 30px;
+                    margin-left: 0px;
+                    margin-bottom: 50px;}
+
+.hours_box tr td    {font-size: .8em;
+                    border: 1px solid #e0e0e0;;
+                    border-bottom: 1px solid #e0e0e0;}
+
+.hours_box tr th{font-size: .8em;}
+
+.hours_head {position:absolute;
+            /*left:0px;*/
+            top:0px;
+            color: white;
+            font-size: .8em;  
+            height: 20px;  
+            margin: auto;
+            text-align: center;
+            padding-top: 10px;
+            background-color: rgba(139, 134, 130, .5);
+            width: 800px;}
+
+
+.hours_table    {width:800px;
+                padding-top: 1px;}
+
+.hours_table_b   {width:100%;}
+
+.hours_table_b_div   {width:800px;
+                    padding-top: 30px;
+                    margin-top: 30px;}
+
+.hours_submit  {position:absolute;
+                /*left:0px;*/
+                top:87px;
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+
+
+
+
+
+/******************************** FLOORPLAN EDIT PAGE ***************************/
+
+.floorplan_table_lower {position: relative;
+                        top: -50px;}
+
+.floorplans_submit  {position:absolute;
+                /*left:0px;*/
+                top:213px;
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+.floorplans_submit_uploader  {position:absolute;
+                /*left:0px;*/
+                top:203px;
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+.floorplan_table_b_head {background-color: red;}
+
+.upload_window  {width:800px;
+                margin: auto;}
+
+.floorplans_pic{margin-top: 30px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                width: 760px;
+                padding: 20px;
+                background-color: #C1C1C1;
+                /*border: 1px solid gray;*/
+                /*position: relative;
+                top: -40px;*/}
+
+
+/******************************** PETS EDIT PAGE ***************************/
+
+.pet_submit  {position:absolute;
+                /*left:0px;*/
+                top:128px;
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+
+
+/******************************** SPECIALS EDIT PAGE ***************************/
+
+.specials_box  {width: 800px;
+            /*border: 1px solid red;*/
+            background-color: #FCFCFC;
+            margin: auto;
+            box-shadow: 5px 5px 5px #dddddd;
+            }
+
+#specials_box_lower {margin-top: 0px;}
+
+
+
+.specials_box table {width: 100%;
+                    margin-top: 30px;
+                    margin-left: 0px;
+                    margin-bottom: 0px;}
+
+.specials_box tr td    {font-size: .8em;
+                    border: 1px solid #e0e0e0;;
+                    border-bottom: 1px solid #e0e0e0;}
+
+.specials_box tr th{font-size: .8em;}
+
+.specials_table    {width:800px;
+                padding-top: 1px;}
+
+.specials_table_b   {width:100%;}
+
+.specials_table_b_div   {width:800px;
+                    padding-top: 30px;
+                    margin-top: 30px;}
+
+.specials_submit  {position:absolute;
+                /*left:0px;*/
+                top:229px;
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+/******************************** USERS EDIT PAGE ***************************/
+
+.users_box  {width: 800px;
+            /*border: 1px solid red;*/
+            background-color: #FCFCFC;
+            margin: auto;
+            box-shadow: 5px 5px 5px #dddddd;
+            }
+
+#users_box_lower {margin-top: 0px;}
+
+
+
+.users_box table {width: 100%;
+                    margin-top: 30px;
+                    margin-left: 0px;
+                    margin-bottom: 0px;}
+
+.users_box tr td    {font-size: .8em;
+                    border: 1px solid #e0e0e0;;
+                    border-bottom: 1px solid #e0e0e0;}
+
+.users_box tr th{font-size: .8em;}
+
+.users_table    {width:800px;
+                padding-top: 1px;}
+
+.users_table_b   {width:100%;}
+
+.users_table_b_div   {width:800px;
+                    padding-top: 30px;
+                    margin-top: 30px;}
+
+.users_submit  {/*position:absolute;*/
+                /*left:0px;*/
+                /*top:229px;*/
+                z-index: 1;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+                width: 770px;
+                border-bottom: 1px solid gray;
+                background-color: rgba(139, 134, 130, .5);}
+
+
+#user_edit  {width: 600px;
+            margin: auto;}
+
+
+/******************************** MESSAGES PAGE ***************************/
+
+
+.message_head table tr th {font-size: .7em;}
+
+.message_table  {position: relative;
+                top: -20px;
+                padding: 0px;
+                margin: 0px;}
+
+.message_table td   {font-size: .7em;}
+
+
+
+/******************************** EDIT PICTURES PAGE ***************************/
+                        
+.picture_box    {width: 200px;
+                min-height: 330px;
+                background-color: #F8F8FF;
+                box-shadow: 5px 5px 5px #dddddd;
+                border: 1px solid #bebebe;
+                margin: 2%;
+                padding: 5px;
+                font-size: .7em;
+                float: left;}
+
+.picture_box img    {display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    height: 130px;
+                    max-width: 195px;}
+
+.picture_box table  {width:97%;
+                    margin: 2px;}
+
+.logo_box    {width: 200px;
+                min-height: 330px;
+                background-color: #F8F8FF;
+                box-shadow: 5px 5px 5px #dddddd;
+                border: 1px solid #bebebe;
+                margin: 2%;
+                padding: 5px;
+                font-size: .7em;
+                float: left;}
+
+.logo_box img    {display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 100%;}
+
+/******************************** EDIT TEMPLATE PAGE ***************************/
+
+#template_edit  {width: 850px;
+                margin: auto;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        

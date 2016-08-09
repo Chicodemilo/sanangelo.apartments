@@ -1,0 +1,60 @@
+/******************************** BODY AND UNIVERSAL  ***************************/
+body{
+    font-family: Verdana, Arial, sans-serif;
+    margin:0px;
+}
+
+h1, h3{
+    color:#445F94;
+}
+
+.errors{
+    color:#B00007;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.little{
+    font-size:.8em;
+    text-decoration:none;
+}
+
+a {
+    text-decoration:none;
+}
+
+
+/******************************** NAV BAR  ***************************/
+.nav_bar_pics{
+    width: 103%;
+    margin: 0px;
+    height: 350px;
+    overflow: hidden;
+    /* border:1px dotted #A3B0F8; */
+}
+
+.inner_pics{
+    height: 350px;
+    width: 32.2%;
+    display: inline-block;
+    background: #F1F4F6;
+}
+
+.navbar{
+    background: rgba(50, 50, 50, 0.1);
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #B0B0B0;
+}
+
+
+
+/******************************** MAIN BODY  ***************************/
+
+.body_wrapper{
+    height:1000px;
+    width:900px;
+    margin:auto;
+    border:1px dotted #A6C4D9;
+    margin-top: 20px;
+}

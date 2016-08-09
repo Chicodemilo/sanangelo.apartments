@@ -11,4 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
 	<script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
 	<script src="<?php echo base_url(); ?>js/login.js "></script>
+
+	<script>
+	
+</script>
 </head>
+<body>
+<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">

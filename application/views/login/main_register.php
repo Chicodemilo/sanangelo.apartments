@@ -1,6 +1,6 @@
-<body>
+
 	<h1>REGISTER</h1>
-	<form action="<?php echo base_url(); ?>login/register_user" method="POST">
+	<form action="<?php echo base_url(); ?>login/register_user" method="POST" onsubmit="return validate_resistration()">
 		<?php 
 			$csrf = array(
 	        'name' => $this->security->get_csrf_token_name(),
@@ -17,7 +17,12 @@
 		<label for="conf_password">Re-Type Password</label>
 		<input type="password" name="conf_password" id="conf_password" maxlength="18">
 		<br>
-		<input type="submit" name="submit" value="Register">
+		What Is <span id="first_num"></span> Plus <span id="second_num"></span> :
+		<br>
+		<input type="text" maxlength="2" name="num_ans" id="num_ans" >
+		<br>
+		<input type="submit" name="submit" value="REGISTER">
 	</form>	
 	<?php echo validation_errors('<p class="errors">') ?>
+	<p class="errors" id="not_correct">You didn't answer the math question correctly.<br>Are you a real person?</p>
 </body>
