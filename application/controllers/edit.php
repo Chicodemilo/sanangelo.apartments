@@ -392,7 +392,10 @@ class Edit extends CI_Controller {
     public function submit_specials(){
         $data = $_POST;
         $data['apt_id'] = $this->session->userdata('apt_id');
-        $this->db->empty_table('special');
+        
+        $this->db->where('apt_id', $data['apt_id']);
+        $this->db->delete('special');
+
         $this->db->insert('special', $data);
         redirect(base_url().'edit/specials');
     }

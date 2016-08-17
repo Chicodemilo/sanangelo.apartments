@@ -50,14 +50,14 @@
 						<option value="5">5</option>
 					</select></td>
 					<td>
-						<input type="number" name="square_footage" id="square_footage" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;">
+						<input type="number" name="square_footage" id="square_footage" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;">
 					</td>
 					<td>
-						$<input type="number" name="rent" id="rent" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;">
+						$<input type="number" name="rent" id="rent" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;">
 						
 					</td>
 					<td>
-						$<input type="number" name="deposit" id="deposit" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;">
+						$<input type="number" name="deposit" id="deposit" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;">
 					</td>
 				</tr>
 			</table>

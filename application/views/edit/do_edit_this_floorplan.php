@@ -51,14 +51,14 @@
 						<option value="5.00">5</option>
 					</select></td>
 					<td>
-						<input type="number" value="<?php echo $floorplan_info[0]['square_footage']; ?>" name="square_footage" id="square_footage" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;" >
+						<input type="number" value="<?php echo $floorplan_info[0]['square_footage']; ?>" name="square_footage" id="square_footage" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;" >
 					</td>
 					<td>
-						$<input type="number" value="<?php echo $floorplan_info[0]['rent']; ?>" name="rent" id="rent" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;">
+						$<input type="number" value="<?php echo $floorplan_info[0]['rent']; ?>" name="rent" id="rent" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;">
 						
 					</td>
 					<td>
-						$<input type="number" value="<?php echo $floorplan_info[0]['deposit']; ?>" name="deposit" id="deposit" maxlength="5" placeholder="Numbers Only" required="required" style="width: 100px;">
+						$<input type="number" value="<?php echo $floorplan_info[0]['deposit']; ?>" name="deposit" id="deposit" max="9999" placeholder="Numbers Only" required="required" style="width: 100px;">
 					</td>
 				</tr>
 			</table>

@@ -96,7 +96,7 @@ class Edit_model extends CI_Model {
 
 
 	public function get_new_picture_data($apt_id){
-		$this->db->where('apt_id', $apt_id);
+		// $this->db->where('apt_id', $apt_id);
 		$this->db->order_by('id', 'desc');
 		$ids = $this->db->get('pictures')->result_array();
 		if(count($ids) > 0){
@@ -193,7 +193,7 @@ class Edit_model extends CI_Model {
 
 
 	public function get_new_logo_data($apt_id){
-		$this->db->where('apt_id', $apt_id);
+		// $this->db->where('apt_id', $apt_id);
 		$this->db->order_by('id', 'desc');
 		$ids = $this->db->get('pictures')->result_array();
 		$id_new = $ids[0]['id'] + 1;

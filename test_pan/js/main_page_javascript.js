@@ -1,7 +1,6 @@
 jQuery(document).ready(function($) {
 	console.log('jQuery & Javascript Loaded');
 
-
 	$(window).scroll(function(){
         		var scrollTop = 350;
         		if($(window).scrollTop() >= scrollTop){
@@ -33,15 +32,4 @@ jQuery(document).ready(function($) {
 	$('.most_viewed_window').mouseleave(function(event) {
 		$('.most_viewed_window').slideUp('fast');
 	});
-
-
 });
-
-var link_enter = function ($id, $apt_name, $pic_id, $pic_name){
-	$('#pic_box_name').html($apt_name);
-	$('.pic_box').css('background-image', 'url(images/pictures/'+$id+'/'+$pic_id+'/'+$pic_name);
-}
-
-var link_leave = function ($id, $apt_name, $pic_id, $pic_name){
-	// alert("Leave: "+$id+" "+$apt_name+" "+$pic_id+" "+$pic_name);
-}
