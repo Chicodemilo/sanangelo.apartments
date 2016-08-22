@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <html>
 <head>
 	<title>SANANGELO.APARTMENTS</title>
@@ -8,13 +11,17 @@
     
     
     <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
     <script src="<?php echo base_url(); ?>js/panelSnap.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/apt_main_page.css">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>css/pikaday.css">
+
     <script src="<?php echo base_url() ?>js/moment.js"></script>
     <script src="<?php echo base_url() ?>js/pikaday.js"></script>
+
 
     <style>
 

@@ -19,11 +19,11 @@ jQuery(document).ready(function($) {
       	});
 
 	$('#little_link1').click(function(event) {
-		$('.navbar_search_window').slideDown('fast');
+		$('#navbar_search_window').slideDown('fast');
 	});
 
-	$('.navbar_search_window').mouseleave(function(event) {
-		$('.navbar_search_window').slideUp('fast');
+	$('#navbar_search_window').mouseleave(function(event) {
+		$('#navbar_search_window').slideUp('fast');
 	});
 
 	$('#little_link3').click(function(event) {
@@ -34,12 +34,12 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window').slideUp('fast');
 	});
 
-
 });
 
-var link_enter = function ($id, $apt_name, $pic_id, $pic_name){
+var link_enter = function ($id, $apt_name, $pic_id, $pic_name, $base_url, $slogan){
 	$('#pic_box_name').html($apt_name);
-	$('.pic_box').css('background-image', 'url(images/pictures/'+$id+'/'+$pic_id+'/'+$pic_name);
+	$('#pic_box_slogan').html($slogan);
+	$('.pic_box').css('background-image', 'url("'+$base_url+'images/pictures/'+$id+'/'+$pic_id+'/'+$pic_name+'"');
 }
 
 var link_leave = function ($id, $apt_name, $pic_id, $pic_name){

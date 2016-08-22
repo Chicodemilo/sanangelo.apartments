@@ -819,7 +819,7 @@ class Apartment_model extends CI_Model {
 
 		$this->db->where('basic', 'Y');
 		$this->db->where('takeover', 'N');
-		$this->db->order_by('property_name', 'asc');
+		$this->db->order_by('property_name', 'RANDOM');
 		$basics = $this->db->get('sales')->result_array();
 
 		if(count($basics) > 0){
@@ -831,7 +831,7 @@ class Apartment_model extends CI_Model {
 
 		$this->db->where('free', 'Y');
 		$this->db->where('takeover', 'N');
-		$this->db->order_by('property_name', 'asc');
+		$this->db->order_by('property_name', 'RANDOM');
 		$free = $this->db->get('sales')->result_array();
 
 		if(count($free) > 0){
@@ -847,7 +847,16 @@ class Apartment_model extends CI_Model {
 			$ci->db->where('ID', $apt_id);
 			$result_main = $ci->db->get('apartment_main')->result_array();
 			$data['apt_id'] = $result_main[0]['ID'];
-			$data['level'] = $level;
+			if($level = 'takeover'){
+				$data['level'] = 1;
+			}
+			if($level = 'basic'){
+				$data['level'] = 2;
+			}
+			if($level = 'free'){
+				$data['level'] = 3;
+			}
+			
 			$data['property_name'] = $result_main[0]['property_name'];
 			$data['property_search_name'] = $result_main[0]['property_search_name'];
 			$data['property_address'] = $result_main[0]['property_address'];
@@ -886,9 +895,230 @@ class Apartment_model extends CI_Model {
 		return $return_data;
 	}
 
+	public function get_these_apts($search_params){
+
+		$ids_bedroom_rent  = array();
+
+		//if bd is one or two go to next search - ba
+		if($search_params['bedroom'] == 1 || $search_params['bedroom'] == 2){
+			$this->db->where('bedroom', $search_params['bedroom']);
+			$this->db->where('bathroom >=', $search_params['bathroom']);
+			$this->db->where('rent >=', $search_params['min-rent']);
+			$this->db->where('rent <=', $search_params['max-rent']);
+			$this->db->order_by('apt_id', 'RANDOM');
+			$this->db->group_by('apt_id');
+			$floorplan_results = $this->db->get('floorplans')->result_array();
+			if(count($floorplan_results) > 0){
+				foreach ($floorplan_results as $key => $value) {
+					$start_data = array('apt_id' => $value['apt_id']);
+					array_push($ids_bedroom_rent, $start_data);
+				}
+			}
+		//search for any or 3br or greater
+		}else{
+			$this->db->where('bedroom >=', $search_params['bedroom']);
+			$this->db->where('bathroom >=', $search_params['bathroom']);
+			$this->db->where('rent >=', $search_params['min-rent']);
+			$this->db->where('rent <=', $search_params['max-rent']);
+			$this->db->order_by('apt_id', 'RANDOM');
+			$this->db->group_by('apt_id');
+			$floorplan_results = $this->db->get('floorplans')->result_array();
+			if(count($floorplan_results) > 0){
+				foreach ($floorplan_results as $key => $value) {
+					$start_data = array('apt_id' => $value['apt_id']);
+					array_push($ids_bedroom_rent, $start_data);
+				}
+			}
+		}
+
+		$get_data_for_these = array();
+		// Get all of the active amenities for each property with the correct bedroom and bath
+		foreach ($ids_bedroom_rent as $key => $value) {
+
+			//count how many amenities are required
+			$how_many_amenities = 0;
+			if(isset($search_params['pets'])){
+				$pets = $search_params['pets'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$pets = 'N';}
+
+			if(isset($search_params['pool'])){
+				$pool = $search_params['pool'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$pool = 'N';}
+
+			if(isset($search_params['gated'])){
+				$gated = $search_params['gated'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$gated = 'N';}
+
+			if(isset($search_params['fitness'])){
+				$fitness = $search_params['fitness'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$fitness = 'N';}
+
+			if(isset($search_params['wd'])){
+				$wd = $search_params['wd'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$wd = 'N';}
+
+			if(isset($search_params['clubhouse'])){
+				$clubhouse = $search_params['clubhouse'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$clubhouse = 'N';}
+
+			if(isset($search_params['furnished'])){
+				$furnished = $search_params['furnished'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$furnished = 'N';}
+
+			if(isset($search_params['seniors'])){
+				$seniors = $search_params['seniors'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$seniors = 'N';}
+
+			if(isset($search_params['covered'])){
+				$covered = $search_params['covered'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$covered = 'N';}
+
+			if(isset($search_params['laundry'])){
+				$laundry = $search_params['laundry'];
+				$how_many_amenities = ++$how_many_amenities;
+			}else{$laundry = 'N';}
+
+
+			//search for all requested, active amentities for each apartment with the correct br and ba
+			$this->db->where('apt_id', $value['apt_id']);
+			$this->db->where('active', 'Y');
+			$this->db->where('(name = "'.$pets.'" OR name = "'.$pool.'" OR name = "'.$gated.'" OR name = "'.$fitness.'" OR name = "'.$wd.'" OR name = "'.$clubhouse.'" OR name = "'.$furnished.'" OR name = "'.$seniors.'" OR name = "'.$covered.'" OR name = "'.$laundry.'")');
+			$amen_result = $this->db->get('our_amenities_list')->result_array();
+			
+
+			if(count($amen_result) == $how_many_amenities){
+				$start_data = array('apt_id' => $value['apt_id']);
+				array_push($get_data_for_these, $start_data);
+			}
+ 			
+		}
+
+		$return_data = array();
+		function get_main_data($apt_id){
+			$ci =& get_instance();
+			$ci->db->where('ID', $apt_id);
+			$result_main = $ci->db->get('apartment_main')->result_array();
+			$data['apt_id'] = $result_main[0]['ID'];
+			// $data['level'] = $result_main[0]['level'];
+			$data['property_name'] = $result_main[0]['property_name'];
+			$data['property_search_name'] = $result_main[0]['property_search_name'];
+			$data['property_address'] = $result_main[0]['property_address'];
+			$data['property_city'] = $result_main[0]['property_city'];
+			$data['property_state'] = $result_main[0]['property_state'];
+			$data['property_phone'] = $result_main[0]['property_phone'];
+			$data['property_slogan'] = $result_main[0]['property_slogan'];
+			$data['property_description'] = $result_main[0]['property_description'];
+
+			$ci->db->where('ID', $apt_id);
+			$ci->db->where('takeover', 'Y');
+			$takeover = $ci->db->get('sales')->result_array();
+			if(count($takeover) > 0){
+				$data['level'] = 1;
+			}
+
+			$ci->db->where('ID', $apt_id);
+			$ci->db->where('basic', 'Y');
+			$ci->db->where('takeover', 'N');
+			$basic = $ci->db->get('sales')->result_array();
+			if(count($basic) > 0){
+				$data['level'] = 2;
+			}
+
+			$ci->db->where('ID', $apt_id);
+			$ci->db->where('free', 'Y');
+			$ci->db->where('takeover', 'N');
+			$basic = $ci->db->get('sales')->result_array();
+			if(count($basic) > 0){
+				$data['level'] = 3;
+			}
+
+			$ci->db->where('apt_id', $apt_id);
+			$ci->db->where('cover_pic', 'Y');
+			$result_pic = $ci->db->get('pictures')->result_array();
+
+			if(count($result_pic) < 1){
+				$ci->db->where('apt_id', $apt_id);
+				$ci->db->order_by('pic_order', 'asc');
+				$result_pic = $ci->db->get('pictures')->result_array();
+				if(count($result_pic) < 1){
+					$data['pic_id'] = 'generic';
+					$data['pic_name'] = 'generic.jpg';
+
+				}else{
+					$data['pic_id'] = $result_pic[0]['id'];
+					$data['pic_name'] = $result_pic[0]['name'];
+				}
+			}else{
+				$data['pic_id'] = $result_pic[0]['id'];
+				$data['pic_name'] = $result_pic[0]['name'];
+			}
+			return $data;
+		}
+		foreach ($get_data_for_these as $key => $value) {
+			$apts = get_main_data($value['apt_id']);
+			array_push($return_data, $apts);
+		}
+		if(count($return_data) > 0){
+			function cmp_by_level($a, $b) {
+			  return $a["level"] - $b["level"];
+			}
+			usort($return_data, "cmp_by_level");
+			return $return_data;
+		}else{
+			return false;
+		}
+
+		
+
+
+	}
+
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

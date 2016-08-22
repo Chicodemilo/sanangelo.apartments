@@ -59,15 +59,15 @@
 </div>
 <div class="navbar">
 	<div class="inner_navbar">
-
-		<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
-		
+		<a href="<?php echo base_url(); ?>">
+			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
+		</a>
 		<div class="navbar_links">
 			<div class="little_links" id="little_link1">
 				<img src="<?php echo base_url(); ?>images/search.svg" alt="search icon">
 
 			</div>
-			<a href="<?php echo base_url(); ?>apartments/map">
+			<a href="<?php echo base_url(); ?>main/map">
 				<div class="little_links" id="little_link2">
 					<img src="<?php echo base_url(); ?>images/map.svg" alt="map icon">
 				</div>
@@ -80,7 +80,90 @@
 					<img src="<?php echo base_url(); ?>images/fb.svg" alt="facebook icon">
 				</div>
 			</a>
-			<div class="navbar_search_window">
+			<div id="navbar_search_window">
+
+					<form action=" <?php echo base_url(); ?>main/find_apts" method="GET">
+							<?php 
+								$csrf = array(
+						        'name' => $this->security->get_csrf_token_name(),
+						        'hash' => $this->security->get_csrf_hash()
+								); 
+							?>
+							<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+							<div class="left">
+								BEDROOMS:<br>
+								<select name="bedroom"  class="input-small" id="bedroom">
+									<option value="0">Any</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3 or More</option>
+								</select>
+							</div>
+							<div class="right">
+								BATHROOMS:<br>
+								<select name="bathroom" class="input-small" id="bathroom">
+									<option value="0">Any</option>
+									<option value="1">1 or More</option>
+									<option value="2">2 or More</option>
+									<option value="3">3 or More</option>
+								</select>
+							</div>
+							<div class="clear"><hr></div>
+							<div class="left">
+							MIN RENT:<br>
+							<select name="min-rent" class="input-small" id="min-rent">
+								<option value="0">Any</option>
+								<option value="400">$400</option>
+								<option value="600">$600</option>
+								<option value="800">$800</option>
+								<option value="1000">$1000</option>
+								<option value="1200">$1200</option>
+								<option value="1400">$1400</option>
+								<option value="1600">$1600</option>
+								<option value="1800">$1800</option>
+								<option value="2000">$2000</option>
+								<option value="2200">$2200</option>
+								<option value="2400">$2400+</option>
+							</select>
+							</div>
+							<div class="right">
+							MAX RENT:<br>
+							<select name="max-rent" class="input-small" id="max-rent">
+								<option value="100000">Any</option>
+								<option value="400">$400</option>
+								<option value="600">$600</option>
+								<option value="800">$800</option>
+								<option value="1000">$1000</option>
+								<option value="1200">$1200</option>
+								<option value="1400">$1400</option>
+								<option value="1600">$1600</option>
+								<option value="1800">$1800</option>
+								<option value="2000">$2000</option>
+								<option value="2200">$2200</option>
+								<option value="2400">$2400+</option>
+							</select>
+							</div>
+							<div class="clear"><hr></div>
+							<div class="clear">
+								AMENITIES:<br>
+								<div class="left">
+									<label class="checkbox smaller"><input type="checkbox" id="pets" name="pets" value="Pets">Pets</label>
+									<label class="checkbox smaller"><input type="checkbox" id="pool" name="pool" value="Swimming Pool">Pool</label>
+									<label class="checkbox smaller"><input type="checkbox" id="gated" name="gated" value="Gated Access">Gated Access</label>
+									<label class="checkbox smaller"><input type="checkbox" id="fitness" name="fitness" value="Fitness Center">Fitness Center</label>
+									<label class="checkbox smaller"><input type="checkbox" id="wd" name="wd" value="Washer / Dryer In Unit">W/D In Unit</label>
+								</div>
+								<div class="right">
+									<label class="checkbox smaller"><input type="checkbox" id="clubhouse" name="clubhouse" value="Clubhouse">Clubhouse</label>
+									<label class="checkbox smaller"><input type="checkbox" id="furnished" name="furnished" value="Furnished Available">Furnished</label>
+									<label class="checkbox smaller"><input type="checkbox" id="seniors" name="seniors" value="Seniors Community">Seniors</label>
+									<label class="checkbox smaller"><input type="checkbox" id="covered" name="covered" value="Covered Parking">Covered Parking</label>
+									<label class="checkbox smaller"><input type="checkbox" id="laundry" name="laundry" value="Laundry Facility">Laundry Facility</label>
+								</div>
+								<input type="submit" class="btn btn-default" value="SEARCH">
+							</div>
+							
+					</form>
 			</div>
 			<div class="most_viewed_window">
 				<table class="most_viewed_table">

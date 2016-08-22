@@ -23,6 +23,20 @@ a {
     text-decoration:none;
 }
 
+a:hover{
+    text-decoration:none;
+}
+
+a:active{
+    text-decoration:none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(190, 190, 190, 0.75), rgba(0, 0, 0, 0));
+}
+
 
 /******************************** NAV BAR  ***************************/
 .nav_bar_pics{
@@ -138,22 +152,53 @@ a {
     background:#9ABCDF;
 }
 
-.navbar_search_window{
+#navbar_search_window{
     display:none;
     position: relative;
-    top:-50px;
-    left:-478px;
-    width:550px;
-    height:500px;
-    background:rgba(255, 255, 255, 0.85);
+    top:-60px;
+    left:-195px;
+    width:250px;
+    height:350px;
+    background:rgba(255, 255, 255, 0.95);
     border:1px solid #C6C6C6;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    padding:10px;
+    font-size:13px;
+    letter-spacing:.05em;
+}
+
+.left{
+    float:left;
+    width:49%;
+}
+
+.right{
+    float:right;
+    width:49%;
+}
+
+.clear{
+    clear:both;
+    width:100%;
+}
+
+.smaller{
+    font-size:.8em;
+}
+
+.checkbox-inline.no_indent,
+.checkbox-inline.no_indent+.checkbox-inline.no_indent {
+  margin-left: 0;
+  margin-right: 10px;
+}
+.checkbox-inline.no_indent:last-child {
+  margin-right: 0;
 }
 
 .most_viewed_window{
     display:none;
     position: relative;
-    top:-50px;
+    top:-60px;
     left:150px;
     width:260px;
     background:rgba(255, 255, 255, 0.85);
@@ -182,7 +227,6 @@ a {
     transition:0.2s;
     padding:5px;
     color:#341308;
-    #BDABA4
 }
 
 .link_box a:visited {
@@ -247,7 +291,7 @@ a {
 
 .search_results_box{
     width:560px;
-    height:700px;
+    height:824px;
     float:right;
     border:1px solid #C2C2C2;
     padding:3px;
@@ -378,7 +422,16 @@ a {
 
 #pic_box_name{
     font-size:2.5em;
+    line-height:1.05em;
     letter-spacing:.05em;
+    text-shadow:3px 3px 15px rgba(0, 0, 0, .8);
+}
+
+#pic_box_slogan{
+    font-size:1.2em;
+    line-height:1.05em;
+    letter-spacing:.05em;
+    font-family:'Verdana', sans-serif;
     text-shadow:3px 3px 15px rgba(0, 0, 0, .8);
 }
 
@@ -396,8 +449,9 @@ a {
     color:white;
     width:100%;
     background:#C3C3C3;
-    font-size:.7em;
+    font-size:.8em;
     letter-spacing:.05em;
+    line-height: 1.3em;
     padding:5px;
 }
 

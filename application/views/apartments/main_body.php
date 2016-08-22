@@ -25,7 +25,7 @@
 			</table>
 			<table class="left_tab" id="open_results">
 				<?php 
-					if(isset($open_takeover_apt)){
+					if($open_takeover_apt != false){
 						echo "<tr><td colspan='2'><div class='left_link_box'>";
 						echo "<a href='".base_url()."main/apartment/".$open_takeover_apt['takeover_apt']['property_search_name']."/".$open_takeover_apt['takeover_apt']['apt_id']."'>";
 						echo "<span class='open_bold'>".$open_takeover_apt['takeover_apt']['property_name']."</span>";
@@ -127,12 +127,8 @@
 							}
 							echo "</a>";
 							echo "</div></td></tr>";
-								
 						}
-						
 					}
-
-
 				 ?>
 			</table>
 		</div>
@@ -168,9 +164,7 @@
 							}
 							echo "</a>";
 							echo "</div></td></tr>";
-								
 						}
-						
 					}
 
 				if($special_free != false){
@@ -188,11 +182,8 @@
 							}
 							echo "</a>";
 							echo "</div></td></tr>";
-								
 						}
-						
 					}
-
 				 ?>
 			</table>
 		</div>
@@ -200,21 +191,95 @@
 	<div class="search_results_box">
 		<a href='#'>
 			<div class="pic_box" style="
-				background-image:url('images/pictures/<?php echo $all_apartments[0]['apt_id']?>/<?php echo $all_apartments[0]['pic_id']?>/<?php echo $all_apartments[0]['pic_name']?>');
+				background-image:url('<?php echo base_url(); ?>images/pictures/<?php echo $all_apartments[0]['apt_id']?>/<?php echo $all_apartments[0]['pic_id']?>/<?php echo $all_apartments[0]['pic_name']?>');
 				background-repeat: no-repeat;
 				background-size: cover;
 			">
-				<span id="pic_box_name"><?php echo $all_apartments[0]['property_name'] ?></span>
+				<span id="pic_box_name"><?php echo $all_apartments[0]['property_name'] ?></span><br><br>
+				<span id="pic_box_slogan"><?php echo $all_apartments[0]['property_slogan'] ?></span>
 			</div>
 		</a>
 		<div class="search_param_box">
-					SEARCH PARAMATERS:<br>BD: any &bull; BA: any &bull; RENT: any to $1200 &bull; AMENITIES: any
+					APARTMENTS FOUND: <?php echo $apt_count; ?><br>
+					BD: 
+					<?php 
+						if(!isset($bedroom)){
+							echo "ANY";
+						}else{
+							if($bedroom == 0){
+								echo "ANY";
+							}elseif($bedroom == 3){
+								echo "3+";
+							}else{
+								echo $bedroom;
+							}
+						}
+					 ?> 
+					 BA:
+					<?php 
+						if(!isset($bathroom)){
+							echo "ANY";
+						}else{
+							if($bathroom == 0){
+								echo "ANY";
+							}else{
+								echo $bathroom."+";
+							}
+						}
+					 ?> 
+					 &bull; RENT:
+					<?php 
+						if(!isset($min_rent)){
+							echo "ANY";
+						}else{
+							if($min_rent == 0){
+								echo "ANY";
+							}else{
+								echo "$".$min_rent;
+							}
+						}
+					 ?> 
+					 to
+					<?php 
+						if(!isset($max_rent)){
+							echo "ANY";
+						}else{
+							if($max_rent == 0 || $max_rent == 100000){
+								echo "ANY";
+							}else{
+								echo "$".$max_rent;
+							}
+						}
+					 ?> 
+
+					<br>
+					AMENITIES:
+					<?php 
+						if(isset($pets) || isset($pool) || isset($gated) || isset($fitness) || isset($wd) || isset($clubhouse) || isset($furnished) || isset($seniors) || isset($covered) || isset($laundry))
+						{
+							if(isset($pets)){echo "&bull;".$pets." ";}
+							if(isset($pool)){echo "&bull;".$pool." ";}
+							if(isset($gated)){echo "&bull;".$gated." ";}
+							if(isset($fitness)){echo "&bull;".$fitness." ";}
+							if(isset($wd)){echo "&bull;".$wd." ";}
+							if(isset($clubhouse)){echo "&bull;".$clubhouse." ";}
+							if(isset($furnished)){echo "&bull;".$furnished." ";}
+							if(isset($seniors)){echo "&bull;".$seniors." ";}
+							if(isset($covered)){echo "&bull;".$covered." ";}
+							if(isset($laundry)){echo "&bull;".$laundry." ";}
+						}else{
+							echo "ANY";
+						}
+					 ?>
 		</div>
 		<div class="panel_container">
             <?php 
+            		
 					$table_class = 1;
 					foreach ($all_apartments as $key => $value) {
-
+						if($value['property_name'] == ''){$value['property_name'] = '&nbsp;';}
+						if($value['property_slogan'] == ''){$value['property_slogan'] = '&nbsp;';}
+						$value['slogan'] = $value['property_slogan'];
 						echo "<section>";
 							echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 								echo "<table id='inner_table_".$value['apt_id']."' class='inner_table_".$table_class."'>";
@@ -227,7 +292,7 @@
 									echo "</td>";
 									echo "<tr>";
 									echo "<td class='table_little'>";
-									if($value['level'] != 'free'){
+									if($value['level'] != 3){
 										echo $value['property_phone']." &bull; ";
 									}
 									echo $value['property_address'].", ".$value['property_city'];
@@ -239,30 +304,69 @@
 						echo "<script>";
 						echo "jQuery(document).ready(function($) {";
 						echo "$('#inner_table_".$value['apt_id']."').mouseenter(function(){";
-						echo "link_enter(".$value['apt_id'].", '".$value['property_name']."', '".$value['pic_id']."', '".$value['pic_name']."');";
+						echo "link_enter(".$value['apt_id'].", '".$value['property_name']."', '".$value['pic_id']."', '".$value['pic_name']."', '".base_url()."', '".$value['slogan']."' );";
 						echo "});";
 						echo "$('#inner_table_".$value['apt_id']."').mouseleave(function(){";
 						echo "link_leave(".$value['apt_id'].", '".$value['property_name']."', '".$value['pic_id']."', '".$value['pic_name']."');";
 						echo "});";
 						echo "});";
 						echo "</script>";
-
 					}
-
-
 				 ?>
-			
             <section data-panel="third" class=""></section>
             <section data-panel="third" class=""></section>
             <section data-panel="third" class=""></section>
             <section data-panel="third" class=""></section>
         </div>
         <div class="under_table">
-        	
         </div>
-		
 	</div>
 </div>
+
+<script>
+	jQuery(document).ready(function($) {
+		var bedroom_get = <?php if(isset($bedroom)){echo $bedroom;}else{ echo 0;} ?>;
+		$('#bedroom').val(bedroom_get);
+		var bathroom_get = <?php if(isset($bathroom)){echo $bathroom;}else{ echo 0;} ?>;
+		$('#bathroom').val(bathroom_get);
+		var min_rent_get = <?php if(isset($min_rent)){echo $min_rent;}else{ echo 0;} ?>;
+		$('#min-rent').val(min_rent_get);
+		var max_rent_get = <?php if(isset($max_rent)){echo $max_rent;}else{ echo 100000;} ?>;
+		$('#max-rent').val(max_rent_get);
+
+		var pets = "<?php if(isset($pets)){echo $pets;}else{ echo 0;} ?>";
+		if(pets != 0){$('#pets').prop('checked', true);}
+
+		var pool = "<?php if(isset($pool)){echo $pool;}else{ echo 0;} ?>";
+		if(pool != 0){$('#pool').prop('checked', true);}
+
+		var gated = "<?php if(isset($gated)){echo $gated;}else{ echo 0;} ?>";
+		if(gated != 0){$('#gated').prop('checked', true);}
+
+		var fitness = "<?php if(isset($fitness)){echo $fitness;}else{ echo 0;} ?>";
+		if(fitness != 0){$('#fitness').prop('checked', true);}
+
+		var wd = "<?php if(isset($wd)){echo $wd;}else{ echo 0;} ?>";
+		if(wd != 0){$('#wd').prop('checked', true);}
+
+		var clubhouse = "<?php if(isset($clubhouse)){echo $clubhouse;}else{ echo 0;} ?>";
+		if(clubhouse != 0){$('#clubhouse').prop('checked', true);}
+
+		var furnished = "<?php if(isset($furnished)){echo $furnished;}else{ echo 0;} ?>";
+		if(furnished != 0){$('#furnished').prop('checked', true);}
+
+		var seniors = "<?php if(isset($seniors)){echo $seniors;}else{ echo 0;} ?>";
+		if(seniors != 0){$('#seniors').prop('checked', true);}
+
+		var covered = "<?php if(isset($covered)){echo $covered;}else{ echo 0;} ?>";
+		if(covered != 0){$('#covered').prop('checked', true);}
+
+		var laundry = "<?php if(isset($laundry)){echo $laundry;}else{ echo 0;} ?>";
+		if(laundry != 0){$('#laundry').prop('checked', true);}
+
+
+	});
+</script>
 <br>
 <a href="<?php echo base_url(); ?>login/login_user">login</a>
 <br>
