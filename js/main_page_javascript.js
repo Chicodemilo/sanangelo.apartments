@@ -9,20 +9,44 @@ jQuery(document).ready(function($) {
         				position : 'fixed',
         				top : '0'
         			});
-        			$('.body_wrapper').css('margin-top', '70px');
+        			right_dist = ($(window).width() - 1250) / 2;
+        			$('.left_takeover_banner').addClass('left_takeover_banner_fixed');
+        			$('.right_takeover_banner').css({
+        				position: 'fixed',
+        				top: '70',
+        				right: right_dist
+        			});
+        			$('.inner_main_bg').css('margin-top', '70px');
 
         		}
         		if($(window).scrollTop() < scrollTop){
         			$('.navbar').removeAttr('style');
-        			$('.body_wrapper').css('margin-top', '20px');	
+        			$('.left_takeover_banner').removeClass('left_takeover_banner_fixed');
+        			$('.right_takeover_banner').css({
+        				position: 'absolute',
+        				top: '0',
+        				right: '0'
+        			});
+        			$('.inner_main_bg').css('margin-top', '20px');	
         		}
+
+        		$(window).resize(function(event) {
+        			if($(window).scrollTop() >= scrollTop){
+        				right_dist = ($(window).width() - 1250) / 2;
+        				$('.right_takeover_banner').css({
+	        				position: 'fixed',
+	        				top: '70',
+	        				right: right_dist
+	        			});
+        			}
+        		});
       	});
 
 	$('#little_link1').click(function(event) {
 		$('#navbar_search_window').slideDown('fast');
 	});
 
-	$('#navbar_search_window').mouseleave(function(event) {
+	$('#search_closer').click(function(event) {
 		$('#navbar_search_window').slideUp('fast');
 	});
 
@@ -34,12 +58,27 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window').slideUp('fast');
 	});
 
+	$('.takeover_top_banner').delay(2000).slideDown(500).delay(3000).slideUp(150);
+
+	$('.sign_up_screen').delay(9000).slideDown(500);
+
+	$('.no_thanks').click(function(event) {
+		$('.sign_up_screen').slideUp(200);
+	});
+
 });
 
-var link_enter = function ($id, $apt_name, $pic_id, $pic_name, $base_url, $slogan){
+var link_enter = function ($id, $apt_name, $pic_id, $pic_name, $base_url, $slogan, $address, $state, $phone){
 	$('#pic_box_name').html($apt_name);
-	$('#pic_box_slogan').html($slogan);
+	if($slogan === '&nbsp;'){
+		$('#pic_box_slogan').html($slogan);
+	}else{
+		$('#pic_box_slogan').html($slogan+'<br>');
+	}
+	
 	$('.pic_box').css('background-image', 'url("'+$base_url+'images/pictures/'+$id+'/'+$pic_id+'/'+$pic_name+'"');
+	// $('#pic_box_address').html($address+', '+$state);
+	// $('#pic_box_phone').html($phone);
 }
 
 var link_leave = function ($id, $apt_name, $pic_id, $pic_name){

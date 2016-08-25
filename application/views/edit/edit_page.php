@@ -1,4 +1,22 @@
-
+<div class="site_info">
+	<?php 
+		if($adv_mssg != 'N' && $adv_mssg != ''){
+			echo '<div class="site_message">';
+			echo $adv_mssg;
+			echo '</div>';
+		}
+		if($adv_pic != 'N' && $adv_pic != ''){
+			echo '<div class="site_message_pic">';
+			echo '<img src="'.base_url().'images/site/'.$adv_pic.'">';
+			echo '</div>';
+		}
+		if($their_mssg != 'N' && $their_mssg != ''){
+			echo '<div class="their_message">';
+			echo $their_mssg;
+			echo '</div>';
+		}
+	 ?>
+</div>
 	<form action="<?php echo base_url(); ?>edit/submit_main_edits" method="post">
 		<input type="hidden" name="id" id="id" value="<?php echo $main_info[0]['ID'] ?>">
 		<?php 

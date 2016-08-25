@@ -33,7 +33,19 @@ class Edit extends CI_Controller {
         $main_info = $this->edit_model->get_main_info($apt_id);
         $data = array('main_info' => $main_info);
 
-        $this->load->view('edit/header.php');
+        $adv_mssg = $this->edit_model->get_adv_mssg($apt_id);
+        $data['adv_mssg'] = $adv_mssg['adv_mssg'];
+        $data['adv_pic'] = $adv_mssg['adv_pic'];
+        $data['their_mssg'] = $adv_mssg['their_mssg'];
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/edit_page.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -61,6 +73,17 @@ class Edit extends CI_Controller {
 
     public function amenities(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $this->load->model('edit_model', 'our_amenities');
         $our_amenities_list = $this->our_amenities->get_our_amenities($apt_id)->result_array();
         $this->load->model('edit_model', 'their_amenities');
@@ -83,7 +106,7 @@ class Edit extends CI_Controller {
         $data['our_amenities_list'] = $our_amenities_list;
         $data['their_amenities_list'] = $their_amenities_list;
         
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/edit_amenities.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -140,12 +163,24 @@ class Edit extends CI_Controller {
 
     public function hours(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        
         $this->load->model('edit_model', 'hours');
         $office_hours = $this->hours->get_hours($apt_id)->result_array();
 
         $data['office_hours'] = $office_hours;
 
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/hours.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -206,12 +241,23 @@ class Edit extends CI_Controller {
 
     public function floorplans(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $this->load->model('edit_model', 'floorplans');
         $floorplans = $this->floorplans->get_floorplans($apt_id)->result_array();
 
         $data['floorplans'] = $floorplans;
 
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/floorplans.php', $data);
         $this->load->view('edit/footer.php');
 
@@ -243,8 +289,21 @@ class Edit extends CI_Controller {
     }
 
     public function edit_floorplan($id = 0){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        
         if($id == 0){
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/no_resource.php');
             $this->load->view('edit/footer.php');
         }else{
@@ -252,7 +311,7 @@ class Edit extends CI_Controller {
             $this->load->model('edit_model','edit_model');
             $data['floorplan_info'] = $this->edit_model->get_flooplan_info($apt_id, $id)->result_array();
             $data['error'] = '';
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/do_edit_this_floorplan', $data);
             $this->load->view('edit/footer.php');
         }
@@ -271,7 +330,20 @@ class Edit extends CI_Controller {
 
     public function upload_this($id){
         $data = array('id' => $id, 'error' => '');
-        $this->load->view('edit/header.php');
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/upload_this', $data);
         $this->load->view('edit/footer.php');
 
@@ -280,6 +352,17 @@ class Edit extends CI_Controller {
     function do_upload_floorplan($id)
     {   
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         if(!is_dir('./images/floorplans/'.$apt_id.'/'.$id)){
             mkdir('./images/floorplans/'.$apt_id.'/'.$id, 0777, true);
         }
@@ -301,7 +384,7 @@ class Edit extends CI_Controller {
             $data['error'] = $this->upload->display_errors();
             $data['id'] = $id;
 
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/upload_this', $data);
             $this->load->view('edit/footer.php');
         }
@@ -345,12 +428,23 @@ class Edit extends CI_Controller {
 
     public function pets(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $this->load->model('edit_model', 'pets');
         $pets = $this->pets->get_pets($apt_id)->result_array();
 
         $data['pets'] = $pets;
 
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/pets.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -379,12 +473,23 @@ class Edit extends CI_Controller {
 
     public function specials(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $this->load->model('edit_model', 'specials');
         $specials = $this->specials->get_specials($apt_id)->result_array();
 
         $data['specials'] = $specials;
 
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/specials.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -424,7 +529,19 @@ class Edit extends CI_Controller {
         $recent_logins = $this->users->get_recent_logins($user_id)->result_array();
         $data['recent_logins'] = $recent_logins;
 
-        $this->load->view('edit/header.php');
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/users.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -435,12 +552,24 @@ class Edit extends CI_Controller {
         $user = $this->user->get_user($id)->result_array();
         $data['user'] = $user;
 
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         if(count($user) > 0){
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/edit_user.php', $data);
             $this->load->view('edit/footer.php');      
         }else{
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/no_resource.php');
             $this->load->view('edit/footer.php');
         }
@@ -464,8 +593,20 @@ class Edit extends CI_Controller {
 
 
     public function change_password($id){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $data = array('id' => $id);
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/change_password.php', $data);
         $this->load->view('edit/footer.php');
     }
@@ -484,10 +625,22 @@ class Edit extends CI_Controller {
 
 public function pictures(){
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $apt_id = $this->session->userdata('apt_id');
         $this->load->model('edit_model', 'pictures');
         $data['pictures']= $this->pictures->get_pictures($apt_id)->result_array();
         $data['logo']= $this->pictures->get_logo($apt_id)->result_array();
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/pictures.php', $data);
         $this->load->view('edit/footer.php');
 }
@@ -516,15 +669,26 @@ public function picture_delete($id){
 
 public function picture_upload(){
     $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
     $this->load->model('edit_model');
     $count = count($this->edit_model->get_pictures($apt_id)->result_array());
     if($count < 10){
         $data = array('error' => '');
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/upload_picture', $data);
         $this->load->view('edit/footer.php');
     }else{
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/too_many_pics');
         $this->load->view('edit/footer.php');
     }
@@ -533,6 +697,17 @@ public function picture_upload(){
 
 public function do_upload_picture(){
     $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
     $this->load->model('edit_model', 'id');
     $new_pic_data = $this->id->get_new_picture_data($apt_id);
     $id = $new_pic_data['id'];
@@ -559,7 +734,7 @@ public function do_upload_picture(){
         {
             $data['error'] = $this->upload->display_errors();
             $data['id'] = $id;
-            $this->load->view('edit/header.php');
+            $this->load->view('edit/header.php', $count_data);
             $this->load->view('edit/upload_picture', $data);
             $this->load->view('edit/footer.php');
         }
@@ -585,10 +760,21 @@ public function do_upload_picture(){
 
 public function picture_edit($id){
     $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
     $this->load->model('edit_model', 'picture');
     $data['picture'] = $this->picture->get_picture_data($apt_id, $id);
     $data['count'] = count($this->picture->get_pictures($apt_id)->result_array());
-    $this->load->view('edit/header.php');
+    $this->load->view('edit/header.php', $count_data);
     $this->load->view('edit/edit_picture', $data);
     $this->load->view('edit/footer.php');
 }
@@ -625,8 +811,20 @@ public function submit_picture_edits($id){
 
 
 public function logo_upload(){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
         $data = array('error' => '');
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/upload_logo', $data);
         $this->load->view('edit/footer.php');
 }
@@ -634,6 +832,17 @@ public function logo_upload(){
 
 public function do_upload_logo(){
     $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
     $this->db->where('apt_id', $apt_id);
     $this->db->where('logo', 'Y');
     $this->db->delete('pictures');
@@ -666,7 +875,7 @@ public function do_upload_logo(){
     {
         $data['error'] = $this->upload->display_errors();
         $data['id'] = $id;
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/upload_logo', $data);
         $this->load->view('edit/footer.php');
     }
@@ -705,11 +914,22 @@ public function logo_delete($id){
 // MESSAGES *******************************************************************************
 
     public function messages(){
-        $this->load->model('edit_model', 'messages');
         $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $this->load->model('edit_model', 'messages');
         $messages = $this->messages->get_messages($apt_id)->result_array();
         $data['messages'] = $messages;
-        $this->load->view('edit/header.php');
+        $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/messages.php', $data);
         $this->load->view('edit/footer.php');
     }

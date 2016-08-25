@@ -47,6 +47,28 @@
             </td></tr>
             <tr><td><a href='<?php echo base_url(); ?>login/logout' class='not_fancy'>LOGOUT</a></td></tr>
         </table>
+        <div id="site_counts">
+            YOUR PAGE VIEWS:<br>
+            <table class="count_table">
+                <tr>
+                    <td class="righter">Today: </td>
+                    <td><?php echo $views_day; ?></td>
+                    <td class="righter">This Month: </td>
+                    <td><?php echo $views_month; ?></td>
+                    <td class="righter">Year-To-Date: </td>
+                    <td><?php echo $views_year; ?></td>
+                </tr>
+                <tr>
+                    <td class="righter">Yesterday: </td>
+                    <td><?php echo $views_last_day; ?></td>
+                    <td class="righter">Last Month: </td>
+                    <td><?php echo $views_last_month; ?></td>
+                    <td class="righter">All Time: </td>
+                    <td><?php echo $views_all; ?></td>
+                </tr>
+            </table>
+            
+        </div>
         <table class="header_links">
             <tr>
                 <td>

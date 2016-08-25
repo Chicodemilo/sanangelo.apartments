@@ -1,5 +1,8 @@
 <!-- end wrapper div -->
 </div>
+<div class="above_footer">
+	
+</div>
 <footer>
 		<div id="footer_info_left">
 			

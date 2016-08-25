@@ -12,6 +12,47 @@ class Edit_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_count_data($apt_id){
+		$this->db->where('apt_id', $apt_id);
+	}
+
+	public function get_adv_mssg($apt_id){
+		$data = $this->db->get('site_promos')->result_array();
+		$on = $data[0]['adv_mssg_on'];
+		$start = $data[0]['adv_mssg_start'];
+		$end = $data[0]['adv_mssg_end'];
+		$now = date('Y-m-d');
+
+		$this->db->where('ID', $apt_id);
+		$their_data = $this->db->get('apartment_main')->result_array();
+		$their_on = $their_data[0]['this_adv_mssg_on'];
+		$their_start = $their_data[0]['this_adv_mssg_start'];
+		$their_end = $their_data[0]['this_adv_mssg_end'];
+
+		if($on == 'Y' && $start <= $now && $end > $now){
+			$return_data['adv_mssg'] = $data[0]['adv_mssg_mssg'];
+			$return_data['adv_pic'] = $data[0]['adv_mssg_pic'];
+			if($their_on == 'Y' && $their_start <= $now && $their_end > $now){
+				$return_data['their_mssg'] = $their_data[0]['this_adv_mssg_mssg'];
+				return $return_data;
+			}else{
+				$return_data['their_mssg'] = 'N';
+				return $return_data;
+			}
+			
+		}else{
+			$return_data['adv_mssg'] = 'N';
+			$return_data['adv_pic'] = 'N';
+			if($their_on == 'Y' && $their_start <= $now && $their_end > $now){
+				$return_data['their_mssg'] = $their_data[0]['this_adv_mssg_mssg'];
+				return $return_data;
+			}else{
+				$return_data['their_mssg'] = 'N';
+				return $return_data;
+			}
+		}
+	}
+
 	public function get_our_amenities($apt_id){
 		$this->db->where('apt_id', $apt_id);
 		$data = $this->db->get('our_amenities_list');

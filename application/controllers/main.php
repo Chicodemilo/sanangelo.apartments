@@ -8,6 +8,13 @@ class Main extends CI_Controller {
 	
 	public function index()
 	{	
+		
+		$signed_up = $this->session->userdata('entered_email');
+		if($signed_up == 'Y'){
+			$signed_up = 'Y';
+		}else{
+			$signed_up = 'N';
+		}
 		$this->load->model('apartment_model');
 		$top_of_nav = $this->apartment_model->get_top_of_nav();
 
@@ -17,6 +24,12 @@ class Main extends CI_Controller {
 
 		$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
 		$main_page_data['open_basic_apt'] = $this->apartment_model->get_open_basic_apt();
+
+		if($main_page_data['open_takeover_apt'] != ''){
+			$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+		}else{
+			$top_of_nav['background_data'] = 'N';
+		}
 
 		if(!$main_page_data['open_basic_apt']){
 			$main_page_data['open_free_apt'] = $this->apartment_model->get_open_free_apt();
@@ -46,6 +59,9 @@ class Main extends CI_Controller {
 		$main_page_data['apt_count'] = count($main_page_data['all_apartments']);
 
 		$this->load->view('apartments/main_page_header');
+		if($signed_up == 'N'){
+			$this->load->view('apartments/main_sign_up');
+		}
 		$this->load->view('apartments/main_page_navbar', $top_of_nav);
 		$this->load->view('apartments/main_body', $main_page_data);
 		$this->load->view('apartments/main_page_footer');
@@ -61,7 +77,40 @@ class Main extends CI_Controller {
 	public function apartment($apt_name, $apt_id){
 		$this->load->model('apartment_model');
 		$this->apartment_model->add_views($apt_id);
-		echo '<h2>'.$apt_name.'!!</h2>';
+		$top_of_nav['viewed'] = $this->apartment_model->get_views();
+
+		$main_data = $this->apartment_model->get_apt_main_data($apt_id);
+		if(!$main_data){
+			redirect('');
+		}else{
+			$header_data['property_name'] = $main_data[0]['property_name'];
+			$header_data['property_slogan'] = $main_data[0]['property_slogan'];
+
+			$main_page_data['market_data'] = $this->apartment_model->get_market_data();
+
+			$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
+
+			$free = $this->apartment_model->get_sales_level($apt_id);
+
+			if($main_page_data['open_takeover_apt'] != '' && $free == 'Y'){
+				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+			}else{
+				$top_of_nav['background_data'] = 'N';
+			}
+
+			$cover_pic = $this->apartment_model->get_cover_picture($apt_id);
+			$top_of_nav['pic_id'] = $cover_pic['pic_id'];
+			$top_of_nav['pic_name'] = $cover_pic['pic_name'];
+			$top_of_nav['apt_id'] = $apt_id;
+			$top_of_nav['apt_id'] = $apt_id;
+
+
+			$this->load->view('apartments/apt_page_header', $header_data);
+			$this->load->view('apartments/apt_page_navbar', $top_of_nav);
+			$this->load->view('apartments/apt_body', $main_page_data);
+			$this->load->view('apartments/apt_page_footer');
+		}
+		
 	}
 
 	public function find_apts(){
@@ -75,6 +124,13 @@ class Main extends CI_Controller {
 
 			$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
 			$main_page_data['open_basic_apt'] = $this->apartment_model->get_open_basic_apt();
+
+			if($main_page_data['open_takeover_apt'] != ''){
+				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+				$top_of_nav['background_data']['takeover_top'] = '';
+			}else{
+				$top_of_nav['background_data'] = 'N';
+			}
 
 			if(!$main_page_data['open_basic_apt']){
 				$main_page_data['open_free_apt'] = $this->apartment_model->get_open_free_apt();
@@ -157,9 +213,6 @@ class Main extends CI_Controller {
 		}else{
 			redirect('');
 		}
-
-		
-
 	}
 
 	public function add_amenities(){
@@ -173,5 +226,22 @@ class Main extends CI_Controller {
 			$this->load->model('admin_model');
 			$make_amen = $this->admin_model->make_amen($apt_id);
 		}
+	}
+
+	public function sign_up(){
+		$data = $_POST;
+		$enter = $this->db->insert('sign_up', $data);
+		$session_data['entered_email'] = 'Y';
+		$this->session->set_userdata($session_data);
+		if($enter){
+			redirect(base_url().'');
+		}
+	}
+
+	public function no_sign_up(){
+		
+		$session_data['entered_email'] = 'Y';
+		$this->session->set_userdata($session_data);
+		redirect(base_url().'');
 	}
 }

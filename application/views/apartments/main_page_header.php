@@ -19,6 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/apt_main_page.css">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>css/pikaday.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet">
+
     <script src="<?php echo base_url() ?>js/moment.js"></script>
     <script src="<?php echo base_url() ?>js/pikaday.js"></script>
 

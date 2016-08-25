@@ -1,60 +1,14 @@
+<div class="nav_prop_name"><?php echo $property_name; ?>
+	<div class="nav_prop_slogan"><?php echo $property_slogan; ?>
+		
+	</div>
+</div>
+
 <div class="nav_bar_pics">
-	<div class="inner_pics" id="inner_pic1">
-		<div class="inner_pic_name">
-			<?php echo $pos_1['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_1['property_search_name'].'/'.$pos_1['ID'] ?>">
-			<img src="
-				<?php
 
-					if($pos_1['picture_id'] !== 'generic'){
-						echo base_url();
-						echo 'images/pictures/'.$pos_1['ID'].'/'.$pos_1['picture_id'].'/'.$pos_1['picture_name']; 
-					}else{
-						echo base_url();
-						echo 'images/'.$pos_1['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
-	</div>
-	<div class="inner_pics" id="inner_pic2">
-		<div class="inner_pic_name">
-			<?php echo $pos_2['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_2['property_search_name'].'/'.$pos_2['ID'] ?>">
-			<img src="
-				<?php
+	<div class="apt_page_header_pic">
 
-					if($pos_2['picture_id'] == 'generic'){
-						echo base_url();
-						echo 'images/'.$pos_2['picture_name'];
-					}else{ 
-						echo base_url();
-						echo 'images/pictures/'.$pos_2['ID'].'/'.$pos_2['picture_id'].'/'.$pos_2['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
-	</div>
-	<div class="inner_pics" id="inner_pic3">
-		<div class="inner_pic_name">
-			<?php echo $pos_3['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_3['property_search_name'].'/'.$pos_3['ID'] ?>">
-			<img src="
-				<?php
-
-					if($pos_3['picture_id'] !== 'generic'){
-						echo base_url();
-						echo 'images/pictures/'.$pos_3['ID'].'/'.$pos_3['picture_id'].'/'.$pos_3['picture_name']; 
-					}else{
-						echo base_url();
-						echo 'images/'.$pos_3['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
+		<img src="<?php echo base_url(); ?>images/pictures/<?php echo $apt_id?>/<?php echo $pic_id?>/<?php echo $pic_name?>" alt="<?php echo $pic_name?>">
 	</div>
 </div>
 <div class="navbar">

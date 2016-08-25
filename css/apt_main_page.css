@@ -2,6 +2,7 @@
 body{
     font-family: Verdana, Arial, sans-serif;
     margin:0px;
+    background:#FBFBFB;
 }
 
 h1, h3{
@@ -37,8 +38,109 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(190, 190, 190, 0.75), rgba(0, 0, 0, 0));
 }
 
+.righter{
+    text-align:right;
+}
+
+.lefter{
+    text-align:left;
+}
+
 
 /******************************** NAV BAR  ***************************/
+.sign_up_screen{
+    width:100%;
+    height:190px;
+    background:rgba(0, 0, 0, .6);
+    position:fixed;
+    top:0px;
+    left:0px;
+    z-index:500;
+    display:none;
+}
+
+.inner_sign_up_screen{
+    box-sizing: border-box;
+    max-width:850px;
+    height:160px;
+    border-radius: 20px;
+    margin:auto;
+    margin-top:10px;
+    background:rgba(0, 0, 0, .7);
+    padding: 40px 20px 20px 20px;
+    font-family:'Lobster', cursive;
+    color:#EED9C6;
+    text-align:center;
+}
+
+.sign_up_title{
+    font-size:5.5em;
+    font-family:'Lobster', serif;
+}
+
+.inner_sign_up_screen form{
+    margin-top:25px;
+}
+
+#sign_up_email{
+    height:35px;
+    width:220px;
+    font-family:'Lobster', cursive;
+    font-size:1.1em;
+}
+
+#sign_up_submit{
+    height:35px;
+    width:150px;
+    border-radius:5px;
+    border: 0px;
+    background:#0E73C1;
+    position:relative;
+    left:5px;
+    top:-5px;
+    color:#EED9C6;
+    transition:0.2s;
+    font-family:'Lobster', cursive;
+    font-size:1.4em;
+}
+
+#sign_up_submit:hover{
+    background:#0B61A2;
+    outline: none;
+}
+
+#sign_up_submit:active{
+    background:#083B76;
+    border:none;
+    outline: none;
+}
+
+#sign_up_submit::focus{
+    outline: none;
+}
+
+.no_thanks{
+    position:relative;
+    top:-40px;
+    float:right;
+    color:#485165;
+    cursor:pointer;
+    font-size:1.1em;
+    transition:0.2s;
+}
+
+.no_thanks:hover{
+    color:#0B61A2;
+}
+
+.sign_up_text{
+    font-size:1.6em;
+    line-height:1.3em;
+    font-family:'Oswald', sans-serif;
+    position:relative;
+    top:-12px;
+}
+
 .nav_bar_pics{
     width: 100%;
     margin: 0px;
@@ -79,15 +181,18 @@ hr {
     pointer-events: none;
     box-sizing:border-box;
     padding: 20px;
-    font-size:2.5em;
-    color:white;
+    font-size:3.1em;
+    line-height:1em;
+    letter-spacing:.05em;
+    color:#EED9C6;
     font-weight:bolder;
     width:33%;
     position:absolute;
-    top:200px;
+    top:10px;
     z-index: 10;
     text-shadow: 0px 0px 6px rgba(0, 0, 50, 0.8);
     overflow:hidden;
+    font-family:'Lobster', sans-serif;
 }
 
 #inner_pic1{
@@ -165,6 +270,15 @@ hr {
     padding:10px;
     font-size:13px;
     letter-spacing:.05em;
+    z-index:300;
+}
+
+#search_closer{
+    position:absolute;
+    left:230px;
+    top:342px;
+    cursor:pointer;
+    font-size:.8em;
 }
 
 .left{
@@ -197,15 +311,16 @@ hr {
 
 .most_viewed_window{
     display:none;
-    position: relative;
-    top:-60px;
-    left:150px;
+    position: absolute;
+    top:350px;
+    left:calc(50% + 100);
     width:260px;
     background:rgba(255, 255, 255, 0.85);
     border:1px solid #C6C6C6;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     overflow:hidden;
     font-size:.8em;
+    z-index:300;
 }
 
 .most_viewed_table {
@@ -237,7 +352,7 @@ hr {
 .link_box a:hover {
     background:#FDFBFA;
     color:#4D190D;
-    font-size:1.05em;
+    font-size:1.02em;
 }
 
 .link_box a:active {
@@ -252,6 +367,7 @@ hr {
     color:#341308;
     padding:4px;
     font-size:13px;
+    font-family:'Oswald', 'courier', sans-serif;
 }
 
 .most_viewed_table td{
@@ -264,22 +380,107 @@ hr {
     background:#DDD3CF !important;
     color:white;
     text-align:center;
+    font-family:'Oswald', 'courier', sans-serif;
     padding:3px !important;
 
 }
+/******************************** NAVBAR SINGLE APT PAGE  ***************************/
+.apt_page_header_pic{
+    width:100%;
+    z-index:-100;
+}
+
+.apt_page_header_pic img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+    object-position: 50% 50%;
+    -webkit-filter: blur(3px) opacity(90%); /* Chrome, Safari, Opera */
+    filter: blur(3px) opacity(90%);
+    
+}
+
+.nav_prop_name{
+    width:calc(100% - 80);
+    position:absolute;
+    top:70px;
+    left:100px;
+    font-family:'Lobster', sans-serif;
+    color:#F0E4D5;
+    font-size:6em;
+    line-height:1em;
+    z-index:200;
+    text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
+}
+
+.nav_prop_slogan{
+    width:100%;
+    font-family:'Oswald', sans-serif;
+    margin-top:30px;
+    color:#F0E4D5;
+    font-size:.35em;
+    line-height:1em;
+    z-index:200;
+    text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
+}
+
+/******************************** MAIN BACKGROUND  ***************************/
+
+
+.inner_main_bg{
+    margin-top:400px;
+    z-index:100;
+    max-width:1250px;
+    height:900px;
+    margin:auto;
+    position:relative;
+}
+
+
+.left_takeover_banner{
+    height:700px;
+    width:170px;
+    position:absolute;
+    z-index:-50;
+}
+
+
+.right_takeover_banner{
+    position:absolute;
+    right:0;
+    height:700px;
+    width:170px;
+    z-index:-50;
+}
+
+.left_takeover_banner_fixed{
+    position:fixed;
+    top:70px;
+}
+
 
 
 
 /******************************** MAIN BODY  ***************************/
 
+.takeover_top_banner{
+    position:absolute;
+    height:170px;
+    width:870px;
+    margin-left:190px;
+    z-index:400;
+    display:none;
+}
+
 .body_wrapper{
     box-sizing:border-box;
     width:870px;
-    height:2000px;
+    height:1400px;
     margin:auto;
-    margin-top: 20px;
     box-shadow:0px 0px 15px rgba(100, 100, 100, 0.8);
+    background:white;
     border: 11px solid white;
+    z-index:0;
 
 }
 
@@ -291,7 +492,7 @@ hr {
 
 .search_results_box{
     width:560px;
-    height:824px;
+    height:862px;
     float:right;
     border:1px solid #C2C2C2;
     padding:3px;
@@ -335,8 +536,8 @@ hr {
     min-height:5px;
     width:100%;
     display:block;
-    font-family:"verdana", sans-serif;
-    font-size:.9em;
+    font-family:'Oswald', sans-serif;
+    font-size:1em;
     font-weight:bold;
 }
 
@@ -402,7 +603,7 @@ hr {
 
 .left_link_box a:hover {
     color:#5F8EA8;
-    font-size:1.05em;
+    font-size:1.02em;
 }
 
 .left_link_box a:active {
@@ -417,22 +618,49 @@ hr {
     z-index:-100;
     padding:20px;
     color:white;
-    font-family:'Impact', sans-serif;
+    font-family:'Oswald', sans-serif;
 }
 
+.pic_box hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
+
+
 #pic_box_name{
-    font-size:2.5em;
+    font-size:2.3em;
     line-height:1.05em;
     letter-spacing:.05em;
-    text-shadow:3px 3px 15px rgba(0, 0, 0, .8);
+    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    color:#EED9C6;
+    font-family:'Lobster', sans-serif;
 }
 
 #pic_box_slogan{
-    font-size:1.2em;
-    line-height:1.05em;
+    font-size:1.1em;
+    line-height:1.1em;
     letter-spacing:.05em;
-    font-family:'Verdana', sans-serif;
-    text-shadow:3px 3px 15px rgba(0, 0, 0, .8);
+    font-family:'Oswald', sans-serif;
+    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+}
+
+#pic_box_address{
+    font-size:1.4em;
+    line-height:1em;
+    letter-spacing:.05em;
+    font-family:'Oswald', sans-serif;
+    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    color:#EED9C6;
+}
+
+
+#pic_box_phone{
+    font-size:2.1em;
+    line-height:1.9em;
+    letter-spacing:.05em;
+    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    color:#EED9C6;
 }
 
 .result_box{
@@ -445,14 +673,24 @@ hr {
 }
 
 .search_param_box{
+    font-family:'Oswald', sans-serif;
     box-sizing:border-box;
     color:white;
     width:100%;
-    background:#C3C3C3;
-    font-size:.8em;
-    letter-spacing:.05em;
+    background:#5D8BB4;
+    font-size:.9em;
     line-height: 1.3em;
+    letter-spacing:.05em;
     padding:5px;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+}
+
+.search_param_bold{
+    font-size:1.2em;
+    line-height:1.6em;
+    font-weight:bold;
+    color:#FEC063;
 }
 
 .inner_table_1{
@@ -488,11 +726,13 @@ hr {
 }
 
 .table_name{
-    font-size:14px;
+    font-size:19px;
     font-weight:bold;
     letter-spacing:.05em;
     color:white;
     text-shadow:0px 0px 10px rgba(73, 137, 201, 0.7);
+    font-family:'Oswald', sans-serif;
+    padding-left: 10px;
 }
 
 
@@ -500,6 +740,9 @@ hr {
     font-size:.7em;
     letter-spacing:.05em;
     color:#505050;
+    padding-left: 10px;
+    position:relative;
+    top:-5px;
 }
 
 .under_table{
@@ -507,8 +750,32 @@ hr {
     height:350px;
 }
 
+/******************************** FOOTER ***************************/
 
+.footer{
+    position:absolute;
+    left:0vw;
+    bottom: -1000px;
+    box-sizing:border-box;
+    font-size:.82em;
+    padding:10px;
+    width:100vw;
+    height:110px;
+    color:white;
+    background:#383838;
+    z-index:200;
+    line-height:1.6em;
+    font-family:'Oswald', sans-serif;
+}
 
+.footer_bold{
+    color:#F5A300;
+    font-size:1.5em;
+
+    line-height:1.5em;
+    letter-spacing: .06em;
+    font-weight:bolder;
+}
 
 
 

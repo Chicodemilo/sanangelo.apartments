@@ -42,6 +42,7 @@ class Apartment_model extends CI_Model {
 				$id = $value['ID'];
 				$this->db->where('apt_id', $id);
 				$this->db->where('cover_pic', 'Y');
+				$this->db->where('logo', 'N');
 				$pic_data = $this->db->get('pictures')->result_array();
 				
 
@@ -524,6 +525,28 @@ class Apartment_model extends CI_Model {
 
 	}
 
+	public function get_takeover_bg_info(){
+		$this->db->where('takeover', 'Y');
+		$takeover = $this->db->get('sales')->result_array();
+		
+		$data['takeover_id'] = $takeover[0]['apt_id'];
+		$data['takeover_left'] = $takeover[0]['left_takeover_name'];
+		$data['takeover_right'] = $takeover[0]['right_takeover_name'];
+		$data['takeover_top'] = $takeover[0]['top_takeover_name'];
+		$data['takeover_start'] = $takeover[0]['takeover_start'];
+		$data['takeover_end'] = $takeover[0]['takeover_end'];
+
+		$this->db->where('ID', $data['takeover_id']);
+		$takeover_link = $this->db->get('apartment_main')->result_array();
+		if(!$takeover_link[0]['property_website']){
+			$data['takeover_link'] = 'N';
+		}else{
+			$data['takeover_link'] = $takeover_link[0]['property_website'];
+		}
+		return $data;
+	}
+
+
 	public function get_market_data(){
 
 		#get all aptment floorplan data and figure average cost per sq. foot
@@ -872,6 +895,7 @@ class Apartment_model extends CI_Model {
 
 			if(count($result_pic) < 1){
 				$ci->db->where('apt_id', $apt_id);
+				$ci->db->where('logo', 'N');
 				$ci->db->order_by('pic_order', 'asc');
 				$result_pic = $ci->db->get('pictures')->result_array();
 				if(count($result_pic) < 1){
@@ -1043,10 +1067,12 @@ class Apartment_model extends CI_Model {
 
 			$ci->db->where('apt_id', $apt_id);
 			$ci->db->where('cover_pic', 'Y');
+			$ci->db->where('logo', 'N');
 			$result_pic = $ci->db->get('pictures')->result_array();
 
 			if(count($result_pic) < 1){
 				$ci->db->where('apt_id', $apt_id);
+				$ci->db->where('logo', 'N');
 				$ci->db->order_by('pic_order', 'asc');
 				$result_pic = $ci->db->get('pictures')->result_array();
 				if(count($result_pic) < 1){
@@ -1076,10 +1102,50 @@ class Apartment_model extends CI_Model {
 		}else{
 			return false;
 		}
+	}
 
-		
+	public function get_apt_main_data($apt_id){
+		$this->db->where('ID', $apt_id);
+		$this->db->limit('1');
+		$data = $this->db->get('apartment_main')->result_array();
+		if(count($data) > 0){
+			return $data;
+		}else{
+			return false;
+		}
+	}
 
+	public function get_cover_picture($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$this->db->where('cover_pic', 'Y');
+		$this->db->where('logo', 'N');
+		$result_pic = $this->db->get('pictures')->result_array();
 
+		if(count($result_pic) < 1){
+			$this->db->where('apt_id', $apt_id);
+			$this->db->where('logo', 'N');
+			$this->db->order_by('pic_order', 'asc');
+			$result_pic = $this->db->get('pictures')->result_array();
+			if(count($result_pic) < 1){
+				$data['pic_id'] = 'generic';
+				$data['pic_name'] = 'generic.jpg';
+
+			}else{
+				$data['pic_id'] = $result_pic[0]['id'];
+				$data['pic_name'] = $result_pic[0]['name'];
+			}
+		}else{
+			$data['pic_id'] = $result_pic[0]['id'];
+			$data['pic_name'] = $result_pic[0]['name'];
+		}
+		return $data;
+	}
+
+	public function get_sales_level($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$result = $this->db->get('sales')->result_array();
+		$data = $result[0]['free'];
+		return $data;
 	}
 
 

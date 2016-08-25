@@ -235,7 +235,7 @@ select{
             top: 0px;
             border: none;
             width: 100%;
-            min-width: 410px;
+            min-width: 800px;
             z-index: 2;
             font-size: .8em;
             list-style-type: none; display: inline;
@@ -263,8 +263,30 @@ select{
 .user_info  {float: left; 
             padding-left:20px;}
 
+#site_counts{
+    height:40px;
+    width:350px;
+    background:rgba(255, 255, 255, 0.2);
+    margin:auto;
+    font-size:.8em;
+    color:white;
+    box-sizing: border-box;
+    padding:2px;
+}
+
+.count_table{
+    border-collapse:collapse;
+    width:100%;
+}
+
+.count_table td{
+    overflow:hidden;
+}
+
 .header_links{
-    float:right;
+    position:absolute;
+    right:0px;
+    top:0px;
 }
 
 
@@ -296,6 +318,7 @@ header {margin-left: 0px;}
 footer {padding: 5px;
         height: 50px;
         position: fixed;
+        min-width:734px;
         bottom:0%;
         width: 100%;
         margin-left: 0px;
@@ -311,10 +334,11 @@ footer {padding: 5px;
                 right:20px;}   
 
 #footer_info_left    {text-align: left;
-                color: white;
-                font-size: .65em;
+                color: #000092;
+                font-size: .7em;
                 position:absolute;
-                bottom:6px;
+                font-weight:bold;
+                bottom:5px;
                 left:10px;}    
 
 .footer_logo{
@@ -323,7 +347,48 @@ footer {padding: 5px;
     margin:auto;
     margin-left:200px;
 }
-     
+
+/******************************** SITE CONTACT BOX ***************************/   
+.site_message{
+    width:800px;
+    height:40px;
+    margin:auto;
+    font-size:.9em;
+    font-weight:bold;
+    color:#840008;
+    background:#F3F3F3;
+    box-sizing:border-box;
+    padding:5px;
+}  
+
+.their_message{
+    width:800px;
+    height:40px;
+    margin:auto;
+    font-size:.8em;
+    color:#840008;
+    background:#F3F3F3;
+    box-sizing:border-box;
+    padding:5px;
+}  
+
+.site_message a{
+    text-decoration: none; 
+    display: inline;
+    font-size: 1em;
+    border: none;
+    margin: 1px;
+    padding: 1px;
+    border-radius: 0px;
+    background: none;
+    color: #0540D2;
+}
+
+.site_message_pic{
+    width:800px;
+    height:70px;
+    margin:auto;
+}
 
 /******************************** AMENITIES EDIT PAGE ***************************/
 .amenities_wrapper  {width: 900px;
