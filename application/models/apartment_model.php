@@ -1148,7 +1148,76 @@ class Apartment_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_pics($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$this->db->where('logo', 'N');
+		$this->db->order_by('pic_order', 'asc');
+		$data = $this->db->get('pictures')->result_array();
+		if(count($data) > 0){
+			return $data;
+		}else{
+			return false;
+		}
+	}
 
+	public function send_contact_email($data){
+		$this->db->where('ID', $data['apt_id']);
+		$result = $this->db->get('apartment_main')->result_array();
+		$user_id = $result[0]['verified_user_id'];
+
+		$this->db->where('ID', $user_id);
+		// $this->db->where('get_messages', 'Y');
+		$user_emails = $this->db->get('users')->result_array();
+
+
+ //************************ THIS IS WHERE TO DELETE IF GETTING TOO MANY EMAILS *****************//
+ //************************ THIS IS WHERE TO DELETE IF GETTING TOO MANY EMAILS *****************//
+ //************************ THIS IS WHERE TO DELETE IF GETTING TOO MANY EMAILS *****************//
+		$send['miles'] = 'miles@bayrummedia.com';
+
+		if($user_emails[0]['email'] != ''){
+			$send['email_one'] = $user_emails[0]['email'];
+		}
+		if($user_emails[0]['email_2'] != ''){
+			$send['email_two'] = $user_emails[0]['email_2'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_three'] = $user_emails[0]['email_3'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_four'] = $user_emails[0]['email_4'];
+		}
+		$this->load->library('email');
+		foreach ($send as $key => $value) {
+ 			if($data['free'] != 'Y'){
+ 				$this->email->clear();
+				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
+				$this->email->to($value);
+				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
+				$this->email->message('<h3 style="color:#3F79C9;">You have a contact from SANAGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>FROM: '.$data['email'].'<br><br>MESSAGE: '.$data['message']);
+				$sent = $this->email->send();
+ 			}else{
+ 				$this->email->clear();
+				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
+				$this->email->to($value);
+				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
+				$this->email->message('<h3 style="color:#3F79C9;">Someone just tried to contact you from SANAGELO.APARTMENTS</h3><br>Upgrade from our FREE Account to our BASIC Account and get all these leads! <br><br>Call us at 866-800-4727 today.' );
+				$sent = $this->email->send();
+ 			}
+			
+		}
+		return true;
+	}
+
+	public function get_floorplans($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$data = $this->db->get('floorplans')->result_array();
+		if(count($data) > 0){
+			return $data;
+		}else{
+			return 'N';
+		}
+	}
 
 }
 

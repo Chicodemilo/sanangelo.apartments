@@ -12,11 +12,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
     <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    
+    <script src="<?php echo base_url(); ?>js/jquery.accordionImageMenu.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
+    
+
+
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/accordionImageMenu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/apt_main_page.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>css/pikaday.css">
+
 
     <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet">
 

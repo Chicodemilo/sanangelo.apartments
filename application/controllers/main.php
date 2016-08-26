@@ -85,12 +85,24 @@ class Main extends CI_Controller {
 		}else{
 			$header_data['property_name'] = $main_data[0]['property_name'];
 			$header_data['property_slogan'] = $main_data[0]['property_slogan'];
+			$header_data['apt_id'] = $main_data[0]['ID'];
+
+			$free = $this->apartment_model->get_sales_level($apt_id);
 
 			$main_page_data['market_data'] = $this->apartment_model->get_market_data();
 
 			$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
+			$main_page_data['property_phone'] = $main_data[0]['property_phone'];
+			$main_page_data['property_address'] = $main_data[0]['property_address'];
+			$main_page_data['property_city'] = $main_data[0]['property_city'];
+			$main_page_data['property_state'] = $main_data[0]['property_state'];
+			$main_page_data['property_zip'] = $main_data[0]['property_zip'];
+			$main_page_data['property_description'] = $main_data[0]['property_description'];
+			$main_page_data['free'] = $free;
 
-			$free = $this->apartment_model->get_sales_level($apt_id);
+			$main_page_data['floorplans'] = $this->apartment_model->get_floorplans($apt_id);
+
+			
 
 			if($main_page_data['open_takeover_apt'] != '' && $free == 'Y'){
 				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
@@ -102,7 +114,14 @@ class Main extends CI_Controller {
 			$top_of_nav['pic_id'] = $cover_pic['pic_id'];
 			$top_of_nav['pic_name'] = $cover_pic['pic_name'];
 			$top_of_nav['apt_id'] = $apt_id;
-			$top_of_nav['apt_id'] = $apt_id;
+
+			$pictures = $this->apartment_model->get_pics($apt_id);
+			if($pictures != false){
+				$main_page_data['pictures'] = $pictures;
+			}else{
+				$main_page_data['pictures'][0]['id'] = $cover_pic['pic_id'];
+				$main_page_data['pictures'][0]['name'] = $cover_pic['pic_name'];
+			}
 
 
 			$this->load->view('apartments/apt_page_header', $header_data);
@@ -111,6 +130,27 @@ class Main extends CI_Controller {
 			$this->load->view('apartments/apt_page_footer');
 		}
 		
+	}
+
+	public function contact(){
+		$this->load->model('apartment_model');
+
+		date_default_timezone_set('US/Central');
+	    $data['email'] =  $_POST['email'];
+		$data['message'] =  $_POST['message'];
+		$data['apt_id'] =  $_POST['apt_id'];
+		$data['time'] = date('Y-m-d h:i:s');
+
+		$this->db->insert('contact', $data);
+
+		$data['free'] = $this->apartment_model->get_sales_level($_POST['apt_id']);
+		
+		$this->apartment_model->send_contact_email($data);
+
+		return true;
+		
+
+	 
 	}
 
 	public function find_apts(){

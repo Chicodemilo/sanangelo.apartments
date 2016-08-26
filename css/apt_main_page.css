@@ -2,7 +2,7 @@
 body{
     font-family: Verdana, Arial, sans-serif;
     margin:0px;
-    background:#FBFBFB;
+    background:#F8F8F8;
 }
 
 h1, h3{
@@ -314,7 +314,7 @@ hr {
     position: absolute;
     top:350px;
     left:calc(50% + 100);
-    width:260px;
+    width:280px;
     background:rgba(255, 255, 255, 0.85);
     border:1px solid #C6C6C6;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
@@ -749,6 +749,167 @@ hr {
     width:100%;
     height:350px;
 }
+/******************************** APT MAIN BODY ***************************/
+
+.apt_map_contact{
+    width:100%;
+    height:350px;
+    border-bottom:1px solid #D3D3D3;
+    margin-bottom:20px;
+}
+
+.apt_map{
+    display:inline-block;
+    width:570px;
+    height:350px;
+    border-right:1px solid #C9C9C9;
+}
+
+.map_no_load{
+    display:none;
+    position:relative;
+    left:90px;
+    top:140px;
+    color:#8BB2E1;
+    font-family: 'Lobster', sans-serif;
+    font-size: 2em;
+    -ms-transform: rotate(-7deg); /* IE 9 */
+    -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
+    transform: rotate(-7deg);
+}
+
+.apt_contact{
+    display:inline-block;
+    position:absolute;
+    width:280px;
+    height:350px;
+    padding: 0px 0px 10px 10px;
+    overflow:hidden;
+
+}
+.apt_floorplans_big{
+    width:100%;
+    min-height:200px;
+    border-bottom:1px solid #D3D3D3;
+    margin-bottom:20px;
+}
+
+.apt_floorplans{
+    display:inline-block;
+    width:90%;
+    min-height:200px;
+}
+
+.apt_floorplans_pics{
+    display:inline-block;
+    min-height:300px;
+    border-left:1px solid #C9C9C9;
+}
+.fp_table{
+    margin-top:40px;
+    margin-left:20px;
+    width:100%;
+}
+.fp_name{
+    font-family:'Oswald';
+    font-size:1.2em;
+    color:#7C7C7C;
+    min-height:60px;
+}
+
+.fp_word{
+    font-family:'Lobster', sans-serif;
+    font-size:2em;
+    color:#8DA5B3;
+    position:absolute;
+
+}
+
+.fp_spacer{
+    height:30px;
+    border-top:2px solid #C0C0C0;
+}
+
+.fp_data{
+    font-size:.75em;
+    min-width: 80px;
+}
+
+.apt_pics{
+    width:100%;
+    height:350px;
+    border-bottom:1px solid #D3D3D3;
+    margin-bottom:20px;
+    overflow:hidden;
+    padding-bottom: 10px;
+}
+
+#menu{
+    height:300px;
+    width:870px;
+}
+
+.solo_pic{
+    height:350px;
+    width:800px;
+    object-fit:cover;
+    object-position:50% 70%;
+}
+
+.contact_name{
+    font-family:'Oswald', sans-serif;
+    font-size: 1.3em;
+    line-height:1.6em;
+    color:#565656;
+}
+
+.contact_add{
+    font-family:'Verdana', sans-serif;
+    font-size: .9em;
+    line-height:1.6em;
+    color:#565656;
+}
+
+.move_up{
+    position:relative;
+    top:-10px;
+}
+
+.contact_form_div{
+    position: absolute;
+    bottom:0px;
+    font-size:.8em;
+    line-height:1.1em;
+}
+
+#contact_form input[type=email]{
+    height:30px;
+    width:260px;
+}
+
+.form_bold{
+    font-weight:bold;
+    color:#565656;
+}
+
+#message{
+    width:260px;
+    resize: none;
+}
+
+.message_sent{
+    display:none;
+    position:absolute;
+    left:2px;
+    top:140px;
+    color:#8BB2E1;
+    font-family: 'Lobster', sans-serif;
+    font-size: 2em;
+    -ms-transform: rotate(-7deg); /* IE 9 */
+    -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
+    transform: rotate(-7deg);
+}
+
 
 /******************************** FOOTER ***************************/
 

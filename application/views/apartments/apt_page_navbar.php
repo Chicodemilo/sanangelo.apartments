@@ -137,11 +137,8 @@
 								<input type="submit" class="btn btn-default" value="SEARCH">
 								<a id="search_closer">close</a>
 							</div>
-							
 					</form>
 			</div>
-			
 		</div>
 	</div>
-	
 </div>
