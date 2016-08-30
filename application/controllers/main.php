@@ -102,8 +102,8 @@ class Main extends CI_Controller {
 
 			$main_page_data['floorplans'] = $this->apartment_model->get_floorplans($apt_id);
 
+			$main_page_data['amenities'] = $this->apartment_model->get_amenities($apt_id);
 			
-
 			if($main_page_data['open_takeover_apt'] != '' && $free == 'Y'){
 				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
 			}else{
@@ -122,7 +122,6 @@ class Main extends CI_Controller {
 				$main_page_data['pictures'][0]['id'] = $cover_pic['pic_id'];
 				$main_page_data['pictures'][0]['name'] = $cover_pic['pic_name'];
 			}
-
 
 			$this->load->view('apartments/apt_page_header', $header_data);
 			$this->load->view('apartments/apt_page_navbar', $top_of_nav);

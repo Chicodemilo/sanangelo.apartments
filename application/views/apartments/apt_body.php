@@ -168,60 +168,156 @@
 							$value['bathroom'] = '5+';
 							break;
 					}
-					
-					echo '<tr><td class="fp_name" colspan="8">'.$value['name'].'&nbsp;</td></tr>';
-					echo '<tr><td class="fp_data">Bed:'.$value['bedroom'].'</td><td class="fp_data">Bath:'.$value['bathroom'].'</td><td class="fp_data">SqFt:'.$value['square_footage'].'</td><td class="fp_data">Rent:$'.$value['rent'].'</td><td class="fp_data">Deposit:$'.$value['deposit'].'</td></tr>';
-					echo '<tr><td class="fp_spacer" colspan="8"></td></tr>';
-					
-					
-				}
-				echo 	'</table>
-					</div>';
 
+					$per_sq_ft = round(($value['rent']/$value['square_footage']), 2);
+					
+					echo '<tr><td class="fp_name" colspan="12">'.$value['name'].'&nbsp;</td></tr>';
+					echo '<tr><td class="fp_data">Bed:</td><td class="fp_data">Bath:</td><td class="fp_data">SqFt:</td><td class="fp_data">Rent:</td><td class="fp_data">Deposit:</td><td class="fp_data">Rent Per SqFt:</td><td class="fp_data">Available:</td><td class="fp_data">Units Available:</td>';
+					if($value['floorplan_pic'] != ''){
+						echo '<td class="fp_data_pic" id="show_fp_'.$value['id'].'">see<br>floorplan</td>';
+						echo '<div class="hidden_fp_pic" id="hidden_fp_pic_'.$value['id'].'">';
+						echo '<span class="fp_name">'.$value['name'].'</span>';
+						echo '<img src="'.base_url().'images/floorplans/'.$apt_id.'/'.$value['id'].'/'.$value['floorplan_pic'].'">';
+						echo '</div>';
 
-				$show_pic_div = 'N';		
-				foreach ($floorplans as $key => $value) {
-					if($value['floorplan_pic'] != '' || $value['floorplan_pic'] != null){
-						$show_pic_div = 'Y';
+						echo '<script type="text/javascript">
+								$("#show_fp_'.$value['id'].'").mouseenter(function(event){
+									$("#hidden_fp_pic_'.$value['id'].'").fadeIn("fast");
+								});
+								$("#show_fp_'.$value['id'].'").mouseleave(function(event){
+									$("#hidden_fp_pic_'.$value['id'].'").fadeOut("fast");
+								});
+							</script>
+						';
 					}
+					echo '</tr>';
+					echo '<tr><td class="fp_data bolder">'.$value['bedroom'].'</td><td class="fp_data bolder">'.$value['bathroom'].'</td><td class="fp_data bolder">'.$value['square_footage'].'</td><td class="fp_data bolder">$'.$value['rent'];
+					if($value['bedroom'] == 1){
+						if($value['rent'] > $market_data['ave_one_bed_rent']){
+							echo '<span class="above" id="bed_average_'.$value['id'].'">&nbsp;&#9650;</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">above market average for 1 bedroom apartments</div>';
+						}elseif ($value['rent'] < $market_data['ave_one_bed_rent']) {
+							echo '<span class="below" id="bed_average_'.$value['id'].'">&nbsp;&#9660;</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">below market average for 1 bedroom apartments</div>';
+						}elseif($value['rent'] == $market_data['ave_one_bed_rent']){
+							echo '<span class="equal" id="bed_average_'.$value['id'].'">&nbsp;=</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">equal to market average for 1 bedroom apartments</div>';
+						}
+
+						echo '<script type="text/javascript">
+						 	$("#bed_average_'.$value['id'].'").mouseenter(function(event) {
+						 		$("#bed_hidden_ab_be_'.$value['id'].'").fadeIn("fast");
+						 	});
+						 	$("#bed_average_'.$value['id'].'").mouseleave(function(event) {
+						 		$("#bed_hidden_ab_be_'.$value['id'].'").fadeOut("fast");
+						 	});
+						 </script>';
+					}
+					if($value['bedroom'] == 2){
+						if($value['rent'] > $market_data['ave_two_bed_rent']){
+							echo '<span class="above" id="bed_average_'.$value['id'].'">&nbsp;&#9650;</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">above market average for 2 bedroom apartments</div>';
+						}elseif ($value['rent'] < $market_data['ave_two_bed_rent']) {
+							echo '<span class="below" id="bed_average_'.$value['id'].'">&nbsp;&#9660;</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">below market average for 2 bedroom apartments</div>';
+						}elseif($value['rent'] == $market_data['ave_two_bed_rent']){
+							echo '<span class="equal" id="bed_average_'.$value['id'].'">&nbsp;=</span>';
+							echo '<div class="hidden_ab_be" id="bed_hidden_ab_be_'.$value['id'].'">equal to market average for 2 bedroom apartments</div>';
+						}
+
+						echo '<script type="text/javascript">
+						 	$("#bed_average_'.$value['id'].'").mouseenter(function(event) {
+						 		$("#bed_hidden_ab_be_'.$value['id'].'").fadeIn("fast");
+						 	});
+						 	$("#bed_average_'.$value['id'].'").mouseleave(function(event) {
+						 		$("#bed_hidden_ab_be_'.$value['id'].'").fadeOut("fast");
+						 	});
+						 </script>';
+					}
+
+
+
+					echo '</td><td class="fp_data bolder">$'.$value['deposit'].'</td><td class="fp_data bolder">$'.$per_sq_ft;
+
+					if($per_sq_ft > $market_data['ave_sq_ft']){
+						echo '<span class="above" id="average_'.$value['id'].'">&nbsp;&#9650;</span>';
+						echo '<div class="hidden_ab_be" id="hidden_ab_be_'.$value['id'].'">above market average of all apartments</div>';
+					}elseif ($per_sq_ft < $market_data['ave_sq_ft']) {
+						echo '<span class="below" id="average_'.$value['id'].'">&nbsp;&#9660;</span>';
+						echo '<div class="hidden_ab_be" id="hidden_ab_be_'.$value['id'].'">below market average of all apartments</div>';
+					}elseif ($per_sq_ft == $market_data['ave_sq_ft']){
+						echo '<span class="equal" id="average_'.$value['id'].'">&nbsp;=</span>';
+						echo '<div class="hidden_ab_be" id="hidden_ab_be_'.$value['id'].'">equal to market average of all apartments</div>';
+					}
+
+					echo '<script type="text/javascript">
+					 	$("#average_'.$value['id'].'").mouseenter(function(event) {
+					 		$("#hidden_ab_be_'.$value['id'].'").fadeIn("fast");
+					 	});
+					 	$("#average_'.$value['id'].'").mouseleave(function(event) {
+					 		$("#hidden_ab_be_'.$value['id'].'").fadeOut("fast");
+					 	});
+					 </script>';
+
+					echo '</td><td class="fp_data bolder">'.$value['is_available'].'</td><td class="fp_data bolder">'.$value['units_available'].'</td>';
+
+					if($value['floorplan_pic'] != ''){
+						echo '<td class="fp_data"></td>';
+					}
+					
+
+					echo '</tr>';
+					echo '<tr><td class="fp_spacer" colspan="12"></td></tr>';
+					
+					
 				}
-
-				// if($show_pic_div == 'Y'){
-				// 	echo '<div class="apt_floorplans_pics">';
-
-				// 	echo '</div>';
-				// }
-				
+				echo 	'</table>';
+				echo '<span class="apt_pg_mkt_data">San Angelo Average 1 Bed Rent: $'.$market_data['ave_one_bed_rent'].'&nbsp;&nbsp;&bull;&nbsp;&nbsp;Average 2 Bed Rent: $'.$market_data['ave_two_bed_rent'].'&nbsp;&nbsp;&bull;&nbsp;&nbsp;Average Rent Per SqFt For All Apts: $'.$market_data['ave_sq_ft'].'</span>';
+				echo 	'<div>';
+				echo '</div>';
 				echo '</div>';
 			}
 		 ?>
-
-		
 		<div class="apt_hour_amen">
-			<div id="market_table">
-				<table class="left_tab" id="fixed_head">
-					<th colspan="2">MARKET DATA</th>
-				</table>
-				<table class="left_tab" id="market_results">
-					<tr>
-						<td>Ave 1br Rent:</td>
-						<td>$<?php echo $market_data['ave_one_bed_rent'];?></td>
-					</tr>
-					<tr>
-						<td>Ave 2br Rent:</td>
-						<td>$<?php echo $market_data['ave_two_bed_rent'];?></td>
-					</tr>
-					<tr>
-						<td>Ave Rent Per Sq Ft:</td>
-						<td>$<?php echo $market_data['ave_sq_ft'];?></td>
-					</tr>
-				</table>
+			<div class="apt_amenities_pet">
+				<span class="amen_word">Amenities</span>
+					<ul class="amenlist">
+						<?php 
+							$select_yes = 'N';
+							$extra_yes = 'N';
+							foreach ($amenities as $key => $value) {
+								echo '<li class="amen_item>">'.$value['name'];
+								if($value['select_units'] != 'N'){
+									echo '&#42;';
+									$select_yes = 'Y';
+								}
+								if($value['extra_fees'] != 'N'){
+									echo '&#43;';
+									$extra_yes = 'Y';
+								}
+								echo '</li>';
+							}
+							if($select_yes != 'N'){
+								echo '<br><span class="in_select">&#42;In Select Units</span><br>';
+							}
+							if($extra_yes != 'N'){
+								echo '<span class="extra_fees">&#43;Extra Fees May Apply</span>';
+							}
+						?>
+					</ul>
+				</div>
+			<div class="apt_desc_hours">
+				<span class="off_word">Office Hours</span>
 			</div>
 		</div>
-	</div>
 
+	</div>
 </div>
-<div class="footer">
+
+
+
+
+<div class="apt_footer">
 	<div class="footer_bold">To Advertise On SANANGELO.APARTMENTS<br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=SANANGELO.APARTMENTS%20Contact">EMAIL</a></div>
 	<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
 	&nbsp;&bull;&nbsp;

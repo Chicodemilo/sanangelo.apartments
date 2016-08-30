@@ -653,16 +653,20 @@ class Apartment_model extends CI_Model {
 					if($key_b == 'apt_id'){
 						$apt_id = $value_b;
 
-						$this->db->where('ID', $apt_id);
-						$basic_apt = $this->db->get('apartment_main')->result_array();
-
-						$data['basic_apt_'.$i]['apt_id'] = $apt_id;
-						$data['basic_apt_'.$i]['property_name'] = $basic_apt[0]['property_name'];
-						$data['basic_apt_'.$i]['property_search_name'] = $basic_apt[0]['property_search_name'];
-
 						$this->db->where('apt_id', $apt_id);
 						$this->db->where('is_available', 'Y');
 						$data['basic_apt_'.$i]['open_apts'] = $this->db->get('floorplans')->result_array();
+
+						if(count($data['basic_apt_'.$i]['open_apts']) > 0){
+							$this->db->where('ID', $apt_id);
+							$basic_apt = $this->db->get('apartment_main')->result_array();
+
+							$data['basic_apt_'.$i]['apt_id'] = $apt_id;
+							$data['basic_apt_'.$i]['property_name'] = $basic_apt[0]['property_name'];
+							$data['basic_apt_'.$i]['property_search_name'] = $basic_apt[0]['property_search_name'];
+						}else{
+							$data['basic_apt_'.$i]['open_apts'] = '';
+						}					
 
 						$i = ++$i;
 					}
@@ -688,17 +692,20 @@ class Apartment_model extends CI_Model {
 					if($key_b == 'apt_id'){
 						$apt_id = $value_b;
 
-						$this->db->where('ID', $apt_id);
-						$basic_apt = $this->db->get('apartment_main')->result_array();
-
-						$data['free_apt_'.$i]['apt_id'] = $apt_id;
-						$data['free_apt_'.$i]['property_name'] = $basic_apt[0]['property_name'];
-						$data['free_apt_'.$i]['property_search_name'] = $basic_apt[0]['property_search_name'];
-
 						$this->db->where('apt_id', $apt_id);
 						$this->db->where('is_available', 'Y');
 						$data['free_apt_'.$i]['open_apts'] = $this->db->get('floorplans')->result_array();
 
+						if(count($data['free_apt_'.$i]['open_apts']) > 0){
+							$this->db->where('ID', $apt_id);
+							$basic_apt = $this->db->get('apartment_main')->result_array();
+
+							$data['free_apt_'.$i]['apt_id'] = $apt_id;
+							$data['free_apt_'.$i]['property_name'] = $basic_apt[0]['property_name'];
+							$data['free_apt_'.$i]['property_search_name'] = $basic_apt[0]['property_search_name'];
+						}else{
+							$data['free_apt_'.$i]['open_apts'] = '';
+						}
 						$i = ++$i;
 					}
 				}
@@ -1217,6 +1224,41 @@ class Apartment_model extends CI_Model {
 		}else{
 			return 'N';
 		}
+	}
+
+	public function get_amenities($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$this->db->where('active', 'Y');
+		$our_amenities = $this->db->get('our_amenities_list')->result_array();
+
+		$data = array();
+
+		foreach ($our_amenities as $key => $value) {
+			$push_data['name'] = $value['name'];
+			$push_data['select_units'] = $value['select_units'];
+			$push_data['extra_fees'] = $value['extra_fees'];
+
+			array_push($data, $push_data);
+		}
+
+		$this->db->where('apt_id', $apt_id);
+		$this->db->where('active', 'Y');
+		$their_amenities = $this->db->get('their_amenities_list')->result_array();
+		foreach ($their_amenities as $key => $value) {
+			$push_data['name'] = $value['name'];
+			$push_data['select_units'] = $value['select_units'];
+			$push_data['extra_fees'] = $value['extra_fees'];
+
+			array_push($data, $push_data);
+		}
+
+		function comp_by_name($a, $b){
+			return strcmp($a['name'], $b['name']);
+		}
+
+		usort($data, 'comp_by_name');
+
+		return $data;
 	}
 
 }

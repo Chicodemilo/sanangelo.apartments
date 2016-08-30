@@ -118,72 +118,75 @@
 						if($open_basic_apt != false){
 							foreach ($open_basic_apt as $key => $value) {
 
-								echo "<tr><td colspan='2'><div class='left_link_box'>";
-								echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
-								echo "<span class='open_bold'>".$value['property_name']."</span>";
-								foreach ($value['open_apts'] as $key => $value) {
-									foreach ($value as $key_b => $value_b) {
-										if($key_b == 'bedroom'){
-											echo $value_b."bd";
-										}
-										if($key_b == 'bathroom'){
-											if($value_b == 1.00){$ba = 1;}
-											if($value_b == 1.50){$ba = 1.5;}
-											if($value_b == 2.00){$ba = 2;}
-											if($value_b == 2.50){$ba = 2.5;}
-											if($value_b == 3.00){$ba = 3;}
-											if($value_b == 3.50){$ba = 3.5;}
-											if($value_b == 4.00){$ba = 4;}
-											if($value_b == 4.50){$ba = 4.5;}
-											if($value_b == 5.00){$ba = 5;}
-											echo "/".$ba."ba";
-										}
-										if($key_b == 'square_footage'){
-											echo " &bull; ".$value_b." SqFt &bull; ";
-										}
-										if($key_b == 'rent'){
-											echo "$".$value_b."<br>";
+								if(count($value) > 1){
+									echo "<tr><td colspan='2'><div class='left_link_box'>";
+									echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<span class='open_bold'>".$value['property_name']."</span>";
+									foreach ($value['open_apts'] as $key => $value) {
+										foreach ($value as $key_b => $value_b) {
+											if($key_b == 'bedroom'){
+												echo $value_b."bd";
+											}
+											if($key_b == 'bathroom'){
+												if($value_b == 1.00){$ba = 1;}
+												if($value_b == 1.50){$ba = 1.5;}
+												if($value_b == 2.00){$ba = 2;}
+												if($value_b == 2.50){$ba = 2.5;}
+												if($value_b == 3.00){$ba = 3;}
+												if($value_b == 3.50){$ba = 3.5;}
+												if($value_b == 4.00){$ba = 4;}
+												if($value_b == 4.50){$ba = 4.5;}
+												if($value_b == 5.00){$ba = 5;}
+												echo "/".$ba."ba";
+											}
+											if($key_b == 'square_footage'){
+												echo " &bull; ".$value_b." SqFt &bull; ";
+											}
+											if($key_b == 'rent'){
+												echo "$".$value_b."<br>";
+											}
 										}
 									}
+									echo "</a>";
+									echo "</div></td></tr>";
 								}
-								echo "</a>";
-								echo "</div></td></tr>";
 							}
 						}
 
 						if(isset($open_free_apt)){
 							foreach ($open_free_apt as $key => $value) {
-
-								echo "<tr><td colspan='2'><div class='left_link_box'>";
-								echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
-								echo "<span class='open_bold'>".$value['property_name']."</span>";
-								foreach ($value['open_apts'] as $key => $value) {
-									foreach ($value as $key_b => $value_b) {
-										if($key_b == 'bedroom'){
-											echo $value_b."bd";
-										}
-										if($key_b == 'bathroom'){
-											if($value_b == 1.00){$ba = 1;}
-											if($value_b == 1.50){$ba = 1.5;}
-											if($value_b == 2.00){$ba = 2;}
-											if($value_b == 2.50){$ba = 2.5;}
-											if($value_b == 3.00){$ba = 3;}
-											if($value_b == 3.50){$ba = 3.5;}
-											if($value_b == 4.00){$ba = 4;}
-											if($value_b == 4.50){$ba = 4.5;}
-											if($value_b == 5.00){$ba = 5;}
-											echo "/".$ba."ba";
-										}
-										if($key_b == 'square_footage'){
-											echo " &bull; ".$value_b." SqFt &bull; ";
-										}
-										if($key_b == 'rent'){
-											echo "$".$value_b."<br>";
+								if(count($value) > 1){
+									echo "<tr><td colspan='2'><div class='left_link_box'>";
+									echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<span class='open_bold'>".$value['property_name']."</span>";
+									foreach ($value['open_apts'] as $key => $value) {
+										foreach ($value as $key_b => $value_b) {
+											if($key_b == 'bedroom'){
+												echo $value_b."bd";
+											}
+											if($key_b == 'bathroom'){
+												if($value_b == 1.00){$ba = 1;}
+												if($value_b == 1.50){$ba = 1.5;}
+												if($value_b == 2.00){$ba = 2;}
+												if($value_b == 2.50){$ba = 2.5;}
+												if($value_b == 3.00){$ba = 3;}
+												if($value_b == 3.50){$ba = 3.5;}
+												if($value_b == 4.00){$ba = 4;}
+												if($value_b == 4.50){$ba = 4.5;}
+												if($value_b == 5.00){$ba = 5;}
+												echo "/".$ba."ba";
+											}
+											if($key_b == 'square_footage'){
+												echo " &bull; ".$value_b." SqFt &bull; ";
+											}
+											if($key_b == 'rent'){
+												echo "$".$value_b."<br>";
+											}
 										}
 									}
+									echo "</a>";
+									echo "</div></td></tr>";
 								}
-								echo "</a>";
-								echo "</div></td></tr>";
 							}
 						}
 					 ?>
