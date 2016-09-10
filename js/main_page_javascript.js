@@ -58,6 +58,14 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window').slideUp('fast');
 	});
 
+	$('#little_link3').click(function(event) {
+		$('.most_viewed_window_map').slideDown('fast');
+	});
+
+	$('.most_viewed_window_map').mouseleave(function(event) {
+		$('.most_viewed_window_map').slideUp('fast');
+	});
+
 	$('.takeover_top_banner').delay(2000).slideDown(500).delay(3000).slideUp(150);
 
 	$('.sign_up_screen').delay(9000).slideDown(500);

@@ -388,7 +388,6 @@
 	<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>
 </div>
 
-
 <script>
 	jQuery(document).ready(function($) {
 		var bedroom_get = <?php if(isset($bedroom)){echo $bedroom;}else{ echo 0;} ?>;

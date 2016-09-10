@@ -75,6 +75,7 @@
 						?>
 						<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" /> 
 						<input type="hidden" name="apt_id" value="<?php echo $apt_id; ?>">
+						<input type="text" name="name" id="form_name" cols="30" rows="4" maxlength="10" value="">
 						<label for="email">Your Email Address:</label>
 						<input type="email" name="email" id="email" required="required" maxlength="70">
 						<label for="message">Your Message:</label>
@@ -170,9 +171,12 @@
 					}
 
 					$per_sq_ft = round(($value['rent']/$value['square_footage']), 2);
+					if($value['name'] == ''){
+						$value['name'] = 'The '.$value['bedroom'].' Bedroom';
+					}
 					
 					echo '<tr><td class="fp_name" colspan="12">'.$value['name'].'&nbsp;</td></tr>';
-					echo '<tr><td class="fp_data">Bed:</td><td class="fp_data">Bath:</td><td class="fp_data">SqFt:</td><td class="fp_data">Rent:</td><td class="fp_data">Deposit:</td><td class="fp_data">Rent Per SqFt:</td><td class="fp_data">Available:</td><td class="fp_data">Units Available:</td>';
+					echo '<tr><td class="fp_data">Bed:</td><td class="fp_data">Bath:</td><td class="fp_data">SqFt:</td><td class="fp_data">Rent:</td><td class="fp_data">Deposit:</td><td class="fp_data">Rent Per SqFt:</td><td class="fp_data">Units Available:</td>';
 					if($value['floorplan_pic'] != ''){
 						echo '<td class="fp_data_pic" id="show_fp_'.$value['id'].'">see<br>floorplan</td>';
 						echo '<div class="hidden_fp_pic" id="hidden_fp_pic_'.$value['id'].'">';
@@ -259,7 +263,7 @@
 					 	});
 					 </script>';
 
-					echo '</td><td class="fp_data bolder">'.$value['is_available'].'</td><td class="fp_data bolder">'.$value['units_available'].'</td>';
+					echo '</td><td class="fp_data bolder">'.$value['units_available'].'</td>';
 
 					if($value['floorplan_pic'] != ''){
 						echo '<td class="fp_data"></td>';
@@ -273,12 +277,13 @@
 				}
 				echo 	'</table>';
 				echo '<span class="apt_pg_mkt_data">San Angelo Average 1 Bed Rent: $'.$market_data['ave_one_bed_rent'].'&nbsp;&nbsp;&bull;&nbsp;&nbsp;Average 2 Bed Rent: $'.$market_data['ave_two_bed_rent'].'&nbsp;&nbsp;&bull;&nbsp;&nbsp;Average Rent Per SqFt For All Apts: $'.$market_data['ave_sq_ft'].'</span>';
-				echo 	'<div>';
 				echo '</div>';
 				echo '</div>';
 			}
 		 ?>
+		
 		<div class="apt_hour_amen">
+		
 			<div class="apt_amenities_pet">
 				<span class="amen_word">Amenities</span>
 					<ul class="amenlist">
@@ -298,31 +303,89 @@
 								echo '</li>';
 							}
 							if($select_yes != 'N'){
-								echo '<br><span class="in_select">&#42;In Select Units</span><br>';
+								echo '<br><span class="in_select">&#42;In Select Units</span>&nbsp;&nbsp;';
 							}
 							if($extra_yes != 'N'){
 								echo '<span class="extra_fees">&#43;Extra Fees May Apply</span>';
 							}
 						?>
 					</ul>
-				</div>
+					<hr>
+				<?php 
+					if($pets != 'N'){
+						echo '<span class="amen_word">Pets</span>';
+						echo '<div class="pet_info_div">';
+						if($pets['pet_type'] == 'No Pets Allowed'){
+							echo '<span class="bolder">'.$pets['pet_type']."</span><br>";
+							echo '<br><span class="pet_restrict">'.$pets['pet_restrictions'].'</span>';
+						}else{
+							echo '<span class="bolder">'.$pets['pet_type']."</span><br>";
+							echo 'Deposit:$'.$pets['pet_dep'].'<br>';
+							echo 'Refund Possible:$'.$pets['pet_refund'].'<br>';
+							echo '<br><span class="pet_restrict">'.$pets['pet_restrictions'].'</span>';
+						}
+
+						echo '<hr>';
+						echo '</div>';
+						
+					}
+
+
+
+				 ?>
+			</div>
 			<div class="apt_desc_hours">
-				<span class="off_word">Office Hours</span>
+				<?php 
+					if($logo != 'N'){
+						echo '<div class="logo_block">';
+						echo '<img src="'.base_url().'images/logos/property/'.$apt_id.'/'.$logo['name'].'">';
+						echo '</div>';
+					}
+
+					if($property_description != 'N'){
+						echo '<div class="desc_block">';
+						echo $property_description;
+						echo '</div>';
+						echo '<hr>';
+					}
+
+					if($hours != 'N'){
+						echo '<span class="off_word">Office Hours</span>';
+						echo '<div class="off_hour_block">';
+							foreach ($hours as $key => $value) {
+								if($value['open_min'] == 0){
+									$value['open_min'] = '00';
+								}
+								if($value['close_min'] == 0){
+									$value['close_min'] = '00';
+								}
+								echo '&bull;&nbsp;';
+								echo '<span class="bolder">'.$value['day_type'].'</span> ';
+								if($value['open_hour'] != 0 || $value['close_hour'] != 0){
+									echo $value['open_hour'].':'.$value['open_min'].$value['open_am_pm'].' - '.$value['close_hour'].':'.$value['close_min'].$value['close_am_pm'].' ';
+								}
+								echo '&nbsp;'.$value['day_condition'];
+								
+								echo '<br>';
+							}
+						echo '</div>';
+					}
+				 ?>
 			</div>
 		</div>
+	</div><!--  end body_wrapper -->
 
+</div><!-- end inner_main_bg -->
+	<div class="apt_footer">
+		<div class="footer_bold">To Advertise On SANANGELO.APARTMENTS<br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=SANANGELO.APARTMENTS%20Contact">EMAIL</a></div>
+		<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
+		&nbsp;&bull;&nbsp;
+		<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>
 	</div>
-</div>
 
 
 
 
-<div class="apt_footer">
-	<div class="footer_bold">To Advertise On SANANGELO.APARTMENTS<br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=SANANGELO.APARTMENTS%20Contact">EMAIL</a></div>
-	<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
-	&nbsp;&bull;&nbsp;
-	<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>
-</div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn87Zc_6XoEGDPiAZM9WBofRLNaNOX6bU&callback=initMap"
     type="text/javascript"></script>
@@ -334,6 +397,7 @@
 
           geocoder.geocode( { 'address': address}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
+              	var image = '<?php echo base_url() ?>images/map_icon.svg';
                 var mapOptions = {
                   zoom: 14,
                   scrollwheel: false,
@@ -346,11 +410,14 @@
                 var map = new google.maps.Map(document.getElementById('apt_map'), mapOptions);
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
+                    animation: google.maps.Animation.DROP,
                     map: map,
                     position: results[0].geometry.location,
-                    title: "<?php echo $property_name ?>"
+                    title: "<?php echo $property_name ?>",
+
+                    icon: image,
                 });
-                var contentString = "<h3><?php echo $property_name ?></h3>"+"<p>"+"<?php echo $property_address ?>"+" "+"<?php echo $property_city ?>"+", "+"<?php echo $property_state ?>"+"</p>"+"<h3>"+"<?php echo $property_phone ?>"+"</h3>";
+                var contentString = "<h4><?php echo $property_name ?></h4>"+"<p>"+"<?php echo $property_address ?>"+" "+"<?php echo $property_city ?>"+", "+"<?php echo $property_state ?>"+"</p>";
 
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString

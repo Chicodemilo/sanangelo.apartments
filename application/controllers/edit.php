@@ -452,7 +452,9 @@ class Edit extends CI_Controller {
     public function submit_pets(){
         $data = $_POST;
         $data['apt_id'] = $this->session->userdata('apt_id');
-        $this->db->empty_table('pet_policy');
+        $this->db->where('apt_id', $data['apt_id']);
+        $this->db->delete('pet_policy');
+        
         $this->db->insert('pet_policy', $data);
         redirect(base_url().'edit/pets');
     }

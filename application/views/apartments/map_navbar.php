@@ -1,59 +1,3 @@
-<div class="nav_bar_pics">
-	<div class="inner_pics" id="inner_pic1">
-		<div class="inner_pic_name">
-			<?php echo $pos_1['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_1['property_search_name'].'/'.$pos_1['ID'] ?>">
-			<img src="
-				<?php
-					if($pos_1['picture_id'] !== 'generic'){
-						echo base_url();
-						echo 'images/pictures/'.$pos_1['ID'].'/'.$pos_1['picture_id'].'/'.$pos_1['picture_name']; 
-					}else{
-						echo base_url();
-						echo 'images/'.$pos_1['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
-	</div>
-	<div class="inner_pics" id="inner_pic2">
-		<div class="inner_pic_name">
-			<?php echo $pos_2['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_2['property_search_name'].'/'.$pos_2['ID'] ?>">
-			<img src="
-				<?php
-					if($pos_2['picture_id'] == 'generic'){
-						echo base_url();
-						echo 'images/'.$pos_2['picture_name'];
-					}else{ 
-						echo base_url();
-						echo 'images/pictures/'.$pos_2['ID'].'/'.$pos_2['picture_id'].'/'.$pos_2['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
-	</div>
-	<div class="inner_pics" id="inner_pic3">
-		<div class="inner_pic_name">
-			<?php echo $pos_3['property_name'];?>
-		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_3['property_search_name'].'/'.$pos_3['ID'] ?>">
-			<img src="
-				<?php
-					if($pos_3['picture_id'] !== 'generic'){
-						echo base_url();
-						echo 'images/pictures/'.$pos_3['ID'].'/'.$pos_3['picture_id'].'/'.$pos_3['picture_name']; 
-					}else{
-						echo base_url();
-						echo 'images/'.$pos_3['picture_name']; 
-					}
-					
-				?>" alt="">
-		</a>
-	</div>
-</div>
 <div class="navbar">
 	<div class="inner_navbar">
 		<a href="<?php echo base_url(); ?>">
@@ -71,7 +15,7 @@
 			</a>
 			<div class="little_links" id="little_link3">
 				<img src="<?php echo base_url(); ?>images/trending.svg" alt="trending icon">
-				<div class="most_viewed_window">
+				<div class="most_viewed_window_map">
 				<table class="most_viewed_table">
 					<th colspan="2">MOST VIEWED APARTMENTS</th>
 					<?php 
@@ -99,7 +43,7 @@
 			</a>
 			<div id="navbar_search_window">
 
-					<form action=" <?php echo base_url(); ?>main/find_apts" method="GET">
+					<form action=" <?php echo base_url(); ?>main/find_apts_map" method="GET">
 							<?php 
 								$csrf = array(
 						        'name' => $this->security->get_csrf_token_name(),

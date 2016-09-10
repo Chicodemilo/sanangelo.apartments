@@ -4,6 +4,22 @@
 	</div>
 </div>
 
+<?php 
+	if($special != 'N'){
+		echo "<div class='special_box'>";
+		echo "<span class='spec_title'>".$special[0]['title']."</span>";
+		echo "<hr>";
+		echo "<span class='spec_desc'>".$special[0]['description']."</span>";
+		echo "<hr>";
+		echo "<span class='spec_cond'>";
+		echo $special[0]['condition_1']."<br>".$special[0]['condition_2']."<br>".$special[0]['condition_3']."<br>".$special[0]['condition_4']." ";
+		echo "</span>";
+		echo "</div>";
+	}
+
+
+ ?>
+
 <div class="nav_bar_pics">
 
 	<div class="apt_page_header_pic">

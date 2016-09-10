@@ -69,8 +69,21 @@ class Main extends CI_Controller {
 
 
 	public function map(){
-		echo "map";
 		$this->load->model('apartment_model');
+
+		$top_of_nav = $this->apartment_model->get_top_of_nav();
+
+		$top_of_nav['viewed'] = $this->apartment_model->get_views();
+
+		$map_page_data['all_apartments'] = $this->apartment_model->get_all_apartments();
+
+		$map_page_data['apt_count'] = count($map_page_data['all_apartments']);
+
+		$this->load->view('apartments/map_header');
+		$this->load->view('apartments/map_navbar', $top_of_nav);
+		$this->load->view('apartments/map_body', $map_page_data);
+		$this->load->view('apartments/main_page_footer');
+
 	}
 
 
@@ -86,6 +99,8 @@ class Main extends CI_Controller {
 			$header_data['property_name'] = $main_data[0]['property_name'];
 			$header_data['property_slogan'] = $main_data[0]['property_slogan'];
 			$header_data['apt_id'] = $main_data[0]['ID'];
+
+			$top_of_nav['special'] = $this->apartment_model->get_special_info($apt_id);
 
 			$free = $this->apartment_model->get_sales_level($apt_id);
 
@@ -103,6 +118,17 @@ class Main extends CI_Controller {
 			$main_page_data['floorplans'] = $this->apartment_model->get_floorplans($apt_id);
 
 			$main_page_data['amenities'] = $this->apartment_model->get_amenities($apt_id);
+
+			$main_page_data['hours'] = $this->apartment_model->get_hours($apt_id);
+
+			$main_page_data['logo'] = $this->apartment_model->get_logo($apt_id);
+
+			$main_page_data['pets'] = $this->apartment_model->get_pet_policy($apt_id);
+
+
+			if($main_page_data['property_description'] == ''){
+				$main_page_data['property_description'] = 'N';
+			}
 			
 			if($main_page_data['open_takeover_apt'] != '' && $free == 'Y'){
 				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
@@ -135,18 +161,25 @@ class Main extends CI_Controller {
 		$this->load->model('apartment_model');
 
 		date_default_timezone_set('US/Central');
+		$honey_pot = $_POST['name'];
 	    $data['email'] =  $_POST['email'];
 		$data['message'] =  $_POST['message'];
 		$data['apt_id'] =  $_POST['apt_id'];
 		$data['time'] = date('Y-m-d h:i:s');
 
-		$this->db->insert('contact', $data);
+		if($honey_pot == ''){
+			$this->db->insert('contact', $data);
 
-		$data['free'] = $this->apartment_model->get_sales_level($_POST['apt_id']);
+			$data['free'] = $this->apartment_model->get_sales_level($_POST['apt_id']);
+			
+			$this->apartment_model->send_contact_email($data);
+
+			return true;
+		}else{
+			return false;
+		}
+
 		
-		$this->apartment_model->send_contact_email($data);
-
-		return true;
 		
 
 	 
@@ -243,6 +276,110 @@ class Main extends CI_Controller {
 
 				$main_page_data['apt_count'] = $i;
 				$this->load->view('apartments/main_body', $main_page_data);
+				
+			}else{
+				$this->load->view('apartments/no_results');
+			}
+			
+			$this->load->view('apartments/main_page_footer');
+		}else{
+			redirect('');
+		}
+	}
+
+
+
+	public function find_apts_map(){
+		if(count($_GET) > 0){
+			$this->load->model('apartment_model');
+			$top_of_nav = $this->apartment_model->get_top_of_nav();
+
+			$top_of_nav['viewed'] = $this->apartment_model->get_views();
+
+			$main_page_data['market_data'] = $this->apartment_model->get_market_data();
+
+			$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
+			$main_page_data['open_basic_apt'] = $this->apartment_model->get_open_basic_apt();
+
+			if($main_page_data['open_takeover_apt'] != ''){
+				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+				$top_of_nav['background_data']['takeover_top'] = '';
+			}else{
+				$top_of_nav['background_data'] = 'N';
+			}
+
+			if(!$main_page_data['open_basic_apt']){
+				$main_page_data['open_free_apt'] = $this->apartment_model->get_open_free_apt();
+				$main_page_data['open_basic_apt'] = false;
+			}
+
+			$main_page_data['special_takeover'] = $this->apartment_model->get_special_takeover();
+			if(!$main_page_data['special_takeover']){
+				$main_page_data['special_takeover'] = false;
+			}
+			$main_page_data['special_basic'] = false;
+			$main_page_data['special_free'] = false;
+
+			$main_page_data['special_basic'] = $this->apartment_model->get_special_basic();
+
+
+			if(!$main_page_data['special_basic']){
+				$main_page_data['special_free'] = $this->apartment_model->get_special_free();
+				if(!$main_page_data['special_free']){
+					$main_page_data['special_free'] = false;
+				}
+				$main_page_data['special_basic'] = false;
+			}
+
+			$main_page_data['all_apartments'] = $this->apartment_model->get_these_apts($_GET);
+			$main_page_data['bedroom'] = $_GET['bedroom'];
+			$main_page_data['bathroom'] = $_GET['bathroom'];
+			$main_page_data['min_rent'] = $_GET['min-rent'];
+			$main_page_data['max_rent'] = $_GET['max-rent'];
+			if(isset($_GET['pets'])){
+				$main_page_data['pets'] = $_GET['pets'];
+			}
+			if(isset($_GET['pool'])){
+				$main_page_data['pool'] = $_GET['pool'];
+			}
+			if(isset($_GET['gated'])){
+				$main_page_data['gated'] = $_GET['gated'];
+			}
+			if(isset($_GET['fitness'])){
+				$main_page_data['fitness'] = $_GET['fitness'];
+			}
+			if(isset($_GET['wd'])){
+				$main_page_data['wd'] = $_GET['wd'];
+			}
+			if(isset($_GET['clubhouse'])){
+				$main_page_data['clubhouse'] = $_GET['clubhouse'];
+			}
+			if(isset($_GET['furnished'])){
+				$main_page_data['furnished'] = $_GET['furnished'];
+			}
+			if(isset($_GET['seniors'])){
+				$main_page_data['seniors'] = $_GET['seniors'];
+			}
+			if(isset($_GET['covered'])){
+				$main_page_data['covered'] = $_GET['covered'];
+			}
+			if(isset($_GET['laundry'])){
+				$main_page_data['laundry'] = $_GET['laundry'];
+			}
+
+			$i =0;
+			if($main_page_data['all_apartments'] != ''){
+				foreach ($main_page_data['all_apartments'] as $key => $value) {
+				$i = ++$i;
+				}
+			}
+
+			$this->load->view('apartments/map_header');
+			$this->load->view('apartments/map_navbar', $top_of_nav);
+			if($i > 0){
+
+				$main_page_data['apt_count'] = $i;
+				$this->load->view('apartments/map_body', $main_page_data);
 				
 			}else{
 				$this->load->view('apartments/no_results');

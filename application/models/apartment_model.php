@@ -1261,6 +1261,75 @@ class Apartment_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_hours($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$this->db->order_by('hours_order', 'asc');
+		$data = $this->db->get('office_hours')->result_array();
+
+		if(count($data) > 0){
+			return $data;
+		}else{
+			$data = 'N';
+			return $data;
+		}
+	}
+
+	public function get_logo($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$this->db->where('logo', 'Y');
+		$data = $this->db->get('pictures')->result_array();
+
+		if(count($data) > 0){
+			$return_data['logo_id'] = $data[0]['id'];
+			$return_data['name'] = $data[0]['name'];
+		}else{
+			$return_data = 'N';
+		}
+
+		return $return_data;
+	}
+
+	public function get_pet_policy($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$data = $this->db->get('pet_policy')->result_array();
+
+		if(count($data) > 0){
+			$return_data['pet_type'] = $data[0]['type'];
+			$return_data['pet_dep'] = $data[0]['pet_deposit'];
+			$return_data['pet_refund'] = $data[0]['pet_deposit_refundable'];
+			$return_data['pet_restrictions'] = $data[0]['restrictions'];
+		}else{
+			$return_data = 'N';
+		}
+
+		return $return_data;
+	}
+
+	public function get_special_info($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$result_spec = $this->db->get('special')->result_array();
+		
+		if((count($result_spec) > 0)){
+			$end_date = $result_spec[0]['end'];
+			$start_date = $result_spec[0]['start'];
+			$now = date('Y-m-d');
+
+			$this->db->where('ID', $apt_id);
+			$result = $this->db->get('apartment_main')->result_array();
+
+			if(($end_date > $now) && ($start_date <= $now)){
+					$data = $result_spec;
+					return $data;
+				}else{
+					$data = 'N';
+					return $data;
+				}
+			}else{
+				$data = 'N';
+				return $data;
+			}
+	}
+
 }
 
 

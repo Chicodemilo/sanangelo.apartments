@@ -327,6 +327,20 @@ hr {
     z-index:300;
 }
 
+.most_viewed_window_map{
+    display:none;
+    position: absolute;
+    top:0px;
+    left:calc(50% + 100);
+    width:280px;
+    background:rgba(255, 255, 255, 0.85);
+    border:1px solid #C6C6C6;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    overflow:hidden;
+    font-size:.8em;
+    z-index:300;
+}
+
 .most_viewed_table {
     margin:0;
     width:100%;
@@ -405,7 +419,7 @@ hr {
 }
 
 .nav_prop_name{
-    width:calc(100% - 80);
+    width:calc(100% - 350px);
     position:absolute;
     top:70px;
     left:100px;
@@ -428,6 +442,51 @@ hr {
     text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
 }
 
+.special_box{
+    width: 250px;
+    height: 349px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+    z-index: 1000;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow: hidden;
+}
+
+
+.special_box hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+
+
+.spec_title{
+    font-family:'Oswald', sans-serif;
+    font-size: 1.9em;
+    line-height: 1.2em;
+    color: #0071C3;
+}
+
+.spec_desc{
+    font-family: 'Verdana', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.3em;
+    color: #595959;
+    display: block;
+    text-align: justify;
+}
+
+.spec_cond{
+    font-size: .75em;
+    line-height: 1.2em;
+    color: #5B5B5B;
+    font-family: "Verdana", sans-serif;
+}
+
 /******************************** MAIN BACKGROUND  ***************************/
 
 
@@ -435,7 +494,6 @@ hr {
     margin-top:400px;
     z-index:100;
     max-width:1250px;
-    height:900px;
     margin:auto;
     position:relative;
 }
@@ -479,7 +537,7 @@ hr {
 .body_wrapper{
     box-sizing:border-box;
     width:870px;
-    min-height: 900px;
+    min-height: 910px;
     margin:auto;
     box-shadow:0px 0px 15px rgba(100, 100, 100, 0.8);
     background:white;
@@ -489,14 +547,14 @@ hr {
 }
 
 .left_col{
-    width:270px;
+    width:230px;
     height:700px;
     float:left;
 }
 
 .search_results_box{
-    width:560px;
-    height:862px;
+    width:600px;
+    height:882px;
     float:right;
     border:1px solid #C2C2C2;
     padding:3px;
@@ -514,21 +572,21 @@ hr {
 
 .left_tab th{
     background:white;
-    color:black;
+    color:#858585;
     padding:4px;
-    font-size:13px;
+    font-size:12.5px;
     text-align:left;
     font-weight:normal;
     letter-spacing: .2em;
 }
 
 .left_tab td{
-    font-size:11.5px;
-    background: #F0F2F3; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#E2E5E6, white);  /*For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#E2E5E6, white);  /*For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#E2E5E6, white);  /*For Firefox 3.6 to 15 */
-    background: linear-gradient(#E2E5E6, white);  /*Standard syntax */
+    font-size:11px;
+    background: #DDE1E2; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#DDE1E2, white);  /*For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#DDE1E2, white);  /*For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#DDE1E2, white);  /*For Firefox 3.6 to 15 */
+    background: linear-gradient(#DDE1E2, white);  /*Standard syntax */
     padding:3px;
     padding-top:7px;
     padding-bottom:7px;
@@ -562,7 +620,7 @@ hr {
 #fixed_head{
     border-collapse: collapse;
     position:absolute;
-    width:267px;
+    width:227px;
     padding-bottom: 5px;
 }
 
@@ -598,31 +656,32 @@ hr {
     height:100%;
     transition:0.1s;
     padding:1px;
-    color:#415260;
+    color:#4F6A88;
 }
 
 .left_link_box a:visited {
-    color:#415260;
+    color:#4F6A88;
 }
 
 .left_link_box a:hover {
-    color:#5F8EA8;
+    color:#6589B0;
     font-size:1.02em;
 }
 
 .left_link_box a:active {
-    color:#70B9E6;
+    color:#73A4E2;
 }
 
 .pic_box{
     box-sizing:border-box;
     width:100%;
-    height:320px;
+    height:340px;
     background:#F8EEE9;
     z-index:-100;
     padding:20px;
     color:white;
     font-family:'Oswald', sans-serif;
+    background-position: center; 
 }
 
 .pic_box hr {
@@ -682,8 +741,8 @@ hr {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size:.9em;
-    line-height: 1.3em;
+    font-size:.95em;
+    line-height: 1.6em;
     letter-spacing:.05em;
     padding:5px;
     border-top: 3px solid white;
@@ -821,11 +880,6 @@ hr {
     min-height:200px;
 }
 
-.apt_floorplans_pics{
-    display:inline-block;
-    min-height:300px;
-    border-left:1px solid #C9C9C9;
-}
 .fp_table{
     margin-top:40px;
     margin-left:30px;
@@ -994,6 +1048,10 @@ hr {
     line-height:1.1em;
 }
 
+#form_name{
+    display: none;
+}
+
 #contact_form input[type=email]{
     height:30px;
     width:260px;
@@ -1023,44 +1081,199 @@ hr {
 }
 
 .apt_hour_amen{
-    width:100%;
-    min-height:200px;
-    border-bottom:1px solid #D3D3D3;
-    margin-bottom:100px;
     box-sizing: border-box;
 }
 
 .apt_amenities_pet{
-    width: 50%;
-    min-height: 200px;
+    width: 47%;
+    margin-right: 4%;
     display: inline-block;
-    background: #FFF6EE;
     box-sizing: border-box;
     padding: 10px;
+    vertical-align: top;
 }
 
 .apt_desc_hours{
-    width: 49%;
-    min-height: 200px;
-    background: #EBFFF6;
+    width: 47%;
     display: inline-block;
-    border-left:1px solid #D3D3D3;
     box-sizing: border-box;
     padding: 10px;
+    vertical-align: top;
 }
 
 .amen_word{
     font-family:'Lobster', sans-serif;
     font-size:2em;
     color:#8DA5B3;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.amenlist{
+    font-family: 'Verdana', sans-serif;
+    font-size: 1em;
+}
+
+.amenlist li{
+    line-height: 1.4em;
 }
 
 .off_word{
     font-family:'Lobster', sans-serif;
     font-size:2em;
     color:#8DA5B3;
+    display: block;
+    margin-bottom: 10px;
 }
 
+.extra_fees{
+    font-family: 'Verdana', sans-serif;
+    font-size: .7em;
+}
+
+.in_select{
+    font-family: 'Verdana', sans-serif;
+    font-size: .7em;
+}
+
+.pet_info_div{
+    padding-left: 10px;
+    font-size: .85em;
+    line-height: 1.7em;
+}
+
+.pet_restrict{
+    font-size: .8em;
+    line-height: 1.1em;
+}
+
+.off_hour_block{
+    font-family: 'Verdana', sans-serif;
+    font-size: .85em;
+    line-height: 2em;
+    padding-left: 15px;
+}
+
+.desc_block{
+    font-family: 'Verdana', sans-serif;
+    font-size: .95em;
+    line-height: 1.8em;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 15px;
+}
+
+.logo_block{
+    width: 100%;
+    height: 150px;
+}
+
+.logo_block img{
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+
+/******************************** SUPER MAP ***************************/
+.super_map{
+    width: 100%;
+    margin: auto;
+    height: calc(100vh - 50px);
+    position: fixed;
+    top: -20px;
+    left: 0px;
+}
+
+.search_results_box_map{
+    width:310px;
+    height:9vh;
+    padding:3px;
+    position: absolute;
+    left: 3px;
+    top: 52px;
+    z-index: 200;
+}
+
+.search_param_box_map{
+    font-family:'Oswald', sans-serif;
+    box-sizing:border-box;
+    color:white;
+    width:100%;
+    background:#5D8BB4;
+    font-size:.85em;
+    line-height: 1.9em;
+    letter-spacing:.05em;
+    padding:5px;
+    border-top: 4px solid white;
+    border-bottom: 4px solid white;
+}
+
+.search_param_bold_map{
+    font-size:1.4em;
+    line-height:1.6em;
+    font-weight:bold;
+    color:#FEC063;
+}
+
+.inner_table_1_map{
+    width:100%;
+    border-top:1px solid #C8C8C8;
+    border-bottom:1px solid #C8C8C8;
+    background:#CBD8E6;
+    transition:0.2s;
+    cursor:pointer;
+}
+
+.inner_table_1_map:hover{
+    background:#E0E8F1;
+    border-top:1px solid #A8B4DA;
+    border-bottom:1px solid #A8B4DA;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6);
+}
+
+#inner_table_map td{
+    box-sizing:border-box;
+    padding:4px;
+}
+
+#table_pic_box_map{
+    width:50px;
+    height:60px;
+}
+
+#table_pic_box_map img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.table_name_map{
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:.05em;
+    color:white;
+    text-shadow:0px 0px 10px rgba(73, 137, 201, 0.7);
+    font-family:'Oswald', sans-serif;
+    padding-left: 10px;
+}
+
+
+.map_info_link{
+    font-family:'Oswald', sans-serif;
+    font-size:1.2em;
+    letter-spacing:.05em;
+}
+
+
+.table_little_map{
+    font-size:.7em;
+    letter-spacing:.05em;
+    color:#505050;
+    padding-left: 10px;
+    position:relative;
+    top:-5px;
+}
 
 /******************************** FOOTER ***************************/
 
@@ -1079,17 +1292,17 @@ hr {
 }
 
 .apt_footer{
-    position: relative;
     box-sizing:border-box;
     font-size:.82em;
     padding:10px;
     width:100vw;
     height:110px;
     color:white;
+    background:#383838;
     z-index:200;
     line-height:1.6em;
     font-family:'Oswald', sans-serif;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .footer_bold{
