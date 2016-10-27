@@ -8,8 +8,11 @@
 			); 
 		?>
 		<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
-		<label for="username">Email</label>
+		<label for="username">Username</label>
 		<input type="text" value="<?php echo set_value('username'); ?>" name="username" id="username" maxlength="50">
+		<br>
+		<label for="email">Email</label>
+		<input type="email" value="<?php echo set_value('email'); ?>" name="email" id="email" maxlength="50">
 		<br>
 		<label for="password">Password</label>
 		<input type="password" name="password" id="password" maxlength="18">

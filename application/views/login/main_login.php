@@ -8,7 +8,7 @@
 			); 
 		?>
 		<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
-		<label for="username">Email</label>
+		<label for="username">Username</label>
 		<input type="text" value="<?php echo set_value('username'); ?>" name="username" id="username" maxlength="50">
 		<br>
 		<label for="password">Password</label>

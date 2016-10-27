@@ -26,6 +26,7 @@ class Edit extends CI_Controller {
 // INDEX *********************************************************************************
 
    	public function index($apt_id = 0){
+        $user_role = $this->session->userdata('role');
         $user_id = $this->session->userdata('user_id');
         $apt_id = $this->session->userdata('apt_id');
 
@@ -47,7 +48,9 @@ class Edit extends CI_Controller {
 
         $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/edit_page.php', $data);
-        $this->load->view('edit/footer.php');
+        $this->load->view('edit/footer.php'); 
+        
+        
     }
 
 
@@ -145,6 +148,8 @@ class Edit extends CI_Controller {
 
     public function create_their_amenities(){
         $data = $_POST;
+        $data['select_units'] = 'N';
+        $data['extra_fees'] = 'N';
         $data['apt_id'] = $this->session->userdata('apt_id');
         $this->db->insert('their_amenities_list', $data);
         redirect(base_url().'edit/amenities');
@@ -376,7 +381,9 @@ class Edit extends CI_Controller {
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '4048';
         $config['max_width']  = '4024';
-        $config['max_height']  = '1868';
+        $config['max_height']  = '4000';
+        $config['min_width']  = '300';
+        $config['min_height']  = '300';
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload())
@@ -504,6 +511,22 @@ class Edit extends CI_Controller {
         $this->db->delete('special');
 
         $this->db->insert('special', $data);
+
+        $this->load->library('email');
+        $this->email->clear();
+        $this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+        $this->email->to('miles@bayrummedia.com');
+        $this->email->subject('User Made A Special On SANANGELO.APARTMENTS');
+        $this->email->message(
+                            'Username: '.$this->session->userdata('username').
+                            '<br>Apartment Name: '.$this->session->userdata('property_name').
+                            '<br>Special Name: '.$data['title'].
+                            '<br>Special Description: '.$data['description'].
+                            '<br>Special Start: '.$data['start'].
+                            '<br>Special End: '.$data['end']
+                            );
+        $sent = $this->email->send();
+
         redirect(base_url().'edit/specials');
     }
 
@@ -642,6 +665,7 @@ public function pictures(){
         $this->load->model('edit_model', 'pictures');
         $data['pictures']= $this->pictures->get_pictures($apt_id)->result_array();
         $data['logo']= $this->pictures->get_logo($apt_id)->result_array();
+        $data['man_logo']= $this->pictures->get_man_logo($apt_id)->result_array();
         $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/pictures.php', $data);
         $this->load->view('edit/footer.php');
@@ -728,8 +752,8 @@ public function do_upload_picture(){
         $config['max_size'] = '3000';
         $config['max_width']  = '10000';
         $config['max_height']  = '10000';
-        $config['min_width'] = '500';
-        $config['min_height'] = '500';
+        $config['min_width'] = '400';
+        $config['min_height'] = '400';
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload())
@@ -869,8 +893,8 @@ public function do_upload_logo(){
     $config['max_size'] = '3048';
     $config['max_width']  = '6024';
     $config['max_height']  = '6068';
-    $config['min_width'] = '300';
-    $config['min_height'] = '300';
+    $config['min_width'] = '250';
+    $config['min_height'] = '130';
     $this->load->library('upload', $config);
 
     if ( ! $this->upload->do_upload())
@@ -911,7 +935,88 @@ public function logo_delete($id){
     redirect(base_url().'edit/pictures', 'refresh');
 }
 
+public function man_logo_upload(){
+        $apt_id = $this->session->userdata('apt_id');
 
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $data = array('error' => '');
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/upload_man_logo', $data);
+        $this->load->view('edit/footer.php');
+}
+
+
+public function do_upload_man_logo(){
+    $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+    $this->db->where('apt_id', $apt_id);
+    $this->db->delete('man_logo');
+    $this->load->helper('file');
+    delete_files('./images/logos/management/'.$apt_id);
+
+    if(!is_dir('./images/logos/management/'.$apt_id)){
+            mkdir('./images/logos/management/'.$apt_id, 0777, true);
+        }
+                
+        $config['upload_path'] = './images/logos/management/'.$apt_id;
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '2048';
+        $config['max_width']  = '12024';
+        $config['max_height']  = '12024';
+        $config['min_width'] = '50';
+        $config['min_height'] = '50';
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload())
+        {
+            $data['error'] = $this->upload->display_errors();
+            $data['apt_id'] = $apt_id;
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/upload_man_logo', $data);
+            $this->load->view('edit/footer.php');
+        }
+        else
+        {   
+            $data = array('upload_data' => $this->upload->data());
+
+            $file_name = $data['upload_data']['file_name'];
+            $data_b['name'] = $file_name;
+            $data_b['apt_id'] = $apt_id;
+
+            // $this->db->where('apt_id', $apt_id);
+            $this->db->insert('man_logo', $data_b);     
+            redirect(base_url().'edit/pictures/');
+        }
+}
+
+
+public function man_logo_delete(){
+    $apt_id = $this->session->userdata('apt_id');
+    $this->load->helper('file');
+    $this->db->where('apt_id', $apt_id);
+    $this->db->delete('man_logo');
+    delete_files('./images/logos/management/'.$apt_id);
+    redirect(base_url().'edit/pictures', 'refresh');
+}
 
 // MESSAGES *******************************************************************************
 

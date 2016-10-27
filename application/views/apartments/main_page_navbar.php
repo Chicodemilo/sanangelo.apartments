@@ -59,6 +59,8 @@
 		<a href="<?php echo base_url(); ?>">
 			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
 		</a>
+		<a class="blog_link" href="<?php echo base_url(); ?>main/blog"><span class='mob_hide'>SEE OUR </span>BLOG</a>
+		
 		<div class="navbar_links">
 			<div class="little_links" id="little_link1">
 				<img src="<?php echo base_url(); ?>images/search.svg" alt="search icon">
@@ -71,7 +73,15 @@
 			</a>
 			<div class="little_links" id="little_link3">
 				<img src="<?php echo base_url(); ?>images/trending.svg" alt="trending icon">
-				<div class="most_viewed_window">
+
+			</div>
+			<a href="http://www.facebook.com/therentersanangelo" target="blank">
+				<div class="little_links" id="little_link4">
+					<img src="<?php echo base_url(); ?>images/fb.svg" alt="facebook icon">
+				</div>
+			</a>
+			<div class="most_viewed_window">
+
 				<table class="most_viewed_table">
 					<th colspan="2">MOST VIEWED APARTMENTS</th>
 					<?php 
@@ -88,15 +98,10 @@
 							echo "</tr>";
 						}
 					 ?>
-					 <td colspan="2" class="table_disclaim">*view counts reset monthly</td>
+					 <td colspan="2" class="table_disclaim">*view counts reset monthly<span class='most_viewed_closer'><a href="#">close</a></span></td>
 				</table>
+				
 			</div>
-			</div>
-			<a href="http://www.facebook.com/therentersanangelo" target="blank">
-				<div class="little_links" id="little_link4">
-					<img src="<?php echo base_url(); ?>images/fb.svg" alt="facebook icon">
-				</div>
-			</a>
 			<div id="navbar_search_window">
 
 					<form action=" <?php echo base_url(); ?>main/find_apts" method="GET">

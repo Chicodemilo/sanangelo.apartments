@@ -8,18 +8,20 @@ class Model_user extends CI_Model {
 
 	public function insert_user(){
 		$username = $this->input->post('username');
-		$email = $this->input->post('username');
+		$email = $this->input->post('email');
 		$role = 'User';
 		$verified = 'N';
 		$date = date('Y-m-d H:i:s');
 		$get_messages = 'Y';
 		$password = $this->input->post('password');
+		$temp_pw = $this->input->post('password');
 
 		$password = hash('sha256', $password.SALT);
 
-		$sql = "INSERT INTO users (username, password, email, role, verified, last_login, get_messages) 
+		$sql = "INSERT INTO users (username, password, temp_pw, email, role, verified, last_login, get_messages) 
 		VALUES ('".$username."',
 				'".$password."',
+				'".$temp_pw."',
 				'".$email."',
 				'".$role."',
 				'".$verified."',
@@ -27,30 +29,15 @@ class Model_user extends CI_Model {
 				'".$get_messages."')
 		";
 
-		$this->load->library('email');
-		$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
-		$this->email->to('miles@bayrummedia.com');
-		$this->email->subject('SANANGELO.APARTMENTS: New User Created');
-		$this->email->message('New User: '.$username.'.  Created At: '.$date);
-
 		$result = $this->db->query($sql);
 
 		if ($this->db->affected_rows() == 1){
 
-			return $username;
+			$data = ['username' => $username, 'email' => $email, 'date' => $date];
+			return $data;
 
 		}else{
-			$this->load->library('email');
-			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
-			$this->email->to('miles@bayrummedia.com');
-			$this->email->subject('SANANGELO.APARTMENTS: Problem Inserting User Into Database');
 
-			if (isset($username)){
-				$this->email->message('Unable to register and insert user: '.$username);
-			}else{
-				$this->email->message('Unable to register and insert a user');
-			}
-			$this->email->send();
 			return false;
 		}
 
@@ -62,13 +49,8 @@ class Model_user extends CI_Model {
 		$result = $this->db->get('users')->result_array();
 		$result = $this->security->xss_clean($result);
 
-		if($this->db->affected_rows() == 1){
-			$valid = $result[0]['verified'];
-			if($valid == 'Y'){
-				return $result;
-			}else{
-				return false;
-			}
+		if($this->db->affected_rows() == 1 && $result[0]['verified'] == 'Y'){
+			return $result;
 		}else{
 			return false;
 		}
@@ -105,8 +87,8 @@ class Model_user extends CI_Model {
 		$temp_pw = RandomString(8);
 
 		$this->db->where('username', $username);
-		$this->db->where('verified', 'Y');
 		$found_user = $this->db->get('users')->result_array();
+		$email = $found_user[0]['email'];
 
 		if($found_user){
 			$data['password'] = hash('sha256', $temp_pw.SALT);
@@ -116,7 +98,7 @@ class Model_user extends CI_Model {
 
 			$this->load->library('email');
 			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
-			$this->email->to($username);
+			$this->email->to($email);
 			$this->email->subject('SANANGELO.APARTMENTS: Password Reset');
 			$this->email->message('Your temporary password is: '.$temp_pw.'  We recommend resetting your password once you are back in.');
 			$sent = $this->email->send();

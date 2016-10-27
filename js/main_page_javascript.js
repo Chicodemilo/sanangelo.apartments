@@ -3,12 +3,21 @@ jQuery(document).ready(function($) {
 
 
 	$(window).scroll(function(){
-        		var scrollTop = 350;
+        		if($(window).width() > 900){
+        				var topper = '0';
+        				var scrollTop = 350;
+        			}else{
+        				var topper = '50';
+        				var scrollTop = 140;
+        			}
+
+        		// alert("width: "+$(window).width()+" topper: "+topper+" srolltop: "+scrollTop);
         		if($(window).scrollTop() >= scrollTop){
         			$('.navbar').css({
         				position : 'fixed',
-        				top : '0'
+        				top : topper
         			});
+        			
         			right_dist = ($(window).width() - 1250) / 2;
         			$('.left_takeover_banner').addClass('left_takeover_banner_fixed');
         			$('.right_takeover_banner').css({
@@ -44,6 +53,7 @@ jQuery(document).ready(function($) {
 
 	$('#little_link1').click(function(event) {
 		$('#navbar_search_window').slideDown('fast');
+		
 	});
 
 	$('#search_closer').click(function(event) {
@@ -54,7 +64,7 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window').slideDown('fast');
 	});
 
-	$('.most_viewed_window').mouseleave(function(event) {
+	$('.most_viewed_closer').click(function(event) {
 		$('.most_viewed_window').slideUp('fast');
 	});
 
@@ -62,17 +72,24 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window_map').slideDown('fast');
 	});
 
-	$('.most_viewed_window_map').mouseleave(function(event) {
+	$('.most_viewed_closer').click(function(event) {
 		$('.most_viewed_window_map').slideUp('fast');
 	});
 
-	$('.takeover_top_banner').delay(2000).slideDown(500).delay(3000).slideUp(150);
+	$('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
+	// $('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
 
-	$('.sign_up_screen').delay(9000).slideDown(500);
+	$('.sign_up_screen').delay(2000).slideDown(500);
 
 	$('.no_thanks').click(function(event) {
 		$('.sign_up_screen').slideUp(200);
 	});
+
+	if($(window).width() > 900){
+			
+		}else{
+			$('.takeover_banner_mobile').delay(7000).slideDown(150).delay(2400).slideUp(150);
+    }
 
 });
 

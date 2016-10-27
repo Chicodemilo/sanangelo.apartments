@@ -54,6 +54,23 @@
 			}
 		?>
 	</div>
+	<div class="takeover_banner_mobile">
+		<?php 
+			if($background_data != 'N'){
+				if($background_data['takeover_link'] != 'N'){
+					echo '<a target="blank" href="http://'.$background_data['takeover_link'].'">';
+				}
+
+				if($background_data['takeover_mobile'] != ''){
+					echo '<img src="'.base_url().'images/takeover/mobile/'.$background_data['takeover_mobile'].'">';
+				}
+
+				if($background_data['takeover_link'] != 'N'){
+					echo '</a>';
+				}
+			}
+		?>
+	</div>
 
 	<div class="body_wrapper">
 		<div class="left_col">
@@ -368,10 +385,10 @@
 							echo "</script>";
 						}
 					 ?>
-	            <section data-panel="third" class=""></section>
-	            <section data-panel="third" class=""></section>
-	            <section data-panel="third" class=""></section>
-	            <section data-panel="third" class=""></section>
+	            <section data-panel="third" class="under_fakies"></section>
+	            <section data-panel="third" class="under_fakies"></section>
+	            <section data-panel="third" class="under_fakies"></section>
+	            <section data-panel="third" class="under_fakies"></section>
 	        </div>
 	        <div class="under_table">
 	        </div>

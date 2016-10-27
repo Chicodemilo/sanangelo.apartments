@@ -252,6 +252,21 @@ class Edit_model extends CI_Model {
 		return $data;
 	}
 
+	public function get_new_man_logo_data(){
+		$this->db->order_by('id', 'desc');
+		$ids = $this->db->get('pictures')->result_array();
+		$id_new = $ids[0]['id'] + 1;
+		$order_new = null;
+		$data = array('id' => $id_new, 'name' => '', 'caption' => '', 'cover_pic' => 'N', 'logo' => 'N', 'management_logo' => 'N', 'amenities_page_main_pic' => 'N', 'picture_page_main_pic' => 'N', 'pic_order' => $order_new, 'active' => 'Y', 'management_logo' => 'Y');
+		return $data;
+	}
+
+
+	public function get_man_logo($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		$data = $this->db->get('man_logo');
+		return $data;
+	}
 
 	public function get_messages($apt_id){
 		$this->db->where('apt_id', $apt_id);

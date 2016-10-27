@@ -12,7 +12,8 @@
 		
 		<form action=" <?php echo base_url(); ?>main/sign_up" method="POST">
 			<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
-			<input type="email" required name="sign_up_email" id="sign_up_email" placeholder="Enter Your Email Address">
+			<input type="text" name="name" id="sign_up_name">
+			<input type="email" required name="sign_up_email" id="sign_up_email" placeholder="Enter Your Email Address"><span class="full_hide"><br></span>
 			<input type="submit" id="sign_up_submit" value="Sign Me Up!">
 		</form>
 		<span class="no_thanks"><a href=" <?php echo base_url(); ?>main/no_sign_up">No Thanks!</a></span>

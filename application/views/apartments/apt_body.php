@@ -79,7 +79,7 @@
 						<label for="email">Your Email Address:</label>
 						<input type="email" name="email" id="email" required="required" maxlength="70">
 						<label for="message">Your Message:</label>
-						<textarea name="message" id="message" cols="30" rows="4" required="required" maxlength="300"></textarea>
+						<textarea name="message" id="message" cols="30" rows="4" required="required" maxlength="300"></textarea><br>
 						<input type="submit" value="SEND" class="btn btn-default">
 						<p class="message_sent">Your Message Has Been Sent</p>
 					</form>
@@ -123,11 +123,19 @@
 				}else{
 					echo '<img class="solo_pic" class="apt_pics_list" src="'.base_url().'images/pictures/'.$apt_id.'/'.$pictures[0]['id'].'/'.$pictures[0]['name'].'">';
 				}
-
-
-
 			 ?>
 			</ul>
+
+		</div>
+		<div class="apt_pics_mob">
+			
+			<?php 
+				
+					foreach ($pictures as $key => $value) {
+						echo '<img class="apt_pics_list_mob" src="'.base_url().'images/pictures/'.$apt_id.'/'.$value['id'].'/'.$value['name'].'">';
+					}
+			 ?>
+
 
 		</div>
 
@@ -185,10 +193,10 @@
 						echo '</div>';
 
 						echo '<script type="text/javascript">
-								$("#show_fp_'.$value['id'].'").mouseenter(function(event){
+								$("#show_fp_'.$value['id'].'").click(function(event){
 									$("#hidden_fp_pic_'.$value['id'].'").fadeIn("fast");
 								});
-								$("#show_fp_'.$value['id'].'").mouseleave(function(event){
+								$("#hidden_fp_pic_'.$value['id'].'").click(function(event){
 									$("#hidden_fp_pic_'.$value['id'].'").fadeOut("fast");
 								});
 							</script>
@@ -320,8 +328,10 @@
 							echo '<br><span class="pet_restrict">'.$pets['pet_restrictions'].'</span>';
 						}else{
 							echo '<span class="bolder">'.$pets['pet_type']."</span><br>";
-							echo 'Deposit:$'.$pets['pet_dep'].'<br>';
-							echo 'Refund Possible:$'.$pets['pet_refund'].'<br>';
+							if($pets['pet_dep'] > 0){
+								echo 'Deposit:$'.$pets['pet_dep'].'<br>';
+								echo 'Refund Possible:$'.$pets['pet_refund'].'<br>';
+							}
 							echo '<br><span class="pet_restrict">'.$pets['pet_restrictions'].'</span>';
 						}
 
@@ -371,6 +381,50 @@
 						echo '</div>';
 					}
 				 ?>
+
+				<div class="apt_website">
+					<?php 
+						if($free == 'N'){
+							
+							if($property_website != ""){
+								echo "<hr>";
+								echo "<a href='http://".$property_website."' target='blank'>";
+								echo "See Our Website<br>".$property_name;
+								echo "</a>";
+							}
+						}
+					 ?>
+				</div>
+
+				<div class="apt_desc_management">
+					<?php 
+						if($free == 'N'){
+							if($property_management_url != ""){
+								echo "<hr>";
+								echo "<a href='http://".$property_management_url."' target='blank'>";
+							}
+
+							if($management_logo != 'N'){
+								echo "<div class='apt_man_logo'>";
+								echo "<img src='".base_url()."images/logos/management/".$apt_id."/".$management_logo."'>";
+								echo "</div>";
+							}
+
+
+							if($property_management_name !=""){
+								echo $property_management_name;
+							}
+
+							if($property_management_url != ""){
+								echo "</a>";
+							}
+
+						}
+
+
+
+					 ?>
+				</div>
 			</div>
 		</div>
 	</div><!--  end body_wrapper -->
@@ -417,7 +471,7 @@
 
                     icon: image,
                 });
-                var contentString = "<h4><?php echo $property_name ?></h4>"+"<p>"+"<?php echo $property_address ?>"+" "+"<?php echo $property_city ?>"+", "+"<?php echo $property_state ?>"+"</p>";
+                var contentString = "<h5><?php echo $property_name ?></h5>"+"<p>"+"<?php echo $property_address ?>"+" "+"<?php echo $property_city ?>"+", "+"<?php echo $property_state ?>"+"</p>";
 
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString
@@ -440,6 +494,7 @@
 	$(document).ready(function() {
 		$item_count = $('#menu li').length;
 		$initial_width = Math.round((826/$item_count));
+
 		if($item_count > 1){
 			$('#menu').AccordionImageMenu({
 				'closeDim': $initial_width, //(items dimension when the menu is not activated)

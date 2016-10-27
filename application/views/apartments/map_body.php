@@ -50,7 +50,7 @@
 							echo "$".$max_rent;
 						}
 					}
-				 ?> 
+				 ?>
 
 				<br>
 				AMENITIES:
@@ -110,10 +110,10 @@
 					$hover_id = $hover_id + 1;
 				}
 			 ?>
-        <section data-panel="third" class=""></section>
-        <section data-panel="third" class=""></section>
-        <section data-panel="third" class=""></section>
-        <section data-panel="third" class=""></section>
+        <section data-panel="third" class="under_fakies"></section>
+        <section data-panel="third" class="under_fakies"></section>
+        <section data-panel="third" class="under_fakies"></section>
+        <section data-panel="third" class="under_fakies"></section>
     </div>
 </div>
 
@@ -121,73 +121,84 @@
 	<div class="map_no_load">The Map Could Not Load. Sorry!</div>
 </div>
 
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn87Zc_6XoEGDPiAZM9WBofRLNaNOX6bU&callback=initMap"
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbhwZq2JPhYwOEdXd9pfDfYOy2CCimfs&callback=initMap"
     type="text/javascript"></script>
 <script>
-	   var markers=[];
+	   
        function initMap() {
-       		  
+       		  // if($(window).width() < 551){
+       		  // 	var zoom_level = 12;
+       		  // 	var lat = 31.47;
+       		  // 	var lng = -100.459;
+       		  // }else if($(window).width() < 901){
+       		  // 	var zoom_level = 12;
+       		  // 	var lat = 31.45;
+       		  // 	var lng = -100.455;
+       		  // }else if($(window).width() < 1251){
+       		  // 	var zoom_level = 12;
+       		  // 	var lat = 31.44;
+       		  // 	var lng = -100.42;
+       		  // }else{
+       		  // 	var zoom_level = 13;
+       		  // 	var lat = 31.44;
+       		  // 	var lng = -100.45;
+       		  // }
 			  var mapOptions = {
-			    zoom: 13,
+			    // zoom: zoom_level,
 			    scrollwheel: false,
-			    center: new google.maps.LatLng(31.44, -100.47)
+			    // center: new google.maps.LatLng(lat, lng)
 			  }
 			  var map = new google.maps.Map(document.getElementById('super_map'), mapOptions);
-			  var bounds = new google.maps.LatLngBounds(), markers=[];
-			  var geocoder = new google.maps.Geocoder();
-			  for (var x = 0; x < addresses.length; x++) {
-			    var name = names[x];
-			    var id = x;
-			    geocoder.geocode({
-			      'address': addresses[x]
-			    }, (function(name, id) {
-			      // get function closure on "name"
-			      return function(results, status) {
-			        if (status == google.maps.GeocoderStatus.OK) {
-			          bounds.extend(results[0].geometry.location);
+			  
+			  var names = [
+				<?php 
+					foreach ($all_apartments as $key => $value) {
+						echo "['<a class=\'map_info_link\' href=\'".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."\'>".$value["property_name"]."</a>', ".$value['lat'].", ".$value['long']."], ";
+					}
+
+				 ?>
+			];
+			var bounds = new google.maps.LatLngBounds();
+			  for (var x = 0; x < names.length; x++) {
+
 			          var image = '<?php echo base_url() ?>images/map_icon.svg';
 			          var marker = new google.maps.Marker({
 			            map: map,
-			            position: results[0].geometry.location,
-			            animation: google.maps.Animation.DROP,
+			            position: new google.maps.LatLng(names[x][1], names[x][2]),
+			            // animation: google.maps.Animation.DROP,
 			            icon: image,
 			          });
-			          var contentString = name;
-			          var infowindow = new google.maps.InfoWindow({
-			            content: contentString
-			          });
-			          google.maps.event.addListener(marker, 'click', function() {
-			            infowindow.open(map, marker);
-			          });
-			          var this_element = document.getElementById(id);
-			          google.maps.event.addDomListener(this_element, 'mouseenter', function() {
-			            infowindow.open(map, marker);
-			          });
-			          google.maps.event.addDomListener(this_element, 'mouseleave', function() {
-			            infowindow.close(map, marker);
-			          });
-			        }
-			      }
-			    })(name, id));
+			          bounds.extend(marker.getPosition());
+
+			          var infowindow = new google.maps.InfoWindow();
+			          google.maps.event.addListener(marker, 'mouseover', (function(marker, x) {
+				        return function() {
+				          infowindow.setContent(names[x][0]);
+				          infowindow.open(map, marker);
+				        }
+				      })(marker, x));
+
+			          var this_element = document.getElementById(x);
+			          google.maps.event.addDomListener(this_element, 'mouseover', (function(marker, x) {
+			            return function() {
+			            	
+				          infowindow.setContent(names[x][0]);
+				          infowindow.open(map, marker);
+				        }
+			          })(marker, x));
+
+			          google.maps.event.addDomListener(this_element, 'mouseleave', (function(marker, x) {
+			            return function() {
+			            	// alert(x);
+				          infowindow.setContent(names[x][0]);
+				          infowindow.close(map, marker);
+				        }
+			          })(marker, x));
+			        
 			  }
+			  map.fitBounds(bounds);
 			}
-
-		var addresses = [
-			<?php 
-				foreach ($all_apartments as $key => $value) {
-					echo "'".$value["property_address"]." ".$value["property_city"]." ".$value["property_state"]."', ";
-				}
-			 ?>
-		];
-		var names = [
-			<?php 
-				foreach ($all_apartments as $key => $value) {
-					echo "'<a class=\'map_info_link\' href=\'".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."\'>".$value["property_name"]."</a>', ";
-				}
-
-			 ?>
-		];
+		
         google.maps.event.addDomListener(window, 'load', initMap);
         google.maps.event.addDomListener(window, 'resize', initMap);
 </script>

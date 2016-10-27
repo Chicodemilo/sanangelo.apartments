@@ -50,12 +50,20 @@ hr {
     font-weight: bold;
 }
 
+.mob_hide{
+    display: inline;
+}
+
+.full_hide{
+    display: none;
+}
+
 
 /******************************** NAV BAR  ***************************/
 .sign_up_screen{
     width:100%;
     height:190px;
-    background:rgba(0, 0, 0, .6);
+    background:rgba(0, 0, 0, .8);
     position:fixed;
     top:0px;
     left:0px;
@@ -84,6 +92,10 @@ hr {
 
 .inner_sign_up_screen form{
     margin-top:25px;
+}
+
+#sign_up_name{
+    display: none;
 }
 
 #sign_up_email{
@@ -185,7 +197,7 @@ hr {
     pointer-events: none;
     box-sizing:border-box;
     padding: 20px;
-    font-size:3.1em;
+    font-size:2.5em;
     line-height:1em;
     letter-spacing:.05em;
     color:#EED9C6;
@@ -196,7 +208,7 @@ hr {
     z-index: 10;
     text-shadow: 0px 0px 6px rgba(0, 0, 50, 0.8);
     overflow:hidden;
-    font-family:'Lobster', sans-serif;
+    font-family:'Oswald', sans-serif;
 }
 
 #inner_pic1{
@@ -234,6 +246,99 @@ hr {
 .inner_navbar img{
     float: left;
 }
+
+.blog_link{
+    position: relative;
+    top: 25px;
+    left: 20px;
+    font-size: .7em;
+}
+
+.pagination{
+    letter-spacing: .5em;
+}
+
+.current{
+    font-weight: bolder;
+}
+
+.blog_pic{
+    width: 320px;
+    max-height: 400px;
+    float: right;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.entry{
+    text-align: justify;
+}
+
+.list_smaller{
+    font-size: .9em;
+    line-height: 1.2em;
+}
+
+.spec_list_title{
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2em;
+}
+
+.spec_round_list li{
+    padding-bottom: 20px;
+}
+
+.blog_pic img{
+    width: 100%;
+}
+
+.clear_float{
+    clear: both;
+}
+
+.post_title{
+    font-family: 'Lobster', sans-serif;
+    font-size: 2em;
+    color: #8DA5B3;
+}
+
+.rent_table{
+    font-size: .85em;
+    border-collapse: collapse;
+}
+
+.rent_table tr th{
+    background: #8CB6D7;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+    padding: 7px;
+    border: 2px solid white;
+    font-size: 1.3em;
+}
+
+.downers{
+    font-weight: bolder;
+    font-size: 1.4em;
+    color: #C40003;
+}
+
+.uppers{
+    font-weight: bolder;
+    font-size: 1.4em;
+    color: #00BC48;
+}
+
+.equalers{
+    font-weight: bolder;
+    font-size: 1.4em;
+    color: #0047C4;
+}
+
+.rent_table tr td{
+    background: #D5E0E9;
+    padding: 7px;
+    border: 2px solid white;}
 
 .navbar_links{
     float:right;
@@ -325,6 +430,11 @@ hr {
     overflow:hidden;
     font-size:.8em;
     z-index:300;
+}
+
+.most_viewed_closer{
+    display: inline;
+    margin-left: 15px;
 }
 
 .most_viewed_window_map{
@@ -520,6 +630,9 @@ hr {
     top:70px;
 }
 
+.takeover_banner_mobile{
+   display:none;
+}
 
 
 
@@ -527,7 +640,7 @@ hr {
 
 .takeover_top_banner{
     position:absolute;
-    height:170px;
+    height:80px;
     width:870px;
     margin-left:190px;
     z-index:400;
@@ -537,7 +650,7 @@ hr {
 .body_wrapper{
     box-sizing:border-box;
     width:870px;
-    min-height: 910px;
+    min-height: 930px;
     margin:auto;
     box-shadow:0px 0px 15px rgba(100, 100, 100, 0.8);
     background:white;
@@ -554,7 +667,7 @@ hr {
 
 .search_results_box{
     width:600px;
-    height:882px;
+    height:897px;
     float:right;
     border:1px solid #C2C2C2;
     padding:3px;
@@ -692,16 +805,16 @@ hr {
 
 
 #pic_box_name{
-    font-size:2.3em;
+    font-size:2.9em;
     line-height:1.05em;
     letter-spacing:.05em;
-    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    text-shadow:2px 2px 9px rgba(0, 0, 0, .9);
     color:#EED9C6;
     font-family:'Lobster', sans-serif;
 }
 
 #pic_box_slogan{
-    font-size:1.1em;
+    font-size:1.5em;
     line-height:1.1em;
     letter-spacing:.05em;
     font-family:'Oswald', sans-serif;
@@ -735,6 +848,19 @@ hr {
 
 }
 
+.panel_container {
+    font-size: 12px;
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    background: #F0F0F0;
+}
+
+section {
+    height: 90px;
+}
+
 .search_param_box{
     font-family:'Oswald', sans-serif;
     box-sizing:border-box;
@@ -750,7 +876,7 @@ hr {
 }
 
 .search_param_bold{
-    font-size:1.2em;
+    font-size:1.4em;
     line-height:1.6em;
     font-weight:bold;
     color:#FEC063;
@@ -813,6 +939,9 @@ hr {
     height:350px;
 }
 /******************************** APT MAIN BODY ***************************/
+.mobile_map_logo{
+    display: none;
+}
 
 .apt_map_contact{
     width:100%;
@@ -942,6 +1071,10 @@ hr {
     margin-bottom:20px;
     overflow:hidden;
     padding-bottom: 10px;
+}
+
+.apt_pics_mob{
+    display: none;
 }
 
 .above{
@@ -1101,6 +1234,34 @@ hr {
     vertical-align: top;
 }
 
+.apt_website{
+    text-align: right;
+    font-family: "Verdana", sans-serif;
+    font-weight: bold;
+    font-size: .7em;
+    line-height: 1.1em;
+}
+
+.apt_desc_management{
+    text-align: right;
+    font-family: "Verdana", sans-serif;
+    font-weight: bold;
+    font-size: .7em;
+    line-height: 1.1em;
+}
+
+.apt_man_logo{
+    height: 110px;
+    width:180px;
+    margin-left: 200px;
+}
+
+.apt_man_logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .amen_word{
     font-family:'Lobster', sans-serif;
     font-size:2em;
@@ -1177,8 +1338,9 @@ hr {
 
 /******************************** SUPER MAP ***************************/
 .super_map{
-    width: 100%;
-    margin: auto;
+    width: calc(100vw - 327px);;
+
+    margin-left: 327px;
     height: calc(100vh - 50px);
     position: fixed;
     top: -20px;

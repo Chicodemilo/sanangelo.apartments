@@ -66,7 +66,7 @@
 				<td colspan="2"> <textarea name="property_slogan" cols="60" rows="4" id="property_slogan" maxlength='125' placeholder="Enter A Short Slogan For Your Property. 125 Characters Max."><?php echo $main_info[0]['property_slogan'] ?></textarea></td>
 			
 				<td class="righter">Property Description:</td>
-				<td colspan="2"><textarea name="property_description" cols="60" rows="4"  id="property_description" maxlength='400' placeholder="Enter A Short Description Of Your Property. 400 Characters Max."><?php echo $main_info[0]['property_description'] ?></textarea></td>
+				<td colspan="2"><textarea name="property_description" cols="60" rows="4"  id="property_description" maxlength='800' placeholder="Enter A Short Description Of Your Property. 400 Characters Max."><?php echo $main_info[0]['property_description'] ?></textarea></td>
 			</tr>
 			
 			<th colspan="6"></th>
@@ -86,21 +86,80 @@
 			</tr>
 			<tr>
 				<td class="righter">Manangement Company Name:</td>
-				<td colspan="2"><input type="text" style="width:90%" name="property_management_name" id="property_management_name" placeholder="The Name Of The Property Management Company" value="<?php echo $main_info[0]['property_management_name'] ?>"></td>
+				<td colspan="2"><input type="text" style="width:90%" name="property_management_name" id="property_management_name" maxlength="50" placeholder="The Name Of The Property Management Company" value="<?php echo $main_info[0]['property_management_name'] ?>"></td>
 			
 				<td class="righter">Management Company Website:</td>
-				<td colspan="2"><input type="text" style="width:90%" name="property_management_url" id="property_management_url" placeholder="www.example.com" value="<?php echo $main_info[0]['property_management_url'] ?>"></td>
+				<td colspan="2"><input type="text" style="width:90%" name="property_management_url" id="property_management_url" maxlength="70" placeholder="www.example.com" value="<?php echo $main_info[0]['property_management_url'] ?>"></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<div id="apt_map">
+						
+					</div>
+
+
+				</td>
 			</tr>
 			<tr>
 				<th colspan="6"><input type="submit" value="Submit Edits"></th>
 			</tr>
 		</table>
+		<input type="hidden" name="lat" id="lat" value="" />
+		<input type="hidden" name="long" id="long" value="" />
 	</form>
+	
 <div class="bottom_room">
 	&nbsp;
 </div>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbhwZq2JPhYwOEdXd9pfDfYOy2CCimfs&callback=initMap"
+    type="text/javascript"></script>
+<script>
+	 function initMap() {
+          var geocoder = new google.maps.Geocoder();
+
+           var address = "<?php echo $main_info[0]['property_address'] ?>"+" "+"<?php echo $main_info[0]['property_city'] ?>"+" "+"<?php echo $main_info[0]['property_state'] ?>";
+
+          geocoder.geocode( { 'address': address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+              	var image = '<?php echo base_url() ?>images/map_icon.svg';
+                var mapOptions = {
+                  zoom: 15,
+                  scrollwheel: false,
+                }
+                var map = new google.maps.Map(document.getElementById('apt_map'), mapOptions);
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: image,
+                });
+
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                
+                document.getElementById('lat').value = latitude;
+                document.getElementById('long').value = longitude;
+                // alert(latitude);
+                
+              } else {
+              	// alert("NOOO");
+              	$('.map_no_load').fadeIn('fast');
+              }
+
+
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+        google.maps.event.addDomListener(window, 'resize', initMap);
+</script>
 <script>
 	jQuery(document).ready(function($) {
+
+		 $('#lat').val(10);
 		 $("#property_color_1, #property_color_2").spectrum({
 	        showInput: true,
 	        className: "full-spectrum",

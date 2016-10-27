@@ -58,12 +58,173 @@ class Main extends CI_Controller {
 
 		$main_page_data['apt_count'] = count($main_page_data['all_apartments']);
 
+		date_default_timezone_set("America/Chicago");
+		$day = date('D');
+		$date = date('d');
+		$hour = date('H');
+
+		if($day === 'Mon'){
+			$exists = $this->apartment_model->does_blog_exsist('SPOT');
+			if($exists == 'N'){
+				$spot_blog = $this->apartment_model->make_spot_blog();
+				$this->db->insert('blog', $spot_blog);
+			}
+		}
+
+		if($day === 'Tue'  && $hour > 9){
+			$today = date('Y-m-d');
+			$this->db->where('sent_floorplan_reminder', $today);
+			$sent = $this->db->get('reminders')->result_array();
+			if(count($sent) < 1){
+				$this->apartment_model->email_no_models();
+			}
+		}
+
+		if($day === 'Thu'){
+			$exists = $this->apartment_model->does_blog_exsist('SPEC');
+			if($exists == 'N'){
+				$data['special_takeover'] = $this->apartment_model->get_special_takeover();
+				$data['special_basic'] = $this->apartment_model->get_special_basic();
+				$data['special_free'] = $this->apartment_model->get_special_free();
+				$spot_blog = $this->apartment_model->make_spec_blog($data);
+				$this->db->insert('blog', $spot_blog);
+			}
+		}
+
+		if($date === '25'){
+			$exists = $this->apartment_model->does_blog_exsist('PRIC');
+			if($exists == 'N'){
+				$spot_pric = $this->apartment_model->make_pric_blog();
+				$this->db->insert('blog', $spot_pric);
+				$this->apartment_model->send_pric_blog();
+			}
+		}
+
+		if($date === '5' || $date == '13'){
+			$exists = $this->apartment_model->does_blog_exsist('AMEN');
+			if($exists == 'N'){
+				$key = true;
+
+				while($key){
+					if($this->apartment_model->make_amen_blog() == 'N'){
+						$key = true;
+					}else{
+						$spot_amen = $this->apartment_model->make_amen_blog();
+						$this->db->insert('blog', $spot_amen);
+						$key = false;
+						break;
+					}
+				}
+			}
+		}
+
+
+
 		$this->load->view('apartments/main_page_header');
 		if($signed_up == 'N'){
 			$this->load->view('apartments/main_sign_up');
 		}
 		$this->load->view('apartments/main_page_navbar', $top_of_nav);
 		$this->load->view('apartments/main_body', $main_page_data);
+		$this->load->view('apartments/main_page_footer');
+	}
+
+		public function blog($offset = 0)
+	{	
+		
+		$signed_up = $this->session->userdata('entered_email');
+		if($signed_up == 'Y'){
+			$signed_up = 'Y';
+		}else{
+			$signed_up = 'N';
+		}
+		$this->load->model('apartment_model');
+		$top_of_nav = $this->apartment_model->get_top_of_nav();
+
+		$top_of_nav['viewed'] = $this->apartment_model->get_views();
+
+		$blog_page_data['market_data'] = $this->apartment_model->get_market_data();
+
+		$blog_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
+
+		if($blog_page_data['open_takeover_apt'] != ''){
+			$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+		}else{
+			$top_of_nav['background_data'] = 'N';
+		}
+
+		$limit = 30;
+        $result = $this->apartment_model->get_all_blog($limit, $offset);
+        $blog_page_data['blog_list'] = $result['rows'];
+        $blog_page_data['num_results'] = $result['num_rows'];
+
+        $this->load->library('pagination');
+        $config = array();
+        $config['base_url'] = site_url("main/blog");
+        $config['total_rows'] = $blog_page_data['num_results'];
+        $config['per_page'] = $limit;
+
+        $config['uri_segment'] = 3;
+        $config['use_page_numbers'] = TRUE;
+
+        $config['num_links'] = 200;
+
+        $config['full_tag_open'] = '<div class="pagination">';
+        $config['full_tag_close'] = '</div>';
+        $config['first_tag_open'] = '<span class="first">';
+        $config['first_tag_close'] = '</span>';
+        $config['first_link'] = '';
+        $config['last_tag_open'] = '<span class="last">';
+        $config['last_tag_close'] = '</span>';
+        $config['last_link'] = '';
+        $config['prev_tag_open'] = '<span class="prev">';
+        $config['prev_tag_close'] = '</span>';
+        $config['prev_link'] = '';
+        $config['next_tag_open'] = '<span class="next">';
+        $config['next_tag_close'] = '</span>';
+        $config['next_link'] = '';
+        $config['cur_tag_open'] = '<span class="current">';
+        $config['cur_tag_close'] = '</span>';
+
+        $this->pagination->initialize($config);
+        $blog_page_data['pagination'] = $this->pagination->create_links();
+
+		$this->load->view('apartments/main_page_header');
+		$this->load->view('apartments/main_page_navbar', $top_of_nav);
+		$this->load->view('apartments/blog_body', $blog_page_data);
+		$this->load->view('apartments/main_page_footer');
+	}
+
+	public function this_blog($id = 1){
+		$signed_up = $this->session->userdata('entered_email');
+		if($signed_up == 'Y'){
+			$signed_up = 'Y';
+		}else{
+			$signed_up = 'N';
+		}
+		$this->load->model('apartment_model');
+		$top_of_nav = $this->apartment_model->get_top_of_nav();
+
+		$top_of_nav['viewed'] = $this->apartment_model->get_views();
+
+		$blog_page_data['market_data'] = $this->apartment_model->get_market_data();
+
+		$blog_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
+
+		if($blog_page_data['open_takeover_apt'] != ''){
+			$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
+		}else{
+			$top_of_nav['background_data'] = 'N';
+		}
+
+		$result = $this->apartment_model->get_this_blog($id);
+		$blog_page_data['blog_list'] = $result['rows'];
+		$blog_header_data['blog'] = $result['rows']->result_array();
+
+
+		$this->load->view('apartments/blog_header', $blog_header_data);
+		$this->load->view('apartments/main_page_navbar', $top_of_nav);
+		$this->load->view('apartments/blog_body_single', $blog_page_data);
 		$this->load->view('apartments/main_page_footer');
 	}
 
@@ -113,6 +274,10 @@ class Main extends CI_Controller {
 			$main_page_data['property_state'] = $main_data[0]['property_state'];
 			$main_page_data['property_zip'] = $main_data[0]['property_zip'];
 			$main_page_data['property_description'] = $main_data[0]['property_description'];
+			$main_page_data['property_website'] = $main_data[0]['property_website'];
+			$main_page_data['property_management_name'] = $main_data[0]['property_management_name'];
+			$main_page_data['property_management_url'] = $main_data[0]['property_management_url'];
+
 			$main_page_data['free'] = $free;
 
 			$main_page_data['floorplans'] = $this->apartment_model->get_floorplans($apt_id);
@@ -124,6 +289,8 @@ class Main extends CI_Controller {
 			$main_page_data['logo'] = $this->apartment_model->get_logo($apt_id);
 
 			$main_page_data['pets'] = $this->apartment_model->get_pet_policy($apt_id);
+
+			$main_page_data['management_logo'] = $this->apartment_model->get_managment_logo($apt_id);
 
 
 			if($main_page_data['property_description'] == ''){
@@ -154,8 +321,8 @@ class Main extends CI_Controller {
 			$this->load->view('apartments/apt_body', $main_page_data);
 			$this->load->view('apartments/apt_page_footer');
 		}
-		
 	}
+
 
 	public function contact(){
 		$this->load->model('apartment_model');
@@ -178,12 +345,8 @@ class Main extends CI_Controller {
 		}else{
 			return false;
 		}
-
-		
-		
-
-	 
 	}
+
 
 	public function find_apts(){
 		if(count($_GET) > 0){
@@ -391,6 +554,7 @@ class Main extends CI_Controller {
 		}
 	}
 
+
 	public function add_amenities(){
 		if(isset($_POST['apt_id'])){
 			$apt_id = $_POST['apt_id'];
@@ -404,15 +568,26 @@ class Main extends CI_Controller {
 		}
 	}
 
+
 	public function sign_up(){
 		$data = $_POST;
-		$enter = $this->db->insert('sign_up', $data);
-		$session_data['entered_email'] = 'Y';
-		$this->session->set_userdata($session_data);
-		if($enter){
+		$honey_pot = $_POST['name'];
+
+		if($honey_pot == ''){
+			$enter = $this->db->insert('sign_up', $data);
+			$session_data['entered_email'] = 'Y';
+			$this->session->set_userdata($session_data);
+			if($enter){
+				redirect(base_url().'');
+			}
+		}else{
+			$session_data['entered_email'] = 'Y';
+			$this->session->set_userdata($session_data);
 			redirect(base_url().'');
 		}
+		
 	}
+
 
 	public function no_sign_up(){
 		
