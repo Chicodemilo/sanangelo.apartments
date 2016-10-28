@@ -80,6 +80,15 @@ class Main extends CI_Controller {
 			}
 		}
 
+		if($day === 'Fri'  && $hour > 9){
+			$today = date('Y-m-d');
+			$this->db->where('sent_login_reminder', $today);
+			$sent = $this->db->get('reminders')->result_array();
+			if(count($sent) < 1){
+				$this->apartment_model->email_login_remind();
+			}
+		}
+
 		if($day === 'Thu'){
 			$exists = $this->apartment_model->does_blog_exsist('SPEC');
 			if($exists == 'N'){

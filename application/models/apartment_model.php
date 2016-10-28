@@ -1822,7 +1822,7 @@ class Apartment_model extends CI_Model {
 
 		// print_r($all_emails);
 		// for testing environment
-		$all_emails = ['miles@bayrummedia.com', 'mileschick@gmail.com'];
+		// $all_emails = ['miles@bayrummedia.com', 'mileschick@gmail.com'];
 
 		$this->load->library('email');
 		foreach ($all_emails as $key => $value) {
@@ -2011,12 +2011,89 @@ class Apartment_model extends CI_Model {
 			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
 			$this->email->to($value['email']);
 			$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
-			$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br>'.$value['apt_name'].' will not show up.<br>Why? Because you do not have any floorplans listed on the site.<br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">here</a>.<br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
+			$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br>'.$value['apt_name'].' will not show up.<br>Why? Because you do not have any floorplans listed on the site.<br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
 			$sent = $this->email->send();
 		}
 
 		$fp_remind['sent_floorplan_reminder'] = date('Y-m-d');
 		$this->db->insert('reminders', $fp_remind);
+	}
+
+	public function email_login_remind(){
+		
+		$all_users = $this->db->get('users')->result_array();
+
+		$need_reminder_ids = [];
+		date_default_timezone_set("America/Chicago");
+		$date = date('d');
+
+		foreach ($all_users as $key => $value) {
+
+			$this->db->where('user_id', $value['ID']);
+			$this->db->order_by('login_time', 'desc');
+			$logins = $this->db->get('session_data')->result_array();
+
+			$recent_login_date = date('d', strtotime($logins[0]['login_time']));
+			$last_login = date('m-d-Y', strtotime($logins[0]['login_time']));
+			$login_test = $date - $recent_login_date;
+
+			if($login_test > 25){
+				$username = $value['username'];
+
+				$emails[0] = $value['email'];
+
+				if($value['email_2'] != ''){
+					array_push($emails, $value['email_2']);
+				}
+				if($value['email_3'] != ''){
+					array_push($emails, $value['email_3']);
+				}
+				if($value['email_4'] != ''){
+					array_push($emails, $value['email_4']);
+				}
+
+				$this->db->where('verified_user_id', $value['ID']);
+				$apt_info = $this->db->get('apartment_main')->result_array();
+				if(count($apt_info) > 0){
+					$apt_name = $apt_info[0]['property_name'];
+				}else{
+					$apt_name = 'your apartment';
+				}
+
+				$this->load->library('email');
+				foreach ($emails as $key => $value) {
+		 			
+					$this->email->clear();
+					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+					$this->email->to($value);
+					$this->email->subject('Update Your Info On SANANGELO.APARTMENTS for '.$apt_name);
+					$this->email->message('<h3 style="color:#3F79C9;">It\'s been a while since you logged in to SANANGELO.APARTMENTS</h3>
+						<br>Your last login for '.$apt_name.' was on: '.$last_login.' 
+
+						<br><br>Here are some things you may need to do... 
+						<br><br>&bull; Update your prices
+						<br>&bull; Run a special
+						<br>&bull; Update your Office Hours or Pet Policy
+						<br>&bull; Put up some fresh pictures
+						<br>&bull; Add or delete an amenity
+						<br>&bull; Add floorplan diagrams to your floorplans
+						<br>&bull; Edit your property description
+
+						<br><br>Login here to update your apartment: <a href="'.base_url().'login/login_user">LOGIN</a>.
+
+						<br><br>Your username is: '.$username.'
+
+						<br><br>If you forgot your password, reset it here: <a href="'.base_url().'login/reset_password">RESET PASSWORD</a>.
+
+						<br><br>PS. This is an automated email... once you login we\'ll stop bothering you. For a while at least :)');
+					$sent = $this->email->send();
+				}
+
+			}
+		}
+
+		$login_remind['sent_login_reminder'] = date('Y-m-d');
+		$this->db->insert('reminders', $login_remind);
 	}
 
 }

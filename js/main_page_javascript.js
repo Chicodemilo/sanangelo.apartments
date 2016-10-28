@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
 	$(window).scroll(function(){
         		if($(window).width() > 900){
         				var topper = '0';
-        				var scrollTop = 350;
+        				var scrollTop = 220;
         			}else{
         				var topper = '50';
         				var scrollTop = 140;

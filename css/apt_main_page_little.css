@@ -230,7 +230,7 @@ hr {
 }
 
 .navbar{
-    background: rgba(220, 220, 220, .9);
+    background: rgba(222, 222, 222, .7);
     height: 35px;
     width: 100%;
     border-bottom: 1px solid #BEBEBE;
@@ -403,6 +403,7 @@ hr {
     right:40px;
     top:342px;
     cursor:pointer;
+    font-family: 'Oswald', sans-serif;
     font-size:.8em;
 }
 
@@ -984,11 +985,11 @@ section {
 .no_resource{
     color:#8BB2E1;
     font-family: 'Lobster', sans-serif;
-    font-size: 1.6em;
-    line-height: 10px;
-    -ms-transform: rotate(-7deg); /* IE 9 */
-    -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
-    transform: rotate(-7deg);
+    font-size: 1.4em;
+    line-height: 0px;
+    -ms-transform: rotate(-0deg); /* IE 9 */
+    -webkit-transform: rotate(-0deg); /* Chrome, Safari, Opera */
+    transform: rotate(-0deg);
     padding-left: 10px;
     padding-bottom: 25px;
 }
@@ -996,7 +997,7 @@ section {
 .apt_contact{
     display:inline-block;
     position:absolute;
-    width:100%;
+    width:80%;
     height:350px;
     padding: 0px 0px 10px 10px;
     overflow:hidden;
@@ -1195,6 +1196,7 @@ section {
 
 .contact_form_div{
     position: absolute;
+    width: 250px;
     bottom:0px;
     font-size:.8em;
     line-height:1.1em;

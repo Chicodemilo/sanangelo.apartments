@@ -173,7 +173,7 @@
 									<label class="checkbox smaller"><input type="checkbox" id="pool" name="pool" value="Swimming Pool">Pool</label>
 									<label class="checkbox smaller"><input type="checkbox" id="gated" name="gated" value="Gated Access">Gated Access</label>
 									<label class="checkbox smaller"><input type="checkbox" id="fitness" name="fitness" value="Fitness Center">Fitness Center</label>
-									<label class="checkbox smaller"><input type="checkbox" id="wd" name="wd" value="Washer / Dryer In Unit">W/D In Unit</label>
+									<label class="checkbox smaller"><input type="checkbox" id="wd" name="wd" value="Washer / Dryer Connections">W/D Connections</label>
 								</div>
 								<div class="right">
 									<label class="checkbox smaller"><input type="checkbox" id="clubhouse" name="clubhouse" value="Clubhouse">Clubhouse</label>
