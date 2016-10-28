@@ -1230,7 +1230,7 @@ class Apartment_model extends CI_Model {
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
 				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">Someone just tried to contact you from SANAGELO.APARTMENTS</h3><br>Upgrade from our FREE Account to our BASIC Account and get all these leads! <br><br>Call us at 866-800-4727 today.' );
+				$this->email->message('<h3 style="color:#3F79C9;">Someone just tried to contact you from SANAGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>.' );
 				$sent = $this->email->send();
  			}
 			
