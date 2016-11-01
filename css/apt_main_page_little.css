@@ -556,7 +556,7 @@ hr {
     left:10px;
     font-family:'Lobster', sans-serif;
     color:#F0E4D5;
-    font-size:1.7em;
+    font-size:2.1em;
     line-height:1em;
     z-index:200;
     text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
@@ -567,8 +567,8 @@ hr {
     font-family:'Oswald', sans-serif;
     margin-top:10px;
     color:#F0E4D5;
-    font-size:.55em;
-    line-height:1.2em;
+    font-size:.5em;
+    line-height:1.1em;
     z-index:200;
     text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
 }

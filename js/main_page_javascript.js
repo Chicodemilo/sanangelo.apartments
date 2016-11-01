@@ -17,6 +17,11 @@ jQuery(document).ready(function($) {
         				position : 'fixed',
         				top : topper
         			});
+
+        			$('.most_viewed_window').css({
+        				position : 'fixed',
+        				top : topper
+        			});
         			
         			right_dist = ($(window).width() - 1250) / 2;
         			$('.left_takeover_banner').addClass('left_takeover_banner_fixed');
@@ -28,6 +33,7 @@ jQuery(document).ready(function($) {
         			$('.inner_main_bg').css('margin-top', '70px');
 
         		}
+        		
         		if($(window).scrollTop() < scrollTop){
         			$('.navbar').removeAttr('style');
         			$('.left_takeover_banner').removeClass('left_takeover_banner_fixed');
@@ -79,7 +85,7 @@ jQuery(document).ready(function($) {
 	$('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
 	// $('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
 
-	$('.sign_up_screen').delay(2000).slideDown(500);
+	$('.sign_up_screen').delay(7000).slideDown(500);
 
 	$('.no_thanks').click(function(event) {
 		$('.sign_up_screen').slideUp(200);
