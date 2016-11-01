@@ -355,6 +355,7 @@ class Apartment_model extends CI_Model {
 	}
 
 	public function get_views(){
+		date_default_timezone_set('America/Chicago');
 		$year = date('Y');
 		$month = date('n');
 		$day = date('j');
