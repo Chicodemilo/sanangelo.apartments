@@ -749,11 +749,11 @@ public function do_upload_picture(){
                 
         $config['upload_path'] = './images/pictures/'.$apt_id.'/'.$id;
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '3000';
-        $config['max_width']  = '10000';
-        $config['max_height']  = '10000';
-        $config['min_width'] = '400';
-        $config['min_height'] = '400';
+        $config['max_size'] = '500';
+        $config['max_width']  = '1500';
+        $config['max_height']  = '1500';
+        $config['min_width'] = '270';
+        $config['min_height'] = '270';
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload())
@@ -890,9 +890,9 @@ public function do_upload_logo(){
                 
     $config['upload_path'] = './images/logos/property/'.$apt_id;
     $config['allowed_types'] = 'gif|jpg|png';
-    $config['max_size'] = '3048';
-    $config['max_width']  = '6024';
-    $config['max_height']  = '6068';
+    $config['max_size'] = '500';
+    $config['max_width']  = '1500';
+    $config['max_height']  = '1500';
     $config['min_width'] = '250';
     $config['min_height'] = '130';
     $this->load->library('upload', $config);
@@ -979,11 +979,11 @@ public function do_upload_man_logo(){
                 
         $config['upload_path'] = './images/logos/management/'.$apt_id;
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '2048';
-        $config['max_width']  = '12024';
-        $config['max_height']  = '12024';
-        $config['min_width'] = '50';
-        $config['min_height'] = '50';
+        $config['max_size'] = '500';
+        $config['max_width']  = '1500';
+        $config['max_height']  = '1500';
+        $config['min_width'] = '100';
+        $config['min_height'] = '100';
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload())
