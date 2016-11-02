@@ -7,6 +7,7 @@ class Apartment_model extends CI_Model {
 	}
 
 	//GIT PULL TEST
+	//now pushing
 
 	public function get_top_of_nav(){
 		$this->db->where('main_page_top', 'Y');
@@ -1228,7 +1229,7 @@ class Apartment_model extends CI_Model {
 				$sent = $this->email->send();
  			}else{
 
- 				//git check ***************************************************************************************
+ 				//git check ********************************************************************************git*******
  				$this->email->clear();
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
