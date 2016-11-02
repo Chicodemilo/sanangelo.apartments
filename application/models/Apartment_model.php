@@ -1195,6 +1195,7 @@ class Apartment_model extends CI_Model {
 		$this->db->where('ID', $data['apt_id']);
 		$result = $this->db->get('apartment_main')->result_array();
 		$user_id = $result[0]['verified_user_id'];
+		$apt_name = $result[0]['property_name'];
 
 		$this->db->where('ID', $user_id);
 		// $this->db->where('get_messages', 'Y');
@@ -1225,7 +1226,7 @@ class Apartment_model extends CI_Model {
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
 				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">You have a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>FROM: '.$data['email'].'<br><br>MESSAGE: '.$data['message']);
+				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>FROM: '.$data['email'].'<br><br>MESSAGE: '.$data['message']);
 				$sent = $this->email->send();
  			}else{
 
@@ -1234,7 +1235,7 @@ class Apartment_model extends CI_Model {
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
 				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">Someone just tried to contact you from SANANGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>.' );
+				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>.' );
 				$sent = $this->email->send();
  			}
 			
