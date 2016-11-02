@@ -1466,7 +1466,7 @@ class Apartment_model extends CI_Model {
 			}
 			$businesses = ['businesses', 'shops', 'schools', 'restaurants', 'major employers', 'stores', 'places to eat', 'supermarkets', 'local attractions', 'entertainment venues'];
 
-			$sent_two = ["You'll find ".$name." at ".$address." in ".$city.". With ".$businesses[$rand_eight]." and ".$businesses[$rand_nine]." close at hand, most everthing you need is nearby.", $name." is located at ".$address." in ".$city.". Close to lots of ".$businesses[$rand_eight]." and ".$businesses[$rand_nine].". ", "Conveniently located at ".$address." in ".$city.". ".$name." is in the heart of it all, near ".$businesses[$rand_eight]." and ".$businesses[$rand_nine].". "];
+			$sent_two = ["You'll find ".$name." at ".$address." in ".$city.". With ".$businesses[$rand_eight]." and ".$businesses[$rand_nine]." close at hand, most everything you need is nearby.", $name." is located at ".$address." in ".$city.". Close to lots of ".$businesses[$rand_eight]." and ".$businesses[$rand_nine].". ", "Conveniently located at ".$address." in ".$city.". ".$name." is in the heart of it all, near ".$businesses[$rand_eight]." and ".$businesses[$rand_nine].". "];
 
 			if(count($amen) > 1){
 				$plenty = ['plenty', 'tons', 'lots', 'a wealth'];
