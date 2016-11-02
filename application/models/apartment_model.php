@@ -1227,6 +1227,8 @@ class Apartment_model extends CI_Model {
 				$this->email->message('<h3 style="color:#3F79C9;">You have a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>FROM: '.$data['email'].'<br><br>MESSAGE: '.$data['message']);
 				$sent = $this->email->send();
  			}else{
+
+ 				//git check ***************************************************************************************
  				$this->email->clear();
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
