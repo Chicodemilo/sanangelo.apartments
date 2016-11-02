@@ -6,7 +6,7 @@ class Apartment_model extends CI_Model {
 		parent::__construct();
 	}
 
-
+	//GIT PULL TEST
 
 	public function get_top_of_nav(){
 		$this->db->where('main_page_top', 'Y');
