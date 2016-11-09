@@ -100,7 +100,8 @@ class Main extends CI_Controller {
 			}
 		}
 
-		if($date === '25'){
+		if($date == '25'){
+			//Watchout testing this one!! it emails to users
 			$exists = $this->apartment_model->does_blog_exsist('PRIC');
 			if($exists == 'N'){
 				$spot_pric = $this->apartment_model->make_pric_blog();
@@ -109,8 +110,9 @@ class Main extends CI_Controller {
 			}
 		}
 
-		if($date === '5' || $date == '13'){
+		if($date == '9' || $date == '13'){
 			$exists = $this->apartment_model->does_blog_exsist('AMEN');
+			
 			if($exists == 'N'){
 				$key = true;
 

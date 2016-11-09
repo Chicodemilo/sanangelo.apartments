@@ -1884,7 +1884,10 @@ class Apartment_model extends CI_Model {
 		$apts = $this->db->get('our_amenities_list')->result_array();
 
 		foreach ($apts as $key => $value) {
-			array_push($apt_ids, $value['apt_id']);
+			if($value['apt_id'] != ""){
+				array_push($apt_ids, $value['apt_id']);
+			}
+			
 		}
 
 		$data['post_title'] = count($apt_ids).' San Angelo Apartments Have The Amenitiy: '.$amen[$rand].'!';
@@ -1917,7 +1920,7 @@ class Apartment_model extends CI_Model {
 
 			$text_b = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."main/apartment/".$one_apt[0]['property_search_name']."/".$one_apt[0]['ID']."'>".$one_apt[0]['property_name']."</a></li>";
 
-			$text .= $text_b;
+			$text = $text.$text_b;
 
 		}
 
