@@ -1429,16 +1429,16 @@ class Apartment_model extends CI_Model {
 			$city = $apt[0]['property_city'];
 			$search_name = $apt[0]['property_search_name'];
 			$id = $apt[0]['ID'];
-			$sent_one_rand = rand(1,3);
+			$sent_one_rand = rand(1,4);
 			$rand_one = rand(0,3);
 			$rand_two = rand(0,3);
 			$rand_three = rand(0,3);
 			$rand_four = rand(0,1);
 			$rand_six = rand(0,2);
 			$rand_seven = rand(0,4);
-			$rand_eight = rand(0,10);
+			$rand_eight = rand(0,9);
 			do {
-				$rand_nine = rand(0,10);
+				$rand_nine = rand(0,9);
 			}while($rand_eight == $rand_nine);
 
 
@@ -1463,6 +1463,11 @@ class Apartment_model extends CI_Model {
 				$now = ['Now', 'Right now', 'And now', 'Here\'s where'];
 
 				$text = "Just like at the ".$start[$rand_one]." of every week... It's Apartment Spotlight time.  ".$now[$rand_three]." we're ".$look[$rand_two]." ".$name.".";
+			}elseif ($sent_one_rand == 4){
+				$look = ['take a moment to point out', 'take a look at', 'turn our attention to', 'take a gander at', 'take a quick glimpse at'];
+				$week = ['week', 'time'];
+
+				$text = "Let's take a look at this weeks Apartment Spotlight, where we ".$look[$rand_seven]." some of the unique features of community here in town. This ".$week[$rand_four]." it's ".$name.".";
 			}
 			$businesses = ['businesses', 'shops', 'schools', 'restaurants', 'major employers', 'stores', 'places to eat', 'supermarkets', 'local attractions', 'entertainment venues'];
 
@@ -1910,8 +1915,19 @@ class Apartment_model extends CI_Model {
 		$apt = ['communities', 'apartments', 'apartment communities', 'apartment complexes'];
 		$showing = ['showing', 'boasting', 'advertising', 'displaying', 'featuring'];
 		$town = ['town', 'our market'];
+		$critical = ["It's critical ", "It's important", "You've got "];
+		$and = ["And,", "So,", "Therefore,"];
+		$point = ["point", "guide", "lead", "direct"];
 
-		$text = $there[$rand_two]." ".$always[$rand_six]." ".$things[$rand_one]." you ".$have[$rand_three]."!<br><br>So here ".$is[$rand_eight]." the ".$apt[$rand_nine]." in ".$town[$rand_four]." that are ".$showing[$rand_seven]." <span class='bolder'>'".$amen[$rand]."'</span> on their list of amenities:<ul class='spec_round_list'>";
+
+		if($rand_four === 0){
+			$text = $there[$rand_two]." ".$always[$rand_six]." ".$things[$rand_one]." you ".$have[$rand_three]."!<br><br>So here ".$is[$rand_eight]." the ".$apt[$rand_nine]." in ".$town[$rand_four]." that are ".$showing[$rand_seven]." <span class='bolder'>'".$amen[$rand]."'</span> on their list of amenities:<ul class='spec_round_list'>";
+		}
+
+		if($rand_four === 1){
+			$text = $critical[$rand_six]."to get just what you want in a place to live. ".$and[$rand_ten]." a few times a month we're here to ".$point[$rand_three]." you to the right place by bringing you a list of all the ".$apt[$rand_nine]." in town that have that certain amenity you really ".$have[$rand_two].".<br><br>Here ".$is[$rand_eight]." the ".$apt[$rand_nine]." in ".$town[$rand_four]." that are ".$showing[$rand_seven]." <span class='bolder'>'".$amen[$rand]."'</span> on their list of amenities:<ul class='spec_round_list'>";
+		}
+		
 
 		foreach($apt_ids as $key => $value){
 			$this->db->where('ID', $value);

@@ -5,10 +5,10 @@ class Main extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 	}
+
 	
 	public function index()
-	{	
-		
+	{	 		
 		$signed_up = $this->session->userdata('entered_email');
 		if($signed_up == 'Y'){
 			$signed_up = 'Y';
@@ -110,7 +110,7 @@ class Main extends CI_Controller {
 			}
 		}
 
-		if($date == '5' || $date == '13'){
+		if($date == '5' || $date == '14'){
 			$exists = $this->apartment_model->does_blog_exsist('AMEN');
 			
 			if($exists == 'N'){
