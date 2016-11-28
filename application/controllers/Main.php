@@ -110,7 +110,7 @@ class Main extends CI_Controller {
 			}
 		}
 
-		if($date == '5' || $date == '14'){
+		if($date == '5' || $date == '13'){
 			$exists = $this->apartment_model->does_blog_exsist('AMEN');
 			
 			if($exists == 'N'){
