@@ -132,9 +132,9 @@ class Main extends CI_Controller {
 
 
 		$this->load->view('apartments/main_page_header');
-		if($signed_up == 'N'){
-			$this->load->view('apartments/main_sign_up');
-		}
+		// if($signed_up == 'N'){
+		// 	$this->load->view('apartments/main_sign_up');
+		// }
 		$this->load->view('apartments/main_page_navbar', $top_of_nav);
 		$this->load->view('apartments/main_body', $main_page_data);
 		$this->load->view('apartments/main_page_footer');
