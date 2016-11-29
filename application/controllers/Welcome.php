@@ -3,7 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-//GIT TEST++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//GIT TEST 2++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//GIT TEST 3******************************************************************************
 	/**
 	 * Index Page for this controller.
 	 *
