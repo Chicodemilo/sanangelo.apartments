@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
 <head>
-	<title><?php echo $blog[0]['post_title']; ?>: San Angelo Apartment Blog</title>
+	<title><?php echo $blog[0]['post_title']; ?>: SANANGELO.APARTMENTS Blog</title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="<?php echo $blog[0]['post_title']; ?>", news about San Angelo Texas Apartments>
+    <meta name="description" content="San Angelo Texas Apartment news and info blog: <?php echo $blog[0]['post_title']; ?>">
     <meta name="keywords" content="<?php echo $blog[0]['post_title']; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
     
