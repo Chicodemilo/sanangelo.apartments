@@ -60,7 +60,7 @@
             foreach ($blog_list->result() as $blog) {
         ?>
         <div class="post">
-            <h2 class="post_title"><?php echo $blog->post_title; ?></h2>
+            <h1 class="post_title"><?php echo $blog->post_title; ?></h1>
             <p class="meta">
         <?php
             

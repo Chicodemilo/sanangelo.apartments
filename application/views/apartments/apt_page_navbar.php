@@ -1,4 +1,4 @@
-<div class="nav_prop_name"><?php echo $property_name; ?>
+<div class="nav_prop_name"><h1 class="nav_prop_name_h1"><?php echo $property_name; ?></h1>
 	<div class="nav_prop_slogan"><?php echo $property_slogan; ?>
 		
 	</div>

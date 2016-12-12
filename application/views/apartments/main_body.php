@@ -275,7 +275,7 @@
 					<span id="pic_box_slogan"><?php if($all_apartments[0]['property_slogan'] != ''){echo $all_apartments[0]['property_slogan']."<br>";} ?></span>
 				</div>
 			<div class="search_param_box">
-						<span class="search_param_bold">SEARCH RESULTS</span><br>APARTMENTS FOUND: <?php echo $apt_count; ?><br>
+						<h1 class="search_param_bold">SAN ANGELO APARTMENTS SEARCH RESULTS:</h1><br>APARTMENTS FOUND: <?php echo $apt_count; ?><br>
 						BD:
 						<?php 
 							if(!isset($bedroom)){

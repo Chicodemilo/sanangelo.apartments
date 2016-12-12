@@ -60,7 +60,7 @@
             foreach ($blog_list->result() as $blog) {
         ?>
         <div class="post">
-            <h2 class="post_title"><a href=
+            <h1 class="post_title"><a href=
             "<?php 
 
             	$clean_title = str_replace(' ', '_', $blog->post_title);
@@ -69,7 +69,7 @@
 
             	echo base_url().'texas/this_blog/'.$blog->id.'/'.$clean_title; 
 
-            ?>"><?php echo $blog->post_title; ?></a></h2>
+            ?>"><?php echo $blog->post_title; ?></a></h1>
             <p class="meta">
         <?php
             

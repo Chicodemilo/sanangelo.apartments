@@ -534,11 +534,14 @@ hr {
     position:absolute;
     top:10px;
     left:100px;
+    z-index:200;
+}
+
+.nav_prop_name_h1{
     font-family:'Lobster', sans-serif;
     color:#F0E4D5;
-    font-size:5.8em;
+    font-size:4.8em;
     line-height:.9em;
-    z-index:200;
     text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
 }
 
@@ -878,10 +881,11 @@ section {
 }
 
 .search_param_bold{
-    font-size:1.4em;
-    line-height:1.6em;
+    font-size:1.6em;
+    line-height:1em;
     font-weight:bold;
     color:#FEC063;
+    margin-bottom: -15px;
 }
 
 .inner_table_1{
