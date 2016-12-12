@@ -52,7 +52,7 @@ class Admin_model extends CI_Model {
 						$this->db->where('verified_user_id', $value['ID']);
 						$apt_info = $this->db->get('apartment_main')->result_array();
 						if(count($apt_info) > 0){
-							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'/main/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
+							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'/texas/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
 							$all_the_stuff .= $link;
 						}
 
@@ -82,7 +82,7 @@ class Admin_model extends CI_Model {
 						$this->db->where('verified_user_id', $value['ID']);
 						$apt_info = $this->db->get('apartment_main')->result_array();
 						if(count($apt_info) > 0){
-							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'main/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
+							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'texas/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
 							$all_the_stuff .= $link;
 						}
 					}
@@ -110,7 +110,7 @@ class Admin_model extends CI_Model {
 						$this->db->where('verified_user_id', $value['ID']);
 						$apt_info = $this->db->get('apartment_main')->result_array();
 						if(count($apt_info) > 0){
-							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'main/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
+							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'texas/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
 							$all_the_stuff .= $link;
 						}
 					}
@@ -138,7 +138,7 @@ class Admin_model extends CI_Model {
 						$this->db->where('verified_user_id', $value['ID']);
 						$apt_info = $this->db->get('apartment_main')->result_array();
 						if(count($apt_info) > 0){
-							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'main/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
+							$link = '<h5>Here\'s Your Page: <a href="'.base_url().'texas/apartment/'.$apt_info[0]['property_search_name'].'/'.$apt_info[0]['ID'].'">'.$apt_info[0]['property_name'].'</a></h5>';
 							$all_the_stuff .= $link;
 						}
 					}

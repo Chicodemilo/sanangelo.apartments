@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Texas extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 	}
@@ -171,7 +171,7 @@ class Main extends CI_Controller {
 
         $this->load->library('pagination');
         $config = array();
-        $config['base_url'] = site_url("main/blog");
+        $config['base_url'] = site_url("texas/blog");
         $config['total_rows'] = $blog_page_data['num_results'];
         $config['per_page'] = $limit;
 

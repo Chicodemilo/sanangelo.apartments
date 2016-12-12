@@ -81,7 +81,7 @@
 					if($value['property_slogan'] == ''){$value['property_slogan'] = '&nbsp;';}
 					$value['slogan'] = $value['property_slogan'];
 					echo "<section >";
-						echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+						echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 							echo "<table id='".$hover_id."' class='inner_table_1_map'>";
 								echo "<tr>";
 								echo "<td rowspan='2' id='table_pic_box_map'>";
@@ -153,7 +153,7 @@
 			  var names = [
 				<?php 
 					foreach ($all_apartments as $key => $value) {
-						echo "['<a class=\'map_info_link\' href=\'".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."\'>".$value["property_name"]."</a>', ".$value['lat'].", ".$value['long']."], ";
+						echo "['<a class=\'map_info_link\' href=\'".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."\'>".$value["property_name"]."</a>', ".$value['lat'].", ".$value['long']."], ";
 					}
 
 				 ?>

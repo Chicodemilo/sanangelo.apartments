@@ -1494,11 +1494,11 @@ class Apartment_model extends CI_Model {
 			}
 
 			$sent_four = [
-				"If you're interested in contacting them or learning more, take a look here: <a href='".base_url()."main/apartment/".$search_name."/".$id."'>".$name."</a>", 
-				"Take a look here: <a href='".base_url()."main/apartment/".$search_name."/".$id."'>".$name."</a> to contact them or learn more.", 
-				"Get their contact info and get some more information here: <a href='".base_url()."main/apartment/".$search_name."/".$id."'>".$name."</a>", 
-				"There's lots more to see here: <a href='".base_url()."main/apartment/".$search_name."/".$id."'>".$name."</a>", 
-				"Want more info? Take a look here: <a href='".base_url()."main/apartment/".$search_name."/".$id."'>".$name."</a>"];
+				"If you're interested in contacting them or learning more, take a look here: <a href='".base_url()."texas/apartment/".$search_name."/".$id."'>".$name."</a>", 
+				"Take a look here: <a href='".base_url()."texas/apartment/".$search_name."/".$id."'>".$name."</a> to contact them or learn more.", 
+				"Get their contact info and get some more information here: <a href='".base_url()."texas/apartment/".$search_name."/".$id."'>".$name."</a>", 
+				"There's lots more to see here: <a href='".base_url()."texas/apartment/".$search_name."/".$id."'>".$name."</a>", 
+				"Want more info? Take a look here: <a href='".base_url()."texas/apartment/".$search_name."/".$id."'>".$name."</a>"];
 
 			$text = $text."<br><br>".$sent_four[$rand_seven];
 
@@ -1571,7 +1571,7 @@ class Apartment_model extends CI_Model {
 			}	
 
 			if($special_takeover != false){
-				$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."main/apartment/".$special_takeover['takeover_special']['property_search_name']."/".$special_takeover['takeover_special']['apt_id']."'>".$special_takeover['takeover_special']['property_name']."</a> : ";
+				$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."texas/apartment/".$special_takeover['takeover_special']['property_search_name']."/".$special_takeover['takeover_special']['apt_id']."'>".$special_takeover['takeover_special']['property_name']."</a> : ";
 
 				$add_text_b = $special_takeover['takeover_special']['special'][0]['title']." : ";
 				$add_text_c = $special_takeover['takeover_special']['special'][0]['description']."</li>";
@@ -1583,7 +1583,7 @@ class Apartment_model extends CI_Model {
 			if($special_basic != false){
 				$i = 0;
 				foreach($special_basic as $special_basic){
-					$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."main/apartment/".$special_basic['property_search_name']."/".$special_basic['apt_id']."'>".$special_basic['property_name']."</a> : ";
+					$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."texas/apartment/".$special_basic['property_search_name']."/".$special_basic['apt_id']."'>".$special_basic['property_name']."</a> : ";
 
 					$add_text_b = $special_basic['special'][0]['title']." : ";
 					$add_text_c = $special_basic['special'][0]['description']."</li>";
@@ -1597,7 +1597,7 @@ class Apartment_model extends CI_Model {
 			if($special_free != false){
 				$i = 0;
 				foreach($special_free as $special_free){
-					$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."main/apartment/".$special_free['property_search_name']."/".$special_free['apt_id']."'>".$special_free['property_name']."</a> : ";
+					$add_text = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."texas/apartment/".$special_free['property_search_name']."/".$special_free['apt_id']."'>".$special_free['property_name']."</a> : ";
 
 					$add_text_b = $special_free['special'][0]['title']." : ";
 					$add_text_c = $special_free['special'][0]['description']."</li>";
@@ -1841,7 +1841,7 @@ class Apartment_model extends CI_Model {
 			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
 			$this->email->to($value);
 			$this->email->subject('Are Rents Up or Down This Month?');
-			$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'main/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
+			$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'texas/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
 			$sent = $this->email->send();
 		}
 	}
@@ -1934,7 +1934,7 @@ class Apartment_model extends CI_Model {
 			$one_apt = $this->db->get('apartment_main')->result_array();
 
 
-			$text_b = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."main/apartment/".$one_apt[0]['property_search_name']."/".$one_apt[0]['ID']."'>".$one_apt[0]['property_name']."</a></li>";
+			$text_b = "<li class='list_smaller'><a class='spec_list_title' href='".base_url()."texas/apartment/".$one_apt[0]['property_search_name']."/".$one_apt[0]['ID']."'>".$one_apt[0]['property_name']."</a></li>";
 
 			$text = $text.$text_b;
 
@@ -1968,7 +1968,7 @@ class Apartment_model extends CI_Model {
 		// 	$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
 		// 	$this->email->to($value);
 		// 	$this->email->subject('Are Rents Up or Down This Month?');
-		// 	$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'main/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
+		// 	$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'texas/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
 		// 	$sent = $this->email->send();
 		// }
 

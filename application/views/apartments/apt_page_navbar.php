@@ -38,7 +38,7 @@
 				<img src="<?php echo base_url(); ?>images/search.svg" alt="search icon">
 
 			</div>
-			<a href="<?php echo base_url(); ?>main/map">
+			<a href="<?php echo base_url(); ?>texas/map">
 				<div class="little_links" id="little_link2">
 					<img src="<?php echo base_url(); ?>images/map.svg" alt="map icon">
 				</div>
@@ -60,7 +60,7 @@
 							echo "<tr>";
 							echo "<td>";
 							echo "<div class='link_box'>";
-							echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['ID']."'>".$value['property_name']."</a>";
+							echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['ID']."'>".$value['property_name']."</a>";
 							echo "</div>";
 							echo "</td>";
 							echo "<td>";
@@ -75,7 +75,7 @@
 			</div>
 			<div id="navbar_search_window">
 
-					<form action=" <?php echo base_url(); ?>main/find_apts" method="GET">
+					<form action=" <?php echo base_url(); ?>texas/find_apts" method="GET">
 							<?php 
 								$csrf = array(
 						        'name' => $this->security->get_csrf_token_name(),

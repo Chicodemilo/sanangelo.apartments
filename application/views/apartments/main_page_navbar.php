@@ -3,7 +3,7 @@
 		<div class="inner_pic_name">
 			<?php echo $pos_1['property_name'];?>
 		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_1['property_search_name'].'/'.$pos_1['ID'] ?>">
+		<a href="<?php echo base_url(); ?>texas/apartment/<?php echo $pos_1['property_search_name'].'/'.$pos_1['ID'] ?>">
 			<img src="
 				<?php
 					if($pos_1['picture_id'] !== 'generic'){
@@ -21,7 +21,7 @@
 		<div class="inner_pic_name">
 			<?php echo $pos_2['property_name'];?>
 		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_2['property_search_name'].'/'.$pos_2['ID'] ?>">
+		<a href="<?php echo base_url(); ?>texas/apartment/<?php echo $pos_2['property_search_name'].'/'.$pos_2['ID'] ?>">
 			<img src="
 				<?php
 					if($pos_2['picture_id'] == 'generic'){
@@ -39,7 +39,7 @@
 		<div class="inner_pic_name">
 			<?php echo $pos_3['property_name'];?>
 		</div>
-		<a href="<?php echo base_url(); ?>main/apartment/<?php echo $pos_3['property_search_name'].'/'.$pos_3['ID'] ?>">
+		<a href="<?php echo base_url(); ?>texas/apartment/<?php echo $pos_3['property_search_name'].'/'.$pos_3['ID'] ?>">
 			<img src="
 				<?php
 					if($pos_3['picture_id'] !== 'generic'){
@@ -59,14 +59,14 @@
 		<a href="<?php echo base_url(); ?>">
 			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
 		</a>
-		<a class="blog_link" href="<?php echo base_url(); ?>main/blog"><span class='mob_hide'>SEE OUR </span>BLOG</a>
+		<a class="blog_link" href="<?php echo base_url(); ?>texas/blog"><span class='mob_hide'>SEE OUR </span>BLOG</a>
 		
 		<div class="navbar_links">
 			<div class="little_links" id="little_link1">
 				<img src="<?php echo base_url(); ?>images/search.svg" alt="search icon">
 
 			</div>
-			<a href="<?php echo base_url(); ?>main/map">
+			<a href="<?php echo base_url(); ?>texas/map">
 				<div class="little_links" id="little_link2">
 					<img src="<?php echo base_url(); ?>images/map.svg" alt="map icon">
 				</div>
@@ -89,7 +89,7 @@
 							echo "<tr>";
 							echo "<td>";
 							echo "<div class='link_box'>";
-							echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['ID']."'>".$value['property_name']."</a>";
+							echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['ID']."'>".$value['property_name']."</a>";
 							echo "</div>";
 							echo "</td>";
 							echo "<td>";
@@ -104,7 +104,7 @@
 			</div>
 			<div id="navbar_search_window">
 
-					<form action=" <?php echo base_url(); ?>main/find_apts" method="GET">
+					<form action=" <?php echo base_url(); ?>texas/find_apts" method="GET">
 							<?php 
 								$csrf = array(
 						        'name' => $this->security->get_csrf_token_name(),

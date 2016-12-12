@@ -1,4 +1,4 @@
-<form action="<?php echo base_url(); ?>main/add_amenities" method="POST">
+<form action="<?php echo base_url(); ?>texas/add_amenities" method="POST">
 	<?php 
 		$csrf = array(
 	    'name' => $this->security->get_csrf_token_name(),

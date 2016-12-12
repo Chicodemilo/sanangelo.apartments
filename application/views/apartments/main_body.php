@@ -101,7 +101,7 @@
 					<?php 
 						if($open_takeover_apt != false){
 							echo "<tr><td colspan='2'><div class='left_link_box'>";
-							echo "<a href='".base_url()."main/apartment/".$open_takeover_apt['takeover_apt']['property_search_name']."/".$open_takeover_apt['takeover_apt']['apt_id']."'>";
+							echo "<a href='".base_url()."texas/apartment/".$open_takeover_apt['takeover_apt']['property_search_name']."/".$open_takeover_apt['takeover_apt']['apt_id']."'>";
 							echo "<span class='open_bold'>".$open_takeover_apt['takeover_apt']['property_name']."</span>";
 							foreach ($open_takeover_apt['takeover_apt']['open_apts'] as $key => $value) {
 								foreach ($value as $key_b => $value_b) {
@@ -137,7 +137,7 @@
 
 								if(count($value) > 1){
 									echo "<tr><td colspan='2'><div class='left_link_box'>";
-									echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 									echo "<span class='open_bold'>".$value['property_name']."</span>";
 									foreach ($value['open_apts'] as $key => $value) {
 										foreach ($value as $key_b => $value_b) {
@@ -174,7 +174,7 @@
 							foreach ($open_free_apt as $key => $value) {
 								if(count($value) > 1){
 									echo "<tr><td colspan='2'><div class='left_link_box'>";
-									echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 									echo "<span class='open_bold'>".$value['property_name']."</span>";
 									foreach ($value['open_apts'] as $key => $value) {
 										foreach ($value as $key_b => $value_b) {
@@ -217,7 +217,7 @@
 					<?php 
 					if($special_takeover != false){
 						echo "<tr><td colspan='2'><div class='left_link_box'>";
-						echo "<a href='".base_url()."main/apartment/".$special_takeover['takeover_special']['property_search_name']."/".$special_takeover['takeover_special']['apt_id']."'>";
+						echo "<a href='".base_url()."texas/apartment/".$special_takeover['takeover_special']['property_search_name']."/".$special_takeover['takeover_special']['apt_id']."'>";
 						echo "<span class='open_bold'>".$special_takeover['takeover_special']['property_name']."</span>";
 						foreach ($special_takeover['takeover_special']['special'] as $key => $value) {
 							echo $value['title'];
@@ -230,7 +230,7 @@
 							foreach ($special_basic as $key => $value) {
 
 								echo "<tr><td colspan='2'><div class='left_link_box'>";
-								echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+								echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 								echo "<span class='open_bold'>".$value['property_name']."</span>";
 								foreach ($value['special'] as $key => $value) {
 									foreach ($value as $key_b => $value_b) {
@@ -248,7 +248,7 @@
 							foreach ($special_free as $key => $value) {
 
 								echo "<tr><td colspan='2'><div class='left_link_box'>";
-								echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+								echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 								echo "<span class='open_bold'>".$value['property_name']."</span>";
 								foreach ($value['special'] as $key => $value) {
 									foreach ($value as $key_b => $value_b) {
@@ -356,7 +356,7 @@
 							if($value['property_slogan'] == ''){$value['property_slogan'] = '&nbsp;';}
 							$value['slogan'] = $value['property_slogan'];
 							echo "<section>";
-								echo "<a href='".base_url()."main/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+								echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
 									echo "<table id='inner_table_".$value['apt_id']."' class='inner_table_".$table_class."'>";
 										echo "<tr>";
 										echo "<td rowspan='2' id='table_pic_box'>";

@@ -67,7 +67,7 @@
             	$clean_title = str_replace(',', '', $clean_title);
             	$clean_title = preg_replace('/[\/|+ -]+/', '', $clean_title);
 
-            	echo base_url().'main/this_blog/'.$blog->id.'/'.$clean_title; 
+            	echo base_url().'texas/this_blog/'.$blog->id.'/'.$clean_title; 
 
             ?>"><?php echo $blog->post_title; ?></a></h2>
             <p class="meta">

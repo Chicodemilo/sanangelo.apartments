@@ -90,7 +90,7 @@
 					 
 					         $.ajax({
 					           type: "POST",
-					           url: "<?php echo base_url(); ?>main/contact",
+					           url: "<?php echo base_url(); ?>texas/contact",
 					           data: dataString,
 					 
 					           success: function(json){	
