@@ -2028,16 +2028,16 @@ class Apartment_model extends CI_Model {
 		// 	1 => ['apt_name' => 'Bay Rum Apartments', 'email' => 'miles@bayrummedia.com'],
 		// 	];
 
-		$this->load->library('email');
-		foreach ($all_emails as $key => $value) {
+		// $this->load->library('email');
+		// foreach ($all_emails as $key => $value) {
  			
-			$this->email->clear();
-			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
-			$this->email->to($value['email']);
-			$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
-			$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br>'.$value['apt_name'].' will not show up.<br>Why? Because you do not have any floorplans listed on the site.<br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
-			$sent = $this->email->send();
-		}
+		// 	$this->email->clear();
+		// 	$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+		// 	$this->email->to($value['email']);
+		// 	$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
+		// 	$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br>'.$value['apt_name'].' will not show up.<br>Why? Because you do not have any floorplans listed on the site.<br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
+		// 	$sent = $this->email->send();
+		// }
 
 		$fp_remind['sent_floorplan_reminder'] = date('Y-m-d');
 		$this->db->insert('reminders', $fp_remind);
