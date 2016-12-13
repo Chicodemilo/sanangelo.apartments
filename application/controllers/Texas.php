@@ -71,7 +71,7 @@ class Texas extends CI_Controller {
 			}
 		}
 
-		if($day === 'Tue'  && $hour > 9){
+		if($day === 'Mroro'  && $hour > 9){
 			$today = date('Y-m-d');
 			$this->db->where('sent_floorplan_reminder', $today);
 			$sent = $this->db->get('reminders')->result_array();
