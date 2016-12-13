@@ -768,14 +768,14 @@ footer {padding: 5px;
 /******************************** MESSAGES PAGE ***************************/
 
 
-.message_head table tr th {font-size: .7em;}
+.message_head table tr th {font-size: 1em;}
 
 .message_table  {position: relative;
                 top: -20px;
                 padding: 0px;
                 margin: 0px;}
 
-.message_table td   {font-size: .7em;}
+.message_table td   {font-size: 1em;}
 
 
 
