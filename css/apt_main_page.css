@@ -550,8 +550,8 @@ hr {
     font-family:'Oswald', sans-serif;
     margin-top:10px;
     color:#F0E4D5;
-    font-size:.23em;
-    line-height:.9em;
+    font-size:1.7em;
+    line-height:1.2em;
     z-index:200;
     text-shadow:3px 3px 15px rgba(0, 0, 0, 0.9);
 }
