@@ -610,7 +610,6 @@ class Edit extends CI_Controller {
 
     public function submit_user_edits($id){
         $data = $_POST;
-        $data['username'] = $data['email'];
         $this->db->where('id', $id);
         $this->db->update('users', $data);
         redirect(base_url().'edit/users', 'refresh');
