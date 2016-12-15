@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title>SANANGELO.APARTMENTS - Find An Apartment In San Angelo Texas</title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="SANANGELO.APARTMENTS is the most comprehensive site for finding an apartment in San Angelo Texas. We have great tools to help you search for and find your new apartment, townhome or rental property.  From Luxury Apartments to Affordable Housing this is the place to go.">
+    <meta name="description" content="SANANGELO.APARTMENTS is the most comprehensive site for finding an apartment in San Angelo Texas. We have great tools to help you search for your new apartment, townhome or rental property.  Everything from Luxury Apartments to Affordable Housing.">
     <meta name="keywords" content="Apartments, Rentals, San Angelo, Greater San Angelo Renter, Texas">
     <meta name=viewport content="width=device-width, initial-scale=1">
     
