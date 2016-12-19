@@ -140,7 +140,7 @@ class Texas extends CI_Controller {
 		$this->load->view('apartments/main_page_footer');
 	}
 
-		public function blog($offset = 0)
+	public function blog($offset = 0)
 	{	
 		
 		$signed_up = $this->session->userdata('entered_email');
