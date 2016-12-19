@@ -200,7 +200,7 @@ class Texas extends CI_Controller {
         $this->pagination->initialize($config);
         $blog_page_data['pagination'] = $this->pagination->create_links();
 
-		$this->load->view('apartments/main_page_header');
+		$this->load->view('apartments/main_blog_header');
 		$this->load->view('apartments/main_page_navbar', $top_of_nav);
 		$this->load->view('apartments/blog_body', $blog_page_data);
 		$this->load->view('apartments/main_page_footer');
