@@ -21,6 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>css/pikaday.css">
 
     <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet">
+    <meta name="google-site-verification" content="zklGPKpd_Dq2tiI4Z00lq_cVRp2pu1nNPwbFyVXbY48" />
 
     <script src="<?php echo base_url() ?>js/moment.js"></script>
     <script src="<?php echo base_url() ?>js/pikaday.js"></script>

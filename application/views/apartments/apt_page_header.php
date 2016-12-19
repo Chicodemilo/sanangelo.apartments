@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="<?php echo $property_name.'- San Angelo, Texas- '.$property_slogan.'- '; ?>- See our pictures, amenities, rent and deposit prices, pet policy, apartment floorplans, and office hours. Use the Contact form to get in touch with us.">
     <meta name="keywords" content="<?php echo $property_name; ?>, San Angelo, Texas">
     <meta name=viewport content="width=device-width, initial-scale=1">
+
     
     
     <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
@@ -26,6 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
     <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet"/>
+    <meta name="google-site-verification" content="zklGPKpd_Dq2tiI4Z00lq_cVRp2pu1nNPwbFyVXbY48" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
