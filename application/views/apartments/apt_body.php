@@ -5,7 +5,7 @@
 
 			if($background_data != 'N'){
 				if($background_data['takeover_link'] != 'N'){
-					echo '<a target="blank" href="http://'.$background_data['takeover_link'].'">';
+					echo '<a target="blank"  rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
 				}
 
 				if($background_data['takeover_left'] != ''){
@@ -24,7 +24,7 @@
 		<?php 
 			if($background_data != 'N'){
 				if($background_data['takeover_link'] != 'N'){
-					echo '<a target="blank" href="http://'.$background_data['takeover_link'].'">';
+					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
 				}
 
 				if($background_data['takeover_left'] != ''){
@@ -41,7 +41,7 @@
 		<?php 
 			if($background_data != 'N'){
 				if($background_data['takeover_link'] != 'N'){
-					echo '<a target="blank" href="http://'.$background_data['takeover_link'].'">';
+					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
 				}
 
 				if($background_data['takeover_top'] != ''){
@@ -388,7 +388,7 @@
 							
 							if($property_website != ""){
 								echo "<hr>";
-								echo "<a href='http://".$property_website."' target='blank'>";
+								echo "<a href='http://".$property_website."'  rel='nofollow' target='blank'>";
 								echo "See Our Website<br>".$property_name;
 								echo "</a>";
 							}
@@ -401,7 +401,7 @@
 						if($free == 'N'){
 							if($property_management_url != ""){
 								echo "<hr>";
-								echo "<a href='http://".$property_management_url."' target='blank'>";
+								echo "<a href='http://".$property_management_url."' rel='nofollow' target='blank'>";
 							}
 
 							if($management_logo != 'N'){

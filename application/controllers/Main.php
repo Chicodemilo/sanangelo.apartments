@@ -26,9 +26,24 @@ class Main extends CI_Controller {
 // INDEX *********************************************************************************
 
    	public function index(){
-        redirect('/', 'refresh');
+        redirect(base_url(), 'refresh');
     }
 
+    public function blog($offset = 0){
+    	redirect(base_url().'texas/blog', 'refresh');
+    }
+
+    public function apartment($apt_name, $apt_id){
+    	redirect(base_url().'texas/apartment/'.$apt_name.'/'.$apt_id, 'refresh');
+    }
+
+    public function map(){
+    	redirect(base_url().'texas/map', 'refresh');
+    }
+
+    public function this_blog($id = 1){
+    	redirect(base_url().'texas/this_blog/'.$id, 'refresh');
+    }
 
 
 
