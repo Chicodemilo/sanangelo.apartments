@@ -63,7 +63,7 @@
 			</tr>
 			<tr>
 				<td class="righter">Slogan:</td>
-				<td colspan="2"> <textarea name="property_slogan" cols="60" rows="4" id="property_slogan" maxlength='125' placeholder="Enter A Short Slogan For Your Property. 125 Characters Max."><?php echo $main_info[0]['property_slogan'] ?></textarea></td>
+				<td colspan="2"> <textarea name="property_slogan" cols="60" rows="4" id="property_slogan" maxlength='105' placeholder="Enter A Short Slogan For Your Property. 105 Characters Max."><?php echo $main_info[0]['property_slogan'] ?></textarea></td>
 			
 				<td class="righter">Property Description:</td>
 				<td colspan="2"><textarea name="property_description" cols="60" rows="4"  id="property_description" maxlength='800' placeholder="Enter A Short Description Of Your Property. 400 Characters Max."><?php echo $main_info[0]['property_description'] ?></textarea></td>

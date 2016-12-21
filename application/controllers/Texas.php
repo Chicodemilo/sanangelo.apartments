@@ -373,32 +373,31 @@ class Texas extends CI_Controller {
 
 			if($main_page_data['open_takeover_apt'] != ''){
 				$top_of_nav['background_data'] = $this->apartment_model->get_takeover_bg_info();
-				$top_of_nav['background_data']['takeover_top'] = '';
 			}else{
 				$top_of_nav['background_data'] = 'N';
 			}
 
-			if(!$main_page_data['open_basic_apt']){
-				$main_page_data['open_free_apt'] = $this->apartment_model->get_open_free_apt();
-				$main_page_data['open_basic_apt'] = false;
-			}
+			
+			$main_page_data['open_free_apt'] = $this->apartment_model->get_open_free_apt();
+
 
 			$main_page_data['special_takeover'] = $this->apartment_model->get_special_takeover();
 			if(!$main_page_data['special_takeover']){
 				$main_page_data['special_takeover'] = false;
 			}
+			
 			$main_page_data['special_basic'] = false;
 			$main_page_data['special_free'] = false;
 
 			$main_page_data['special_basic'] = $this->apartment_model->get_special_basic();
 
-
 			if(!$main_page_data['special_basic']){
-				$main_page_data['special_free'] = $this->apartment_model->get_special_free();
-				if(!$main_page_data['special_free']){
-					$main_page_data['special_free'] = false;
-				}
 				$main_page_data['special_basic'] = false;
+			}
+
+			$main_page_data['special_free'] = $this->apartment_model->get_special_free();
+			if(!$main_page_data['special_free']){
+				$main_page_data['special_free'] = false;
 			}
 
 			$main_page_data['all_apartments'] = $this->apartment_model->get_these_apts($_GET);
