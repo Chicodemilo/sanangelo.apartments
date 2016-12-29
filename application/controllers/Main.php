@@ -25,8 +25,18 @@ class Main extends CI_Controller {
 
 // INDEX *********************************************************************************
 
-   	public function index(){
+    public function index(){
         redirect(base_url(), 'refresh');
+    }
+
+   	public function find_apts(){
+        $search_items = $_GET;
+        $new_url = base_url().'texas/find_apts?';
+
+        foreach ($search_items as $key => $value) {
+            $new_url .= $key.'='.$value.'&';
+        }
+        redirect($new_url, 'refresh');
     }
 
     public function blog($offset = 0){
