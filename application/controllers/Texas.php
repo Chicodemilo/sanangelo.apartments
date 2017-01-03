@@ -71,14 +71,15 @@ class Texas extends CI_Controller {
 			}
 		}
 
-		if($day === 'Tue'  && $hour > 9 && $hour < 11){
-			$today = date('Y-m-d');
-			$this->db->where('sent_floorplan_reminder', $today);
-			$sent = $this->db->get('reminders')->result_array();
-			if(count($sent) < 1){
-				$this->apartment_model->email_no_models();
-			}
-		}
+		// ***************** OBLITERATING TILL I CAN FIX *****************************
+		// if($day === 'Tue'  && $hour > 10 && $hour < 11){
+		// 	$today = date('Y-m-d');
+		// 	$this->db->where('sent_floorplan_reminder', $today);
+		// 	$sent = $this->db->get('reminders')->result_array();
+		// 	if(count($sent) < 1){
+		// 		$this->apartment_model->email_no_models();
+		// 	}
+		// }
 
 		if($day === 'Fri'  && $hour > 9){
 			$today = date('Y-m-d');
