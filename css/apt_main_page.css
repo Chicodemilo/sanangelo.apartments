@@ -1481,5 +1481,15 @@ section {
     font-weight:bolder;
 }
 
+.footer_right{
+    color: #9E958E;
+    font-size: .8em;
+    float: right;
+    width: 250px;
+    text-align: right;
+    position: relative;
+    top: 10px;
+}
+
 
 

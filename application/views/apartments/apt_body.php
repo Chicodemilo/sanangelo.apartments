@@ -435,6 +435,9 @@
 		<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
 		&nbsp;&bull;&nbsp;
 		<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>
+		<div class='footer_right'>
+			this website made by <a href='http://www.mileschick.com' alt='Miles Chick Web Developer Austin Texas' target="blank">Miles Chick, Web Developer, Austin Texas<a>
+		</div>
 	</div>
 
 
