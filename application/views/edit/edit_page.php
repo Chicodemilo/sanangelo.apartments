@@ -29,7 +29,7 @@
 		<table>
 			<tr>
 				<th colspan="6">
-					MAIN INFORMATION :: <?php echo $main_info[0]['property_name'] ?>
+					Get More From SANANGELO.APARTMENTS
 				</th> 
 			</tr>
 			<tr>

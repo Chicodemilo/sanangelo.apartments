@@ -19,6 +19,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>css/spectrum.css">
     <script src="<?php echo base_url() ?>js/moment.js"></script>
     <script src="<?php echo base_url() ?>js/pikaday.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
     <script>
         // google analytics
     </script>
@@ -76,6 +77,7 @@
                         
                         <li class="contact_drop" id="contact_drop"><a href="#" class="">EDIT APARTMENT INFO</a>
                             <ul class="contact_menu" id="contact_menu">
+                                <li><a href="<?php echo base_url() ?>edit/advertising" class="">ADVERTISING</a></li>
                                 <li><a href="<?php echo base_url() ?>edit" class="">MAIN</a></li>
                                 <li><a href="<?php echo base_url() ?>edit/amenities" class="">AMENITIES</a></li>
                                 <li><a href="<?php echo base_url() ?>edit/hours" class="">HOURS</a></li>

@@ -821,11 +821,107 @@ footer {padding: 5px;
                 margin: auto;}
 
 
+/******************************** ADV PAGE ***************************/
+
+.big_advertising_wrapper{
+    width: 80%;
+    margin-top: 50px;
+    margin: auto;
+    display: block;
+}
+
+.adv_page_title{
+    font-size: 4vw;
+    color: black;
+    font-family: 'Bungee', arial;
+    font-weight: bold;
+    display : flex;
+    align-items : center;
+}
+
+.adv_page_sm_title{
+    font-size: 3.1vw;
+    color: #0B63F6;
+    font-family: 'Bungee', arial;
+    font-weight: bold;
+}
+
+.adv_item_block{
+    margin-left: 30px;
+    padding: 20px 20px 20px 20px;
+    border: 3px solid #FFEBA4;
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+}
 
 
+#ad_page_logo{
+    width: 45%;
+}
 
+.adv_desc_block{
+    line-height: 1.8em;
+    font-size: 1.1em;
+    font-weight: bolder;
+    color: black;
+    padding: 20px;
+}
 
+.smaller_indent{
+    font-size: 1em;
+    font-style: italic;
+}
 
+.adv_stickout{
+    color: #EF7007;
+    font-size: 1.1em;
+    font-family: 'Bungee', arial;
+}
+
+.adv_item_block ul{
+    margin-left: 30px;
+    line-height: 1.8em;
+    font-size: .9em;
+}
+
+/* .small_ul{
+    font-size: .9em;
+    line-height: .1em;
+} */
+
+.item_block_one{
+    background-image: url('../images/thumbsmall.jpg');
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: contain;
+}
+
+.adv_pic{
+    width: 44%;
+    overflow: hidden;
+    box-shadow: 5px 5px 20px #9A9A9A;
+    /* float: right; */
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    margin: 30px;
+}
+
+.adv_item_two{
+    /* float: left; */
+    width: 60%;
+}
+
+.lower_block{
+    width: 68%;
+}
+
+#takeover_pic{
+    width: 100%;
+    object-fit: contain;
+}
 
 
 

@@ -82,7 +82,6 @@ jQuery(document).ready(function($) {
 		$('.most_viewed_window_map').slideUp('fast');
 	});
 
-	$('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
 	// $('.takeover_top_banner').delay(8000).slideDown(150).delay(2900).slideUp(150);
 
 	$('.sign_up_screen').delay(7000).slideDown(500);

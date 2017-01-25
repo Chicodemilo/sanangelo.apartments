@@ -191,15 +191,9 @@ class Login extends CI_Controller {
 										);
 					$sent = $this->email->send();
 
-					redirect('edit');
-
+					redirect('edit/advertising');
 				}
-
-
-
-
 			}
-
 		}
 	}
 

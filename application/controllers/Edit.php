@@ -1048,6 +1048,29 @@ public function man_logo_delete(){
         redirect(base_url().'edit/messages');
     }
 
+// ADVERTISING *******************************************************************************
+
+    public function advertising(){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $this->load->model('edit_model', 'messages');
+        $messages = $this->messages->get_messages($apt_id)->result_array();
+        $data['messages'] = $messages;
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/advertising.php', $data);
+        $this->load->view('edit/footer.php');
+    }
+
 
 
 

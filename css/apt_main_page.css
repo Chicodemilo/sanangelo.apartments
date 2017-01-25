@@ -643,12 +643,13 @@ hr {
 /******************************** MAIN BODY  ***************************/
 
 .takeover_top_banner{
-    position:absolute;
+    position:fixed;
+    bottom: 0px;
     height:80px;
     width:870px;
     margin-left:190px;
     z-index:400;
-    display:none;
+    /* display:none; */
 }
 
 .body_wrapper{
