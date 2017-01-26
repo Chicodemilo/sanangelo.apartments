@@ -29,7 +29,7 @@
 				<br>But Check Out Our <span class="adv_stickout">PREMIUM</span> Level for only <span class="adv_stickout">$70 a Month...</span>
 			</div>
 			<ul>
-				<li>PREMIUM Level apartments apear <span class="adv_stickout">ABOVE</span> the BASIC level apartments on...
+				<li>PREMIUM Level Apartments Apear <span class="adv_stickout">ABOVE</span> the BASIC Level Apartments On...
 					<ul class="small_ul">
 						<li>The Home Page</li>
 						<li>The Map Page</li>
@@ -39,14 +39,14 @@
 					</ul>
 
 				</li>
-				<li>Your Page Includes A <span class="adv_stickout">TRACKABLE</span> Toll-Free Number... <span class="smaller_indent">you can see how many calls you're getting</span></li>
-				<li>Your Page Includes A <span class="adv_stickout">LINK</span> To Your Property Website</li>
-				<li>Your Page Includes A <span class="adv_stickout">LINK</span>  &amp; The Logo of your Property Management Company</li>
+				<li>A <span class="adv_stickout">TRACKABLE</span> Toll-Free Phone Number... <span class="smaller_indent">you can see how many calls you're getting</span></li>
+				<li>A <span class="adv_stickout">LINK</span> To Your Property Website</li>
+				<li>A <span class="adv_stickout">LINK</span>  &amp; The Logo of your Property Management Company</li>
 				<li>We Post A <span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
-				<li>All Generated <span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don't have to logon to see them!</span></li>
+				<li>All <span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don't have to logon to see them!</span></li>
 			</ul>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> 1-866-800-4727 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
 			</div>
 		</div>
 		<hr>
@@ -76,11 +76,11 @@
 					<li>Your Mobile Banner Appears and Disolves On Our <span class="adv_stickout">MOBILE</span> Site</li>
 					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">Facebook Page</a></li>
 					<li>We'll Help You Make Your Banner Ads</li>
-					<li>Commitment Free! You Only Commit To This One Day At A Time.</li>
+					<li>Commitment Free! You Only Commit To This One Day At A Time</li>
 				</ul>
 			</div>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> 1-866-800-4727 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
 			</div>
 		</div>
 		<hr>
@@ -110,7 +110,7 @@
 				</ul>
 			</div>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> 1-866-800-4727 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
 			</div>
 		</div>
 
