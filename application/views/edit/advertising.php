@@ -21,15 +21,14 @@
 		<div class="adv_page_title"><span id="title_text">GET MORE FROM &nbsp;</span><img id="ad_page_logo" src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments"></div>
 		<hr>
 		<div class="adv_item_block item_block_one">
-			<span class="adv_page_sm_title">UPGRADE FROM <span style="color:gray;">BASIC</span> TO <span style='color:#EF7007'>PREMIUM</span></span>
+			<span class="adv_page_sm_title"><span style="color:gray;">BASIC</span> TO <span style='color:#EF7007'>PREMIUM</span></span>
 			<div class="adv_desc_block">
-				If you advertise in the Renter Magazine you have a <span class="adv_stickout">BASIC</span> page for free...
-				<span class="smaller_indent">a $120/month value!</span>
-				<br>
-				<br>But Check Out Our <span class="adv_stickout">PREMIUM</span> Level for only <span class="adv_stickout">$70 a Month...</span>
+				Your Advertisement In The Renter Magazine Gives You A <span class="adv_stickout">BASIC</span> Page For <span class="adv_stickout">FREE</span>!&nbsp;
+				<span class="smaller_indent">(a $120/month value)</span>
+				<br>Want To Go <span class="adv_stickout">PREMIUM</span>? For Only <span class="adv_stickout">$70 a Month</span>...
 			</div>
 			<ul>
-				<li>PREMIUM Level Apartments Apear <span class="adv_stickout">ABOVE</span> the BASIC Level Apartments On...
+				<li><span class="adv_stickout">You</span> Appear <span class="adv_stickout">ABOVE</span> the BASIC Level Apartments On...
 					<ul class="small_ul">
 						<li>The Home Page</li>
 						<li>The Map Page</li>
@@ -41,9 +40,9 @@
 				</li>
 				<li>A <span class="adv_stickout">TRACKABLE</span> Toll-Free Phone Number... <span class="smaller_indent">you can see how many calls you're getting</span></li>
 				<li>A <span class="adv_stickout">LINK</span> To Your Property Website</li>
-				<li>A <span class="adv_stickout">LINK</span>  &amp; The Logo of your Property Management Company</li>
-				<li>We Post A <span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
-				<li>All <span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don't have to logon to see them!</span></li>
+				<li>A <span class="adv_stickout">LINK</span>  &amp; <span class="adv_stickout">Logo</span> of your Property Management Company</li>
+				<li><span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+				<li>All <span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don't have to log on to see them!</span></li>
 			</ul>
 			<div class="moreinfo">
 				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
@@ -76,7 +75,7 @@
 					<li>Your Mobile Banner Appears and Disolves On Our <span class="adv_stickout">MOBILE</span> Site</li>
 					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">Facebook Page</a></li>
 					<li>We'll Help You Make Your Banner Ads</li>
-					<li>Commitment Free! You Only Commit To This One Day At A Time</li>
+					<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
 				</ul>
 			</div>
 			<div class="moreinfo">
@@ -92,10 +91,11 @@
 				<span class="adv_page_sm_title">TOP 3 BANNER</span>
 				
 				<div class="adv_desc_block lower_block">
-					Get <span class="adv_stickout">MORE VIEWS</span> On Your Page With The TOP 3 BANNER 
+					Keep Your Apartment In The Top Banner<br>Only <span class="adv_stickout">$200 A MONTH</span>!					
 					<br>
 					<br>
-					Keep Your Apartment In The Top Banner<br>For Only <span class="adv_stickout">$200 A MONTH</span>
+					Get <span class="adv_stickout">MORE VIEWS</span> On Your Page 
+					
 				</div>
 				<ul class="lower_block">
 					<li>Your Apartment Name And Picture <span class="adv_stickout">ON TOP</span>. This Is Seen On...
@@ -105,8 +105,8 @@
 							<li>The Apartment Blog Pages</li>
 						</ul>
 					</li>
-					<li>A <span class="adv_stickout">LINK</span> Goes Directly To Your Page!</span></li>
-					<li>No Commitment Needed! You Can Go A Month To Month With This One</span></li>
+					<li>A <span class="adv_stickout">LINK</span> Directly To Your Page!</span></li>
+					<li>Commitment Free! Top 3 Banner is One Month At A Time</span></li>
 				</ul>
 			</div>
 			<div class="moreinfo">

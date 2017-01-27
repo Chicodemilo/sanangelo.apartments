@@ -870,7 +870,8 @@ footer {padding: 5px;
 }
 
 .smaller_indent{
-    font-size: 1em;
+    font-size: .85em;
+    color: #646464;
     font-style: italic;
 }
 
