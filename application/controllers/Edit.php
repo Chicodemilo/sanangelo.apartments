@@ -49,8 +49,6 @@ class Edit extends CI_Controller {
         $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/edit_page.php', $data);
         $this->load->view('edit/footer.php'); 
-        
-        
     }
 
 
@@ -317,7 +315,7 @@ class Edit extends CI_Controller {
             $data['floorplan_info'] = $this->edit_model->get_flooplan_info($apt_id, $id)->result_array();
             $data['error'] = '';
             $this->load->view('edit/header.php', $count_data);
-            $this->load->view('edit/do_edit_this_floorplan', $data);
+            $this->load->view('edit/do_edit_this_floorplan.php', $data);
             $this->load->view('edit/footer.php');
         }
     }
@@ -599,13 +597,6 @@ class Edit extends CI_Controller {
             $this->load->view('edit/footer.php');
         }
     }
-
-
-    // public function delete_user($id){
-    //     $this->db->where('id', $id);
-    //     $this->db->delete('membership');
-    //     redirect(base_url().'edit/users');
-    // }
 
 
     public function submit_user_edits($id){

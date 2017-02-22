@@ -210,11 +210,14 @@
 				</table>
 			</div>
 			<div class="special_table">
-				<table class="left_tab" id="fixed_head">
-					<th colspan="2">CURRENT SPECIALS</th>
-				</table>
-				<table class="left_tab" id="special_results">
+				
 					<?php 
+					if($special_takeover != false || $special_basic != false || $special_free != false){
+						echo '<table class="left_tab" id="fixed_head">
+								<th colspan="2">CURRENT SPECIALS</th>
+							</table>
+							<table class="left_tab" id="special_results">';
+					}
 					if($special_takeover != false){
 						echo "<tr><td colspan='2'><div class='left_link_box'>";
 						echo "<a href='".base_url()."texas/apartment/".$special_takeover['takeover_special']['property_search_name']."/".$special_takeover['takeover_special']['apt_id']."'>";
@@ -261,8 +264,12 @@
 								echo "</div></td></tr>";
 							}
 						}
-					 ?>
-				</table>
+
+					if($special_takeover != false || $special_basic != false || $special_free != false){
+						echo '</table>';
+					}
+					?>
+				
 			</div>
 		</div>
 		<div class="search_results_box">

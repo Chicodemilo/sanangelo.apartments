@@ -7,12 +7,12 @@
 		
 	</tr>
 		<td>
-			<a href="<?php echo base_url(); ?>admin/delete_apt" >DELETE APT</a>
+			<a href="<?php echo base_url(); ?>admin/all_apts" >EDIT APT</a>
 		</td>
 	</tr>	
 	</tr>
 		<td>
 			<a href="<?php echo base_url(); ?>admin/send_email_all">MESSAGE TO ALL APTS</a>
 		</td>
-	</tr>
+	</tr>	
 </table>

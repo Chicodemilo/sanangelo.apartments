@@ -245,15 +245,42 @@ class Admin_model extends CI_Model {
 				'Yards',
 			);
 
-		// print_r($amenities);
-
 			foreach ($amenities as $amenity) {
 				$data = array('apt_id' => $apt_id, 'name' => $amenity, 'active' => 'N', 'select_units' => 'N', 'extra_fees' => 'N');
 				$insert = $this->db->insert('our_amenities_list', $data); 
 			}
 	}
 
+	public function get_all_current_apts(){
+		$servername = "localhost";
+		$username = "root";
+		$password = "test";
+		$dbname = "sanangelo_apartments";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		$sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend != 'Y'";
+		$result = $conn->query($sql);
 
+		if ($result->num_rows > 0) {
+			return $result;
+		}
+		$conn->close();
+	}
+
+
+	public function get_all_suspended_apts(){
+		$servername = "localhost";
+		$username = "root";
+		$password = "test";
+		$dbname = "sanangelo_apartments";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		$sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend = 'Y'";
+		$result = $conn->query($sql);
+
+		if ($result->num_rows > 0) {
+			return $result;
+		}
+		$conn->close();
+	}
 
 }
 ?>

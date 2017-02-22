@@ -11,6 +11,7 @@ class Apartment_model extends CI_Model {
 
 	public function get_top_of_nav(){
 		$this->db->where('main_page_top', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->order_by('apt_id', 'RANDOM');
 		$paid_top = $this->db->get('sales')->result_array();
 		// print_r(count($paid_top));
@@ -19,6 +20,7 @@ class Apartment_model extends CI_Model {
 		if(count($paid_top) == 0){
 			$this->db->where('show_top', 'Y');
 			$this->db->order_by('ID', 'RANDOM');
+			$this->db->where('suspend !=', 'Y');
 			$this->db->limit('3');
 			$result = $this->db->get('apartment_main')->result_array();
 
@@ -82,6 +84,7 @@ class Apartment_model extends CI_Model {
 			$not_in = array('0' => $paid_top[0]['apt_id'] );
 			$this->db->order_by('ID', 'RANDOM');
 			$this->db->where_not_in('ID', $not_in);
+			$this->db->where('suspend !=', 'Y');
 			$this->db->limit('2');
 			$result = $this->db->get('apartment_main')->result_array();
 
@@ -181,6 +184,7 @@ class Apartment_model extends CI_Model {
 			$not_in = array('0' => $paid_top[0]['apt_id'], '1' => $paid_top[1]['apt_id']);
 			$this->db->order_by('ID', 'RANDOM');
 			$this->db->where_not_in('ID', $not_in);
+			$this->db->where('suspend !=', 'Y');
 			$this->db->limit('1');
 			$result = $this->db->get('apartment_main')->result_array();
 
@@ -380,9 +384,11 @@ class Apartment_model extends CI_Model {
 			$this->db->insert('site_data', $data);
 
 			$this->db->order_by('views_year', 'desc');
+			$this->db->where('suspend !=', 'Y');
 			$year_winner = $this->db->get('apartment_main')->result_array();
 
 			$this->db->order_by('views_month', 'desc');
+			$this->db->where('suspend !=', 'Y');
 			$month_winner = $this->db->get('apartment_main')->result_array();
 
 			$winners['year_winner'] = $year_winner[0]['property_search_name'];
@@ -445,9 +451,11 @@ class Apartment_model extends CI_Model {
 			$this->db->update('site_data', $data);
 
 			$this->db->order_by('views_year', 'desc');
+			$this->db->where('suspend !=', 'Y');
 			$year_winner = $this->db->get('apartment_main')->result_array();
 
 			$this->db->order_by('views_month', 'desc');
+			$this->db->where('suspend !=', 'Y');
 			$month_winner = $this->db->get('apartment_main')->result_array();
 
 			
@@ -503,6 +511,7 @@ class Apartment_model extends CI_Model {
 			$this->db->update('site_data', $data);
 
 			$this->db->order_by('views_year', 'desc');
+			$this->db->where('suspend !=', 'Y');
 			$year_winner = $this->db->get('apartment_main')->result_array();
 
 			foreach ($year_winner as $key => $value) {
@@ -522,6 +531,7 @@ class Apartment_model extends CI_Model {
 		}
 
 		$this->db->order_by('views_month', 'desc');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->limit('4');
 		$results = $this->db->get('apartment_main')->result_array();
 		return $results;
@@ -530,6 +540,7 @@ class Apartment_model extends CI_Model {
 
 	public function get_takeover_bg_info(){
 		$this->db->where('takeover', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$takeover = $this->db->get('sales')->result_array();
 		
 		$data['takeover_id'] = $takeover[0]['apt_id'];
@@ -554,6 +565,7 @@ class Apartment_model extends CI_Model {
 	public function get_market_data(){
 
 		#get all aptment floorplan data and figure average cost per sq. foot
+		$this->db->where('suspend !=', 'Y');
 		$all_apts = $this->db->get('floorplans')->result_array();
 		$all_rent = 0;
 		$all_sq_ft = 0;
@@ -576,6 +588,7 @@ class Apartment_model extends CI_Model {
 
 		#get the average rent for one bedroom apartments
 		$this->db->where('bedroom', 1);
+		$this->db->where('suspend !=', 'Y');
 		$one_bed = $this->db->get('floorplans')->result_array();
 
 		$all_rent = 0;
@@ -596,6 +609,7 @@ class Apartment_model extends CI_Model {
 
 		#get the average rent for two bedroom apartments
 		$this->db->where('bedroom', 2);
+		$this->db->where('suspend !=', 'Y');
 		$two_bed = $this->db->get('floorplans')->result_array();
 
 		$all_rent = 0;
@@ -635,6 +649,7 @@ class Apartment_model extends CI_Model {
 	public function get_open_takeover_apt(){
 
 		$this->db->where('takeover', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$takeover = $this->db->get('sales')->result_array();
 		if(count($takeover) > 0){
 			$takeover_id = $takeover[0]['apt_id'];
@@ -661,6 +676,7 @@ class Apartment_model extends CI_Model {
 
 	public function get_open_basic_apt(){
 		$this->db->where('basic', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->where('takeover', 'N');
 		$this->db->order_by('apt_id', 'RANDOM');
 		$basics = $this->db->get('sales')->result_array();
@@ -700,6 +716,7 @@ class Apartment_model extends CI_Model {
 
 	public function get_open_free_apt(){
 		$this->db->where('free', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->where('takeover', 'N');
 		$this->db->order_by('apt_id', 'RANDOM');
 		$free = $this->db->get('sales')->result_array();
@@ -739,6 +756,7 @@ class Apartment_model extends CI_Model {
 	public function get_special_takeover(){
 
 		$this->db->where('takeover', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$takeover = $this->db->get('sales')->result_array();
 		if(count($takeover) > 0){
 			$takeover_id = $takeover[0]['apt_id'];
@@ -778,6 +796,7 @@ class Apartment_model extends CI_Model {
 	public function get_special_basic(){
 		$this->db->where('basic', 'Y');
 		$this->db->where('takeover', 'N');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->order_by('ID', 'RANDOM');
 		$basics = $this->db->get('sales')->result_array();
 		$i = 0;
@@ -819,6 +838,7 @@ class Apartment_model extends CI_Model {
 	public function get_special_free(){
 		$this->db->where('free', 'Y');
 		$this->db->where('takeover', 'N');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->order_by('ID', 'RANDOM');
 		$free = $this->db->get('sales')->result_array();
 		$i = 0;
@@ -859,6 +879,7 @@ class Apartment_model extends CI_Model {
 
 	public function get_all_apartments(){
 		$this->db->where('takeover', 'Y');
+		$this->db->where('suspend !=', 'Y');
 		$takeover = $this->db->get('sales')->result_array();
 		$main_info_ids  = array();
 
@@ -869,6 +890,7 @@ class Apartment_model extends CI_Model {
 
 		$this->db->where('basic', 'Y');
 		$this->db->where('takeover', 'N');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->order_by('property_name', 'RANDOM');
 		$basics = $this->db->get('sales')->result_array();
 
@@ -881,6 +903,7 @@ class Apartment_model extends CI_Model {
 
 		$this->db->where('free', 'Y');
 		$this->db->where('takeover', 'N');
+		$this->db->where('suspend !=', 'Y');
 		$this->db->order_by('property_name', 'RANDOM');
 		$free = $this->db->get('sales')->result_array();
 
@@ -895,6 +918,7 @@ class Apartment_model extends CI_Model {
 		function get_main_data($apt_id, $level){
 			$ci =& get_instance();
 			$ci->db->where('ID', $apt_id);
+			$ci->db->where('suspend !=', 'Y');
 			$result_main = $ci->db->get('apartment_main')->result_array();
 			$data['apt_id'] = $result_main[0]['ID'];
 			if($level = 'takeover'){
@@ -958,6 +982,7 @@ class Apartment_model extends CI_Model {
 			$this->db->where('bathroom >=', $search_params['bathroom']);
 			$this->db->where('rent >=', $search_params['min-rent']);
 			$this->db->where('rent <=', $search_params['max-rent']);
+			$this->db->where('suspend !=', 'Y');
 			$this->db->order_by('apt_id', 'RANDOM');
 			$this->db->group_by('apt_id');
 			$floorplan_results = $this->db->get('floorplans')->result_array();
@@ -973,6 +998,7 @@ class Apartment_model extends CI_Model {
 			$this->db->where('bathroom >=', $search_params['bathroom']);
 			$this->db->where('rent >=', $search_params['min-rent']);
 			$this->db->where('rent <=', $search_params['max-rent']);
+			$this->db->where('suspend !=', 'Y');
 			$this->db->order_by('apt_id', 'RANDOM');
 			$this->db->group_by('apt_id');
 			$floorplan_results = $this->db->get('floorplans')->result_array();
@@ -1059,6 +1085,7 @@ class Apartment_model extends CI_Model {
 		function get_main_data($apt_id){
 			$ci =& get_instance();
 			$ci->db->where('ID', $apt_id);
+			$ci->db->where('suspend !=', 'Y');
 			$result_main = $ci->db->get('apartment_main')->result_array();
 			$data['apt_id'] = $result_main[0]['ID'];
 			// $data['level'] = $result_main[0]['level'];

@@ -924,10 +924,15 @@ footer {padding: 5px;
     object-fit: contain;
 }
 
+/******************************** ALL APTS PAGE ***************************/
 
 
-
-
+.all_apts_row:hover{
+    /* font-weight: bolder; */
+    color: #0040B3;
+    border-top: 2px solid #0040B3;
+    border-bottom: 2px solid #0040B3;
+}
 
 
 

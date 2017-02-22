@@ -72,6 +72,8 @@ class Texas extends CI_Controller {
 		}
 
 		// ***************** OBLITERATING TILL I CAN FIX *****************************
+		// WORKS FINE LOCALLY ON SERVER WONT SET THE VARIABLE THAT DENOTES IT"S BEEN SENT... AND SENDS REPEATEDLY.
+		
 		// if($day === 'Tue'  && $hour > 10 && $hour < 11){
 		// 	$today = date('Y-m-d');
 		// 	$this->db->where('sent_floorplan_reminder', $today);
