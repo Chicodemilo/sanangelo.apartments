@@ -282,5 +282,58 @@ class Admin_model extends CI_Model {
 		$conn->close();
 	}
 
+
+	public function get_prices()
+	{
+		$prices = $this->db->get('cost');
+		return $prices;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

@@ -1226,9 +1226,35 @@ public function man_logo_delete($apt_id){
 
 
 
+// ADVERTISING *******************************************************************************
 
+    public function edit_advertising($apt_id){
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
 
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+        $count_data['apt_name'] = $main_info[0]['property_search_name'];
+        $count_data['apt_id'] = $apt_id;
 
+        $this->load->model('admin_model', 'cost');
+        $cost = $this->cost->get_prices()->result_array();
+        $data['cost'] = $cost;
+        $this->load->view('admin/edit/header.php', $count_data);
+        $this->load->view('admin/edit/edit_advertising.php', $data);
+        $this->load->view('admin/edit/footer.php');
+
+    }
+
+    public function submit_level($apt_id){
+        $data = $_POST;
+        $this->db->insert('upcoming_sales', $data);
+        redirect(base_url().'admin/edit_advertising/'.$apt_id);
+    }
 
 
 

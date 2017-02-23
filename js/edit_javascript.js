@@ -40,7 +40,49 @@ $(document).ready(function() {
             }
         });
     });
-    
+
+    function calc_ded(){
+        var base = Number($('#base_cost').val());
+        var percent_deduction = Number($('#percent_deduction').val());
+        var amount_deduction = Number($('#amount_deduction').val());
+
+        if(percent_deduction > 0 || percent_deduction < 0){
+            var total_deduction = Number(((base*percent_deduction)/100) + amount_deduction);
+        }
+
+        if(percent_deduction == 0){
+            var total_deduction = Number(amount_deduction);
+        }
+
+        total_deduction = Math.round(total_deduction * 100)/100;
+
+        return total_deduction;
+    }
+
+    function calc_tot(deduction) {
+        var base = Number($('#base_cost').val());
+        var total_cost = base - deduction;
+        return total_cost;
+    }
+
+    $(".part_of_the_equation").change(function(){
+        var deduction = calc_ded();
+        $('#tot_ded_screen').html(deduction);
+        $('#total_deduction').val(deduction);
+        var total_cost = calc_tot(deduction);
+        $('#cost').val(total_cost);
+    });
+
+    var d = new Date();
+    var dd = d.getDate();
+    var mm = d.getMonth() + 1;
+    var yyyy = d.getFullYear();
+    var next_yyyy = yyyy+1
+    var today = yyyy+'-'+mm+'-'+dd;
+    var final_today = next_yyyy+'-'+mm+'-'+dd;
+    $('#start_date').val(today);
+    $('#end_date').val(final_today);
+
  });
 
     var hide = 2;
