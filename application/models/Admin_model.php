@@ -289,6 +289,16 @@ class Admin_model extends CI_Model {
 		return $prices;
 	}
 
+	public function get_adv_upcoming_sales($apt_id){
+		$today = date(Y."/".d."/".m);
+		$this->db->where('apt_id', $apt_id);
+		// $this->db->where('end_date >=', $date);
+		$this->db->order_by('item', 'asc');
+		$result = $this->db->get('upcoming_sales')->result_array();
+
+		return $result;
+	}
+
 }
 
 

@@ -1242,15 +1242,26 @@ public function man_logo_delete($apt_id){
         $count_data['apt_id'] = $apt_id;
 
         $this->load->model('admin_model', 'cost');
-        $cost = $this->cost->get_prices()->result_array();
-        $data['cost'] = $cost;
+        $data['cost'] = $this->cost->get_prices()->result_array();;
+        $data['upcoming_sales'] = $this->cost->get_adv_upcoming_sales($apt_id);
         $this->load->view('admin/edit/header.php', $count_data);
         $this->load->view('admin/edit/edit_advertising.php', $data);
         $this->load->view('admin/edit/footer.php');
-
     }
 
     public function submit_level($apt_id){
+        $data = $_POST;
+        $this->db->insert('upcoming_sales', $data);
+        redirect(base_url().'admin/edit_advertising/'.$apt_id);
+    }
+
+    public function submit_top_3($apt_id){
+        $data = $_POST;
+        $this->db->insert('upcoming_sales', $data);
+        redirect(base_url().'admin/edit_advertising/'.$apt_id);
+    }
+
+    public function submit_sto($apt_id){
         $data = $_POST;
         $this->db->insert('upcoming_sales', $data);
         redirect(base_url().'admin/edit_advertising/'.$apt_id);
