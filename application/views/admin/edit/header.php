@@ -78,7 +78,7 @@
                         <li class="contact_drop" id="contact_drop"><a href="#" class="">EDIT APARTMENT INFO</a>
                             <ul class="contact_menu" id="contact_menu">
                                 <li><a href="<?php echo base_url() ?>admin/" class="">MAIN ADMIN</a></li>
-                                <li><a href="<?php echo base_url() ?>admin/all_apts" class="">ALL APTS</a></li>
+                                <li><a href="<?php echo base_url() ?>admin/all_apts" class="">SEE ALL APTS</a></li>
                                 <li><a href="<?php echo base_url() ?>admin/edit_this_apt/<?php echo $apt_id;?>" class="">MAIN EDIT</a></li>
                                 <li><a href="<?php echo base_url() ?>admin/amenities/<?php echo $apt_id;?>" class="">AMENITIES</a></li>
                                 <li><a href="<?php echo base_url() ?>admin/hours/<?php echo $apt_id;?>/<?php echo $apt_name; ?>" class="">HOURS</a></li>
@@ -88,6 +88,9 @@
                                 <li><a href="<?php echo base_url() ?>admin/specials/<?php echo $apt_id;?>" class="">SPECIALS</a></li>
                                 <li><a href="<?php echo base_url() ?>admin/users/<?php echo $apt_id;?>" class="">USER</a></li>
                                 <li><a href="<?php echo base_url() ?>admin/messages/<?php echo $apt_id;?>" class="small_links">MESSAGES</a></li>
+                                <li>
+                                    <a href="<?php echo base_url() ?>admin/edit_advertising/<?php echo $apt_id;?>">ADVERTISING</a>
+                                </li>
                                 <!-- <li><a href="<?php echo base_url() ?>contact/pre_applications" class="small_links">Pre-Applications</a></li> -->
                             </ul>
                         </li>

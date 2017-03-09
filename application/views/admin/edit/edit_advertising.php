@@ -89,12 +89,13 @@
 					</td>
 					<td>
 						<input type="text" name="start_date" class="date-picker" id="start_date_top_3" required>
+						<span class="smaller">Defaults To First Day Of Month Picked</span>
 					</td>
 					<td class="righter">
 						END DATE:
 					</td>
 					<td>
-						<input type="text" name="end_date" class="date-picker" id="end_date_top_3" required>
+						<span class="smaller">Will Be Last Day Of Month Picked</span>
 					</td>
 					<td></td>
 					<td></td>
@@ -146,7 +147,7 @@
 						END DATE:
 					</td>
 					<td>
-						<input type="text" name="end_date" class="date-picker" id="end_date_sto" required>
+						<span class="smaller">Site Takeovers Are One Day Long</span>
 					</td>
 					<td></td>
 					<td></td>
@@ -160,14 +161,146 @@
 				</tr>
 			</form>
 		</table>
+
+		<?php 
+		 if(count($upcoming_sales) > 0){
+		 	echo "<table>";
+		 	echo "<tr><th colspan='9'>".$apt_name." ALL ADVERTISEMENTS</th></tr>";
+		 	echo "<tr><th>ITEM</th>";
+		 	echo "<th>START<br>DATE</th>";
+		 	echo "<th>END<br>DATE</th>";
+		 	echo "<th>BASE<br>COST</th>";
+		 	echo "<th>PERCENT<br>DEDUCTION</th>";
+		 	echo "<th>AMOUNT<br>DEDUCTION</th>";
+		 	echo "<th>TOTAL<br>DEDUCTION</th>";
+		 	echo "<th>COST</th>";
+		 	echo "<th></th>";
+		 	echo "<tr>";
+		 	foreach ($upcoming_sales as $key => $value) {
+		 		echo "<tr>";
+		 		echo "<td>".$value['item']."</td>";
+		 		echo "<td>".$value['start_date']."</td>";
+		 		echo "<td>".$value['end_date']."</td>";
+		 		echo "<td>$".$value['base_cost']."</td>";
+		 		echo "<td>".$value['percent_deduction']."%</td>";
+		 		echo "<td>$".$value['amount_deduction']."</td>";
+		 		echo "<td>$".$value['total_deduction']."</td>";
+		 		echo "<td>$".$value['cost']."</td>";
+		 		echo "<td><a href='".base_url()."admin/delete_this_advertising/".$value['ID']."/".$value['apt_id']."'>DELETE</a></td>";
+		 		echo "</tr>";
+		 	}
+		 	echo "</table>";
+		 }
+
+		echo '<span class="bold_red">';
+		if($feedback != ""){
+			echo $feedback;
+		}
+		echo	'</span>';
+
+
+		if($banner_names == 'N'){
+		}else{
+			
+			echo "<table><tr>";
+
+				echo "<td>";
+					if($banner_names['left_takeover_name'] != ''){
+						echo $banner_names['left_takeover_name']."<br><br>";
+						echo "<img src='".base_url()."images/takeover/left/".$banner_names['left_takeover_name']."'>";
+						echo "<a href=".base_url()."admin/left_banner_upload/".$banner_names['apt_id'].">Upload Left Banner</a>";
+					}else{
+						echo "<span class='bold_red smaller'>No Left Banner Uploaded</span><br>";
+						echo "<a href=".base_url()."admin/left_banner_upload/".$banner_names['apt_id'].">Upload Left Banner</a>";
+					}
+				echo "</td>";
+
+				echo "<td>";
+					if($banner_names['right_takeover_name'] != ''){
+						echo $banner_names['right_takeover_name']."<br><br>";
+						echo "<img src='".base_url()."images/takeover/right/".$banner_names['right_takeover_name']."'>";
+						echo "<a href=".base_url()."admin/right_banner_upload/".$banner_names['apt_id'].">Upload Right Banner</a>";
+					}else{
+						echo "<span class='bold_red smaller'>No Right Banner Uploaded</span><br>";
+						echo "<a href=".base_url()."admin/right_banner_upload/".$banner_names['apt_id'].">Upload Right Banner</a>";
+					}
+				echo "</td>";
+
+				echo "<td>";
+					if($banner_names['top_takeover_name'] != ''){
+						echo $banner_names['top_takeover_name']."<br><br>";
+						echo "<img src='".base_url()."images/takeover/top/".$banner_names['top_takeover_name']."'>";
+						echo "<a href=".base_url()."admin/top_banner_upload/".$banner_names['apt_id'].">Upload Top Banner</a>";
+					}else{
+						echo "<span class='bold_red smaller'>No Top Banner Uploaded</span><br>";
+						echo "<a href=".base_url()."admin/top_banner_upload/".$banner_names['apt_id'].">Upload Top Banner</a>";
+					}
+				echo "</td>";
+
+				echo "<td>";
+					if($banner_names['mobile_takeover_name'] != ''){
+						echo $banner_names['mobile_takeover_name']."<br><br>";
+						echo "<img src='".base_url()."images/takeover/mobile/".$banner_names['mobile_takeover_name']."'>";
+						echo "<a href=".base_url()."admin/mobile_banner_upload/".$banner_names['apt_id'].">Upload Mobile Banner</a>";
+					}else{
+						echo "<span class='bold_red smaller'>No Mobile Banner Uploaded</span><br>";
+						echo "<a href=".base_url()."admin/mobile_banner_upload/".$banner_names['apt_id'].">Upload Mobile Banner</a>";
+					}
+				echo "</td>";
+
+			echo "</tr></table>";
+		}
+
+
+		 if(count($taken_sales[site_takeovers]) > 0){
+		 	echo "<div class='taken_date'>";
+		 	echo "<h4>TAKEN SITE TAKEOVERS</h4>";
+		 	echo "<ul>";
+		 	foreach ($taken_sales[site_takeovers] as $key => $value) {
+		 		echo "<li>".$value['start_date']." : ".$value['apt_name'];
+		 	}
+		 	echo "</ul>";
+		 	echo "</div>";
+		 	echo "<br>";
+		 }
+		
+		 if(count($taken_sales[top_3]) > 0){
+		 	$x = 1;
+		 	echo "<div class='taken_date'>";
+		 	echo "<h4>TAKEN TOP 3</h4>";
+		 	
+		 	foreach ($taken_sales[top_3] as $key => $value) {
+		 		 
+		 		 echo "<ul>";
+		 		 echo "Start Date: ".$value[0]['start_date'];
+
+		 		 if(count($taken_sales[top_3][$x]) >= 3){
+		 		 	echo "<span class='bold_red'> FULL</span>";
+		 		 }
+
+		 		 echo "<br>";
+		 		 // print_r($taken_sales[top_3][$x]);
+
+		 		 foreach ($taken_sales[top_3][$x] as $key => $value) {
+		 		 		echo "<li>".$value['apt_name'];
+		 		 }
+		 		 echo "</ul>";
+		 		 $x = $x + 1;
+		 	}
+		 	
+		 	echo "</div>";
+		 }
+
+		?>
 </div>
+<?php 
+	// print_r($taken_sales[top_3]);
+ ?>
 <div id="message_table" style="color:red;">
 		
 </div>
 
-<?php 
- print_r($upcoming_sales);
-?>
+
 <script>
 	
 	var start_picker = new Pikaday({ field: document.getElementById('start_date') });

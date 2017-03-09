@@ -117,6 +117,50 @@ $(document).ready(function() {
     $('#start_date_sto').val(today);
     $('#end_date_sto').val(tomorrow);
 
+     // $("#top_3_submit").click(function(){
+            
+     //        var vcsrf_name = $("#top_3_csrf_name").val();
+     //        var vcsrf_hash = $("#top_3_csrf_hash").val();
+     //        var vapt_id = $("#top_3_apt_id").val();
+     //        var vapt_name = $("#top_3_apt_name").val();
+     //        var vitem = $("#top_3_item").val();
+     //        var vbase_cost = $("#base_cost_top_3").val();
+     //        var vpercent_deduction = $("#percent_deduction_top_3").val();
+     //        var vamount_deduction = $("#amount_deduction_top_3").val();
+     //        var vtotal_deduction = $("#total_deduction_top_3").val();
+     //        var vcost = $("#cost_top_3").val();
+     //        var vstart_date = $("#start_date_top_3").val();
+     //        var base_url = $("#base_url").val();
+
+     //        $.post(base_url+'admin/submit_top_3/'+vapt_id,{
+     //            vcsrf_name:vcsrf_hash,
+     //            apt_id:vapt_id,
+     //            apt_name:vapt_name,
+     //            item:vitem,
+     //            base_cost:vbase_cost,
+     //            percent_deduction:vpercent_deduction,
+     //            amount_deduction:vamount_deduction,
+     //            total_deduction:vtotal_deduction,
+     //            cost:vcost,
+     //            start_date:vstart_date
+     //            }, function(data){
+     //                $('#feedback_top_3').hide();
+     //                $('#feedback_top_3').fadeIn('slow').html("data");
+     //        });
+     //    });
+        
+        
+        $('#show').click(function(){
+            $('#contact_box').fadeIn(500);
+            document.getElementById('contact_box').style.zIndex = 10;
+        });
+        
+        $('#home').click(function(){
+            $('#contact_box').fadeOut(500);
+           // document.getElementById('contact_box').style.zIndex =  -1;
+    });
+
+
  });
 
     var hide = 2;

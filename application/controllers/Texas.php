@@ -9,6 +9,29 @@ class Texas extends CI_Controller {
 	
 	public function index()
 	{	 		
+		
+		date_default_timezone_set("America/Chicago");
+		$day = date('D');
+		$date = date('d');
+		$hour = date('H');
+
+		$today = date('Y-m-d');
+
+		$this->db->where('update_date', $today);
+		$updated = $this->db->get('site_updates')->result_array();
+
+		if(count($updated) < 1){
+			$this->load->model('admin_model');
+            $this->admin_model->top_three_check_dates_and_change();
+            $this->admin_model->sto_check_dates_and_change();
+            $this->admin_model->level_check_dates_and_change();
+
+			$data['update_date'] = $today;
+			$data['done'] = 'Y';
+
+			$this->db->insert('site_updates', $data);
+		}
+
 		$signed_up = $this->session->userdata('entered_email');
 		if($signed_up == 'Y'){
 			$signed_up = 'Y';
@@ -58,7 +81,7 @@ class Texas extends CI_Controller {
 
 		$main_page_data['apt_count'] = count($main_page_data['all_apartments']);
 
-		date_default_timezone_set("America/Chicago");
+		
 		$day = date('D');
 		$date = date('d');
 		$hour = date('H');
@@ -72,7 +95,7 @@ class Texas extends CI_Controller {
 		}
 
 		// ***************** OBLITERATING TILL I CAN FIX *****************************
-		// WORKS FINE LOCALLY ON SERVER WONT SET THE VARIABLE THAT DENOTES IT"S BEEN SENT... AND SENDS REPEATEDLY.
+		// WORKS FINE LOCALLY ON SERVER. ON REMOTE SERVER WONT SET THE VARIABLE THAT DENOTES EMAIL HAS BEEN SENT... AND SENDS REPEATEDLY.
 		
 		// if($day === 'Tue'  && $hour > 10 && $hour < 11){
 		// 	$today = date('Y-m-d');

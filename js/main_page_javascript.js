@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
 	if($(window).width() > 900){
 			
 		}else{
-			$('.takeover_banner_mobile').delay(7000).slideDown(150).delay(2400).slideUp(150);
+			$('.takeover_banner_mobile').delay(3000).slideDown(150).delay(5000).slideUp(150);
     }
 
 });

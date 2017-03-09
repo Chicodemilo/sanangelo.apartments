@@ -36,6 +36,12 @@ hr {border: 0;
         font-size: .8em;
         font-weight: bold;}
 
+.bold_red{
+    font-weight: bolder;
+    color: red;
+    size: 1.1em;
+}
+
 /******************************** WRAPPER ***************************/
     
 .wrapper    {position: relative;
@@ -168,6 +174,13 @@ textarea{resize:none;}
 
 input[type=text], input[type=password], input[type=email]{
     display: block;
+    margin: 5px;
+    border: 5px;
+    border-radius: 3px;
+    padding: 7px;
+}
+
+input[type=number]{
     margin: 5px;
     border: 5px;
     border-radius: 3px;
@@ -926,7 +939,6 @@ footer {padding: 5px;
 
 /******************************** ALL APTS PAGE ***************************/
 
-
 .all_apts_row:hover{
     /* font-weight: bolder; */
     color: #0040B3;
@@ -935,14 +947,19 @@ footer {padding: 5px;
 }
 
 
+/******************************** ADVERTISEMENT PAGE ***************************/
 
+.taken_date{
+    color: #575757;
+    font-size: .75em;
+}
 
-
-
-
-
-
-
+.ad_table tr th{
+    font-size: 1em;
+}
+.ad_table tr td{
+    font-size: .8em;
+}
 
 
 

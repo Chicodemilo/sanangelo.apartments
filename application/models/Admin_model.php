@@ -290,60 +290,319 @@ class Admin_model extends CI_Model {
 	}
 
 	public function get_adv_upcoming_sales($apt_id){
-		$today = date(Y."/".d."/".m);
 		$this->db->where('apt_id', $apt_id);
-		// $this->db->where('end_date >=', $date);
-		$this->db->order_by('item', 'asc');
+		$this->db->order_by('start_date', 'desc');
 		$result = $this->db->get('upcoming_sales')->result_array();
-
 		return $result;
 	}
 
+
+	public function get_taken_sales()
+	{
+		date_default_timezone_set("America/Chicago");
+		$today = date(Y."-".m."-".d);
+		$yesterday = date(Y."-".m."-".d, strtotime('-1 day', strtotime($today)));
+		$start_of_month = date('Y-m-'.'01', strtotime($today));
+		$this->db->where('item', 'site_takeover');
+		$this->db->where('start_date >=', $yesterday);
+		$this->db->order_by('start_date', 'desc');
+		$data['site_takeovers'] = $this->db->get('upcoming_sales')->result_array();
+
+		$this->db->where('item', 'top_3');
+		$this->db->where('start_date >=', $start_of_month);
+		$this->db->order_by('start_date', 'desc');
+		$this->db->group_by('start_date');
+		$start_dates = $this->db->get('upcoming_sales')->result_array();
+
+		$x = 1;
+		foreach($start_dates as $key => $value){
+			$this->db->where('start_date', $value['start_date']);
+			$this->db->where('item', 'top_3');
+			$data['top_3'][$x] = $this->db->get('upcoming_sales')->result_array();
+			$x++;
+		}
+		return $data;
+	}
+
+
+	public function check_top_3($start_date, $apt_id)
+	{
+		date_default_timezone_set("America/Chicago");
+		$this->db->where('start_date', $start_date);
+		$this->db->where('item', 'top_3');
+		$top_3s = $this->db->get('upcoming_sales')->result_array();
+
+		if(count($top_3s) >= 3){
+			return "Top 3 Is Full For This Month";
+		}else{
+
+			$this->db->where('apt_id', $apt_id);
+			$this->db->where('start_date', $start_date);
+			$this->db->where('item', 'top_3');
+			$top_3s_apt_id = $this->db->get('upcoming_sales')->result_array();
+
+			if(count($top_3s_apt_id) > 0){
+				return "This Advertiser Already Has A Top 3 This Month";
+			}else{
+				return "Y";
+			}
+		}
+	}
+
+
+	public function check_sto($start_date, $apt_id)
+	{
+		date_default_timezone_set("America/Chicago");
+		$this->db->where('start_date', $start_date);
+		$this->db->where('item', 'site_takeover');
+		$stos = $this->db->get('upcoming_sales')->result_array();
+
+		if(count($stos) >= 1){
+			return "Site Takeover Is Full For This Day";
+		}else{
+			return "Y";
+		}
+	}
+
+	public function get_banner_names($apt_id){
+		$this->db->where('apt_id', $apt_id);
+		// $this->db->where('item', 'site_takeover');
+		$data = $this->db->get('sales')->result_array();
+
+		if(count($data) > 0){
+			$banner_names['apt_id'] = $data[0]['apt_id'];
+			$banner_names['count'] = count($data);
+			$banner_names['left_takeover_name'] = $data[0]['left_takeover_name'];
+			$banner_names['right_takeover_name'] = $data[0]['right_takeover_name'];
+			$banner_names['top_takeover_name'] = $data[0]['top_takeover_name'];
+			$banner_names['mobile_takeover_name'] = $data[0]['mobile_takeover_name'];
+
+			return $banner_names;
+		}else{
+			$banner_names = 'N';
+			return $banner_names;
+		}
+	}
+
+	public function level_check_dates_and_change()
+	{	
+		date_default_timezone_set("America/Chicago");
+		$today = date('Y-m-d');
+
+		$this->db->where('item', 'premium_level');
+		$this->db->where('start_date <=', $today);
+		$this->db->where('end_date >=', $today);
+		$premium_advertiers = $this->db->get('upcoming_sales')->result_array();
+
+		$nuker_levels = array('free' => 'Y', 'basic' => 'N');
+		$all_advertisers = $this->db->get('apartment_main')->result_array();
+
+		foreach ($all_advertisers as $key => $value) {
+			$this->db->where('apt_id', $value['ID']);
+			$this->db->update('sales', $nuker_levels);
+		}
+
+		$un_nuke_levels = array('free' => 'N', 'basic' => 'Y');
+		foreach ($premium_advertiers as $key => $value){
+			$this->db->where('apt_id', $value['apt_id']);
+			$this->db->update('sales', $un_nuke_levels);
+		}
+	}
+
+	public function top_three_check_dates_and_change()
+	{	
+		date_default_timezone_set("America/Chicago");
+		$today = date('Y-m-d');
+
+		$this->db->where('item', 'top_3');
+		$this->db->where('start_date <=', $today);
+		$this->db->where('end_date >=', $today);
+		$top_three_advertiers = $this->db->get('upcoming_sales')->result_array();
+
+		$nuker_levels = array('main_page_top' => '');
+		$all_advertisers = $this->db->get('apartment_main')->result_array();
+
+		foreach ($all_advertisers as $key => $value) {
+			$this->db->where('apt_id', $value['ID']);
+			$this->db->update('sales', $nuker_levels);
+		}
+
+		$un_nuke_levels = array('main_page_top' => 'Y');
+		foreach ($top_three_advertiers as $key => $value){
+			$this->db->where('apt_id', $value['apt_id']);
+			$this->db->update('sales', $un_nuke_levels);
+		}
+	}
+
+	public function sto_check_dates_and_change()
+	{	
+		date_default_timezone_set("America/Chicago");
+		$today = date('Y-m-d');
+
+		$this->db->where('item', 'site_takeover');
+		$this->db->where('start_date =', $today);
+		$sto_advertier = $this->db->get('upcoming_sales')->result_array();
+
+		$nuker_levels = array('takeover' => 'N');
+		$all_advertisers = $this->db->get('apartment_main')->result_array();
+
+		foreach ($all_advertisers as $key => $value) {
+			$this->db->where('apt_id', $value['ID']);
+			$this->db->update('sales', $nuker_levels);
+		}
+
+		$apt_id = $sto_advertier[0]['apt_id'];
+		$this->db->where('apt_id', $apt_id);
+		$sto_data = $this->db->get('upcoming_sales')->result_array();
+
+		$un_nuke_levels = array(
+			'takeover' => 'Y'
+			);
+
+		$this->db->where('apt_id', $sto_advertier[0]['apt_id']);
+		$this->db->update('sales', $un_nuke_levels);
+	}
+
+	public function get_all_ads_by_date()
+	{
+		$this->db->order_by('start_date', 'desc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_date_asc()
+	{
+		$this->db->order_by('start_date', 'asc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_date_end_desc()
+	{
+		$this->db->order_by('end_date', 'desc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_date_end_asc()
+	{
+		$this->db->order_by('end_date', 'asc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_adv_desc()
+	{
+		$this->db->order_by('apt_name', 'desc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_adv_asc()
+	{
+		$this->db->order_by('apt_name', 'asc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_type_desc()
+	{
+		$this->db->order_by('item', 'desc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_type_asc()
+	{
+		$this->db->order_by('item', 'asc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_cost_desc()
+	{
+		$this->db->order_by('cost', 'desc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_all_ads_by_cost_asc()
+	{
+		$this->db->order_by('cost', 'asc');
+		$data = $this->db->get('upcoming_sales');
+		return $data;
+	}
+
+	public function get_ads_for_date_range($start_date, $end_date){
+
+		$this->db->where('start_date >=', $start_date);
+		$this->db->where('end_date <=', $end_date);
+		$results_top_sto = $this->db->get('upcoming_sales')->result_array();
+
+		$this->db->where('start_date <=', $end_date);
+		$this->db->where('end_date >=', $end_date);
+		$this->db->where('item', 'premium_level');
+		$results_prem = $this->db->get('upcoming_sales')->result_array();
+
+		$all_results = array();
+
+		foreach ($results_top_sto as $key => $value) {
+			$push_this = array($key = $value);
+			array_push($all_results, $push_this);
+		}
+
+		foreach ($results_prem as $key => $value) {
+			$push_this = array($key = $value);
+			array_push($all_results, $push_this);
+		}
+
+		foreach ($all_results as $key => $value) {
+			# code...
+		}
+
+		if(count($all_results) > 0){
+			return $all_results;
+		}else{
+			$results = 'N';
+			return $results;
+		}
+	}
+
+	public function get_ad_info_for_inv($apt_id){
+		$this->db->where('ID', $apt_id);
+		$this->db->limit(1);
+		$result = $this->db->get('apartment_main')->result_array();
+
+		foreach ($result as $key => $value) {
+			$data['apt_id'] = $value['ID'];
+			$data['verified_user_id'] = $value['verified_user_id'];
+			$data['property_name'] = $value['property_name'];
+			$data['property_phone'] = $value['property_phone'];
+			$data['property_address'] = $value['property_address'];
+			$data['property_city'] = $value['property_city'];
+			$data['property_state'] = $value['property_state'];
+			$data['property_zip'] = $value['property_zip'];
+		}
+
+		$this->db->where('ID', $data['verified_user_id']);
+		$this->db->limit(1);
+		$user_data = $this->db->get('users')->result_array();
+
+		foreach($user_data as $value){
+			$data['apt_contact_email'] = $value['email'];
+			$data['apt_contact_email_2'] = $value['email_2'];
+			$data['apt_contact_email_3'] = $value['email_3'];
+			$data['apt_contact_email_4'] = $value['email_4'];
+		}
+
+		return $data;
+	}
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

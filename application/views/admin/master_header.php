@@ -54,11 +54,13 @@
                         
                         <li class="contact_drop" id="contact_drop"><a href="#" class="">ADMIN LINKS</a>
                             <ul class="contact_menu" id="contact_menu">
-                                <li><a href="<?php echo base_url() ?>admin" class="">MAIN</a></li>
-                                <!-- <li><a href="<?php echo base_url() ?>edit/amenities" class="">AMENITIES</a></li> -->
-                                <!-- <li><a href="<?php echo base_url() ?>edit/hours" class="">HOURS</a></li> -->
-                                <!-- <li><a href="<?php echo base_url() ?>edit/floorplans" class="">FLOORPLANS</a></li> -->
-                                <!-- <li><a href="<?php echo base_url() ?>edit/pets" class="">PETS</a></li> -->
+                                <li><a href="<?php echo base_url() ?>admin" class="">MAIN ADMIN LINKS</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/new_apt" >MAKE NEW APT</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/all_apts" >SEE ALL APTS</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/send_email_all">MESSAGE TO ALL APTS</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/see_all_ads">SEE ALL ADS</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/main_invoice">INVOICING</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/edit_cost">EDIT AD RATES</a></li>
                                 <!-- <li><a href="<?php echo base_url() ?>edit/pictures" class="">PICTURES</a></li> -->
                                 <!-- <li><a href="<?php echo base_url() ?>edit/specials" class="">SPECIALS</a></li> -->
                                 <!-- <li><a href="<?php echo base_url() ?>edit/users" class="">USER</a></li> -->
@@ -76,4 +78,3 @@
        
     </header>
     <div id="wrapper" class="wrapper">
-    
