@@ -52,7 +52,7 @@
 	 				echo $value['end_date'];
 	 			echo "</td>";
 	 			echo "<td>";
-	 				echo "%".$value['percent_deduction'];
+	 				echo $value['percent_deduction']."%";
 	 			echo "</td>";
 	 			echo "<td>";
 	 				echo "$".$value['amount_deduction'];

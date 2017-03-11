@@ -7,7 +7,7 @@
 
 		<table>
 		<tr>
-			<th colspan="10">LEVEL</th>
+			<th colspan="10">PREMIUM LEVEL</th>
 		</tr>
 			<form action="<?php echo base_url(); ?>admin/submit_level/<?php echo $apt_id; ?>" method="POST">
 			<?php 

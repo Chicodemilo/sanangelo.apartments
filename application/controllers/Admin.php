@@ -1840,30 +1840,15 @@ public function do_upload_mobile_banner($apt_id){
                 echo $value."<br>";
             }
 
-            foreach ($unique_ids as $value){
-                $this->load->model('admin_model');
-                $apt_data = $this->admin_model->get_ad_info_for_inv($value);
-
-                $query = $this->db->get('invoice')->result_array();
-                $counter = count($query) + 3000;
-
-                $apt_data['inv_number'] = $counter;
-
-                date_default_timezone_set("America/Chicago");
-                $apt_data['inv_creation_date'] = date('Y-m-d');
-                $apt_data['inv_status'] = 'Due';
-                $apt_data['inv_notes'] = 'Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.';
-
-                $this->db->insert('invoice', $apt_data);
-
-                $apt_id = $value;
-            }
+            $this->admin_model->make_these_invoices($unique_ids);
 
             foreach($all_items_clean as $key_b => $value_b){
                 $x = 1;
                 date_default_timezone_set("America/Chicago");
                 $today = date('Y-m-d');
+                $inv_sets_today = $this->admin_model->invoice_sets_created_today();
                 $this->db->where('inv_creation_date', $today);
+                $this->db->where('inv_sets_today', $inv_sets_today);
                 $this->db->where('apt_id', $value_b['apt_id']);
                 $invoice_info = $this->db->get('invoice')->result_array();
 
@@ -1915,29 +1900,97 @@ public function do_upload_mobile_banner($apt_id){
                     $x=13;
                 }
 
-                // print_r($invoice_info);
-                // echo "<br>=================================================<br><br>";
-
                 $data['apt_id'] = $value_b['apt_id'];
                 $data['item_'.$x] = $value_b['item'];
                 $data['start_date_'.$x] = $value_b['start_date'];
                 $data['end_date_'.$x] = $value_b['end_date'];
-                // $data['percent_deduction_'.$x] = $value_b['percent_deduction'];
-                // $data['amount_deduction_'.$x] = $value_b['amount_deduction'];
                 $data['deduction_'.$x] = $value_b['total_deduction'];
                 $data['base_cost_'.$x] = $value_b['base_cost'];
                 $data['cost_'.$x] = $value_b['cost'];
-
-                // $data['item_'.$x] = 'test '.$x;
 
                 echo "<br>=================================================<br><br>";
 
                 print_r($data);
 
                 $this->db->where('inv_creation_date', $today);
+                $this->db->where('inv_sets_today', $inv_sets_today);
                 $this->db->where('apt_id', $data['apt_id']);
                 $this->db->update('invoice', $data);
                 $data = array();
+            }
+
+            date_default_timezone_set("America/Chicago");
+            $today = date('Y-m-d');
+            $inv_sets_today = $this->admin_model->invoice_sets_created_today();
+            $this->db->where('inv_creation_date', $today);
+            $this->db->where('inv_sets_today', $inv_sets_today);
+            $these_invoices = $this->db->get('invoice')->result_array();
+            foreach ($these_invoices as $key => $value) {
+                echo "<hr>";
+                print_r($value);
+                echo "<br>";
+                $inv_bal = 0;
+                for ($i=1; $i <= 13; $i++) { 
+                    $inv_bal = $inv_bal + $value['cost_'.$i];
+                }
+
+                $this->db->where('ID', $value['apt_id']);
+                $this->db->limit(1);
+                $apt_info = $this->db->get('apartment_main')->result_array();
+
+                $apt_main_balance = $apt_info[0]['balance'];
+
+                $new_main_balance = $apt_main_balance - $inv_bal;
+
+                if($new_main_balance >= 0){
+                    $data['inv_notes'] = "Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.<br>This invoice is marked as PAID because of a previous customer payment.";
+                    $data['inv_stats'] = "PAID";
+                    $data['payment_1'] = $inv_bal;
+                    $date['payment_1_date'] = $today;
+                    $date['payment_1_type'] = 'EXISTING CUSTOMER BALANCE';
+                    $data['invoice_balance'] = 0;
+
+                    $this->db->where('inv_number', $value['inv_number']);
+                    $this->db->update('invoice', $data);
+
+                    echo $value['inv_number']." Exissting Balance Covered All Of the Invoice.<br>";
+
+                    $data_b['balance'] = $new_main_balance;
+
+                    $this->db->where('ID', $value['apt_id']);
+                    $this->db->update('apartment_main', $data_b);
+                }elseif($apt_main_balance > 0 && $inv_bal > $apt_main_balance){
+
+                    $data['invoice_balance'] = $inv_bal - $apt_main_balance;
+
+                    $data['inv_notes'] = "Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.<br>This invoice was partialy paid by of a previous customer balance of $".$apt_main_balance."<br>Creating a currently due amount of $".$data['invoice_balance'];
+                    $data['payment_1'] = $apt_main_balance;
+                    $date['payment_1_date'] = $today;
+                    $date['payment_1_type'] = 'EXISTING CUSTOMER BALANCE';
+
+                    $this->db->where('inv_number', $value['inv_number']);
+                    $this->db->update('invoice', $data);
+
+                     echo $value['inv_number']." Exisisting Balance Covered Some But Not All Of The Invoice.<br>";
+
+                    $data_b['balance'] = $new_main_balance;
+
+                    $this->db->where('ID', $value['apt_id']);
+                    $this->db->update('apartment_main', $data_b);   
+                }else{
+                    $data['invoice_balance'] = $inv_bal;
+                    $this->db->where('inv_number', $value['inv_number']);
+                    $this->db->update('invoice', $data); 
+
+                    echo $value['inv_number']." There was no existing balance.<br>";
+
+                    $data_b['balance'] = $new_main_balance;
+
+                    $this->db->where('ID', $value['apt_id']);
+                    $this->db->update('apartment_main', $data_b);                   
+                }
+
+
             }
 
 

@@ -599,6 +599,52 @@ class Admin_model extends CI_Model {
 	}
 
 
+	public function invoice_sets_created_today(){
+		$today = date('Y-m-d');
+		$this->db->where('inv_creation_date', $today);
+		$this->db->order_by('inv_sets_today', 'desc');
+		$date_check = $this->db->get('invoice')->result_array();
+
+		if(count($date_check) < 1){
+			$return_count = 0;
+			return $return_count;
+		}else{
+			$return_count = $date_check[0]['inv_sets_today'];
+			return $return_count;
+		}
+
+	}
+
+
+	public function make_these_invoices($these_unique_ids){
+
+            $this->load->model('admin_model');
+            $inv_count = $this->admin_model->invoice_sets_created_today() + 1;
+            
+            echo $inv_count."<br>";
+
+            foreach ($these_unique_ids as $value){
+                $this->load->model('admin_model');
+                $apt_data = $this->admin_model->get_ad_info_for_inv($value);
+				
+                $query = $this->db->get('invoice')->result_array();
+                $counter = count($query) + 3000;
+
+                $apt_data['inv_number'] = $counter;
+
+                date_default_timezone_set("America/Chicago");
+                $apt_data['inv_creation_date'] = date('Y-m-d');
+                $apt_data['inv_due_date'] = date('Y-m-'.'10');
+                $apt_data['inv_status'] = 'DUE';
+                $apt_data['inv_notes'] = 'Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.';
+                $apt_data['inv_sets_today'] = $inv_count;
+                
+                $this->db->insert('invoice', $apt_data);
+            }
+
+	}
+
+
 
 
 
