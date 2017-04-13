@@ -37,6 +37,23 @@
 			}
 		?>
 	</div>
+	<?php 
+		if($background_data['takeover_mobile'] != 'N'){
+			echo '<div class="takeover_banner_mobile">';
+			if($background_data['takeover_link'] != 'N'){
+				echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
+			}
+
+			if($background_data['takeover_mobile'] != ''){
+				echo '<img src="'.base_url().'images/takeover/mobile/'.$background_data['takeover_mobile'].'">';
+			}
+
+			if($background_data['takeover_link'] != 'N'){
+				echo '</a>';
+			}
+			echo "</div>";
+		}
+	?>
 	<div class="body_wrapper">
 		<?php 
 			if($background_data != 'N'){
