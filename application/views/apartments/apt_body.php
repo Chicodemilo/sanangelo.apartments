@@ -37,9 +37,11 @@
 			}
 		?>
 	</div>
-	<div class="takeover_top_banner">
+
+	<div class="body_wrapper">
 		<?php 
 			if($background_data != 'N'){
+				echo '<div class="takeover_top_banner">';
 				if($background_data['takeover_link'] != 'N'){
 					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
 				}
@@ -51,11 +53,9 @@
 				if($background_data['takeover_link'] != 'N'){
 					echo '</a>';
 				}
+				echo '</div>';
 			}
 		?>
-	</div>
-
-	<div class="body_wrapper">
 		<div class="apt_map_contact">
 			<div class="apt_map" id="apt_map">
 				<div class="map_no_load">The Map Could Not Load. Sorry!</div>
@@ -77,9 +77,11 @@
 						<input type="hidden" name="apt_id" value="<?php echo $apt_id; ?>">
 						<input type="text" name="name" id="form_name" cols="30" rows="4" maxlength="10" value="">
 						<label for="email">Your Email Address:</label>
-						<input type="email" name="email" id="email" required="required" maxlength="70">
+						<input type="email" style="height:25px;" name="email" id="email" required="required" maxlength="70">
+						<label for="first_name">Your Name:</label>
+						<input type="text" name="first_name" id="first_name" maxlength="70">
 						<label for="message">Your Message:</label>
-						<textarea name="message" id="message" cols="30" rows="4" required="required" maxlength="300"></textarea><br>
+						<textarea name="message" id="message" cols="30" rows="2" required="required" maxlength="300"></textarea><br>
 						<input type="submit" value="SEND" class="btn btn-default">
 						<p class="message_sent">Your Message Has Been Sent</p>
 					</form>
@@ -96,6 +98,7 @@
 					           success: function(json){	
 					           		$('#email').val('');				
 					           		$('#message').val('');	
+					           		$('#first_name').val('');	
 					           		$('.message_sent').fadeIn('400').delay('2000').fadeOut('400');			
 									 },
 								error: function(){						

@@ -18,7 +18,7 @@
 	 ?>
 </div>
 	<form action="<?php echo base_url(); ?>admin/submit_main_edits/<?php echo $main_info[0]['ID']; ?>" method="post">
-		<input type="hidden" name="id" id="id" value="<?php echo $main_info[0]['ID'] ?>">
+		<input type="hidden" name="id" id="id" value="<?php echo $main_info[0]['ID']; ?>">
 		<?php 
 			$csrf = array(
 	        'name' => $this->security->get_csrf_token_name(),
@@ -35,7 +35,12 @@
 			<tr>
 				<td class="righter" width="20%">Name:</td>
 				<td colspan="2"><input type="text" style="width:90%" name="property_name" id="property_name" placeholder="Enter The Name Of Your Property" maxlength="35" value="<?php echo $main_info[0]['property_name']; ?>"></td><td class="righter" width="20%">Balance: $</td>
-				<td colspan="2"><input type="text" style="width:90%" name="balance" id="balance" placeholder="Change The Balance" maxlength="6" value="<?php echo $main_info[0]['balance']; ?>"></td>
+				<td colspan="2"><?php echo $main_info[0]['balance']; ?>
+					<span class="smaller">
+						<a class="not_fancy_dark" href="<?php echo base_url(); ?>admin/main_invoice" title="Enter Master Payment">Enter A Master Payment</a>
+						<a class="not_fancy_dark" href="<?php echo base_url(); ?>admin/adv_master_balance/<?php echo $main_info[0]['ID']; ?>" title="See Master Payments">See Master Payments</a>
+					</span>
+				</td>
 			</tr>
 			<tr>
 				<td class="righter">Phone Number:</td>

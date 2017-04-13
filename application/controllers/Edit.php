@@ -510,6 +510,16 @@ class Edit extends CI_Controller {
 
         $this->db->insert('special', $data);
 
+        $this->load->model('admin_model');
+        $prices = $this->admin_model->get_prices()->result_array();
+
+        $email_data['site_takeover'] = $prices[0]['site_takeover_cost'];
+        $email_data['premium_cost'] = $prices[0]['premium_cost'];
+        $email_data['top_three_cost'] = $prices[0]['top_three_cost'];
+
+        $this->load->model('edit_model');
+        $this->edit_model->send_special_sto_email($email_data);
+
         $this->load->library('email');
         $this->email->clear();
         $this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
@@ -1041,7 +1051,7 @@ public function man_logo_delete(){
 
 // ADVERTISING *******************************************************************************
 
-    public function advertising(){
+    public function advertising($feedback = ''){
         $apt_id = $this->session->userdata('apt_id');
 
         $this->load->model('edit_model');
@@ -1057,9 +1067,606 @@ public function man_logo_delete(){
         $this->load->model('edit_model', 'messages');
         $messages = $this->messages->get_messages($apt_id)->result_array();
         $data['messages'] = $messages;
+
+        $prices = $this->db->get('cost')->result_array();
+        $data['site_take_over'] = $prices[0]['site_takeover_cost'];
+        $data['premium'] = $prices[0]['premium_cost'];
+        $data['top_three'] = $prices[0]['top_three_cost'];
+        $data['apt_id'] = $apt_id;
+        $data['apt_name'] = $main_info[0]['property_search_name'];
+
+        $this->load->model('admin_model');
+        $data['recent_ads'] = $this->admin_model->get_adv_upcoming_sales_recent($apt_id);
+
+        $data['show_prem'] = 'Y';
+
+        foreach ($data['recent_ads'] as $key => $value) {
+            if($value['item'] == 'premium_level'){
+                if(date('Y-m-d') >= date('Y-m-d', strtotime('-2 month', strtotime($value['end_date'])))){
+                    $data['prem_end_soon'] = 'Y';
+                    $data['extend_prem_start'] = date('Y-m-d', strtotime('+1 day', strtotime($value['end_date'])));
+                    $data['extend_prem_end'] = date('Y-m-d', strtotime('+1 year', strtotime($data['extend_prem_start'])));
+                }
+
+                if($value['end_date'] >= date('Y-m-d')){
+                    $data['show_prem'] = 'N';
+                }else{
+                    $data['show_prem'] = 'Y';
+                    $data['prem_end_soon'] = 'N';
+                }
+            }
+        }
+
+        foreach ($data['recent_ads'] as $key => $value){
+                 if($value['item'] == 'premium_level'){
+                    if($value['start_date'] >= date('Y-m-d')){
+                    $data['prem_end_soon'] = 'N';
+                }
+            }
+        }
+
+        $data['feedback'] = $feedback;
+
         $this->load->view('edit/header.php', $count_data);
         $this->load->view('edit/advertising.php', $data);
         $this->load->view('edit/footer.php');
+    }
+
+
+    public function submit_level($apt_id){
+        $data = $_POST;
+        $this->db->insert('upcoming_sales', $data);
+
+        $this->load->model('admin_model');
+        $this->admin_model->level_check_dates_and_change();
+
+        $email_data['apt_id'] = $data['apt_id'];
+        $email_data['apt_name'] = $data['apt_name'];
+        $email_data['item'] = $data['item'];
+        $email_data['start_date'] = $data['start_date'];
+        $email_data['end_date'] = $data['end_date'];
+        $email_data['cost'] = $data['cost'];
+
+        $this->load->model('edit_model');
+        $this->edit_model->send_thanks_email($email_data);
+
+        $feedback = "Your Premium Membership Has Been Scheduled. Thanks.";
+        redirect(base_url().'edit/advertising/'.$feedback);
+    }
+
+    public function submit_top_3($apt_id){
+        // $data = $_POST;
+
+        $data['apt_id'] = $_POST['apt_id'];
+        $data['apt_name'] = $_POST['apt_name'];
+        $data['item'] = $_POST['item'];
+        $data['base_cost'] = $_POST['base_cost'];
+        $data['percent_deduction'] = $_POST['percent_deduction'];
+        $data['amount_deduction'] = $_POST['amount_deduction'];
+        $data['total_deduction'] = $_POST['total_deduction'];
+        $data['cost'] = $_POST['cost'];
+        $data['start_date'] = date($_POST['top_3_year'].'-'.$_POST['top_3_month'].'-'.'01');
+        $data['end_date'] = date($_POST['top_3_year'].'-'.$_POST['top_3_month'].'-t');
+
+        $this->load->model('admin_model');
+        $clean_date = $this->admin_model->check_top_3($data['start_date'], $data['apt_id']);
+
+        if($clean_date == 'Y'){
+            $this->db->insert('upcoming_sales', $data);
+
+            $this->load->model('admin_model');
+            $this->admin_model->top_three_check_dates_and_change();
+
+            $data_b = $_POST;    
+            $email_data['apt_id'] = $data_b['apt_id'];
+            $email_data['apt_name'] = $data_b['apt_name'];
+            $email_data['item'] = $data_b['item'];
+            $email_data['start_date'] = $data['start_date'];
+            $email_data['end_date'] = $data['end_date'];
+            $email_data['cost'] = $data_b['cost'];
+
+            $this->load->model('edit_model');
+            $this->edit_model->send_thanks_email($email_data);
+
+            $feedback = "Your Top 3 Banner Has Been Scheduled. Thanks.";
+            redirect(base_url().'edit/advertising/'.$feedback);
+        }elseif($clean_date == 'Top 3 Is Full For This Month'){
+            $feedback = "SO SORRY. The Top Banner is full for that month. Please choose another month.";
+            redirect(base_url().'edit/advertising/'.$feedback);
+        }elseif($clean_date == 'This Advertiser Already Has A Top 3 This Month'){
+            $feedback = "We already have you scheduled for a Top 3 Banner that month. Please choose another month.";
+            redirect(base_url().'edit/advertising/'.$feedback);
+        }else{
+            redirect(base_url().'edit/advertising/');
+        }
+    }
+
+
+    public function submit_sto(){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $data['apt_id'] = $_POST['apt_id'];
+        $data['apt_name'] = $_POST['apt_name'];
+        $data['item'] = $_POST['item'];
+        $data['base_cost'] = $_POST['base_cost'];
+        $data['percent_deduction'] = $_POST['percent_deduction'];
+        $data['amount_deduction'] = $_POST['amount_deduction'];
+        $data['total_deduction'] = $_POST['total_deduction'];
+        $data['cost'] = $_POST['cost'];
+        $data['start_date'] = $_POST['start_date'];
+        $data['end_date'] = $_POST['start_date'];
+
+        $this->load->model('admin_model');
+        $clean_date = $this->admin_model->check_sto($data['start_date'], $apt_id);
+        $banner_names = $this->admin_model->get_banner_names($apt_id);
+        if($banner_names != 'N'){
+            $data['left_takeover_name'] = $banner_names['left_takeover_name'];
+            $data['right_takeover_name'] = $banner_names['right_takeover_name'];
+            $data['top_takeover_name'] = $banner_names['top_takeover_name'];
+            $data['mobile_takeover_name'] = $banner_names['mobile_takeover_name'];
+        }
+
+
+        if($clean_date == 'Y'){
+            $data_b = $_POST;    
+            $email_data['apt_id'] = $data_b['apt_id'];
+            $email_data['apt_name'] = $data_b['apt_name'];
+            $email_data['item'] = $data_b['item'];
+            $email_data['start_date'] = $data['start_date'];
+            $email_data['end_date'] = $data['end_date'];
+            $email_data['cost'] = $data_b['cost'];
+            $email_data['left_takeover_name'] = $data['left_takeover_name'];
+            $email_data['right_takeover_name'] = $data['right_takeover_name'];
+            $email_data['top_takeover_name'] = $data['top_takeover_name'];
+            $email_data['mobile_takeover_name'] = $data['mobile_takeover_name'];
+
+            $this->load->model('edit_model');
+            $this->edit_model->send_thanks_email($email_data);
+
+            $this->db->insert('upcoming_sales', $data);
+
+            $this->load->model('admin_model');
+            $this->admin_model->sto_check_dates_and_change();
+
+            $feedback = "Your Site Takeover has been scheduled. If you have not already done so, please upload your banners using the link above.";
+
+            redirect(base_url().'edit/advertising/'.$feedback);
+        }else{
+
+            $feedback = "The Site Takeover is full for that day. Please choose another day.";
+            redirect(base_url().'edit/advertising/'.$feedback);
+        }
+    }
+
+    public function your_ads(){
+        $apt_id = $this->session->userdata('apt_id');
+
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+
+        $this->db->where('apt_id', $apt_id);
+        $this->db->order_by('start_date', 'desc');
+        $data['their_ads'] = $this->db->get('upcoming_sales')->result_array();
+        $data['apt_name'] = $main_info[0]['property_name'];
+
+        $this->load->model('admin_model');
+        $data['banner_names'] = $this->admin_model->get_banner_names($apt_id);
+
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/these_ads.php', $data);
+        $this->load->view('edit/footer.php');
+    }
+
+    public function your_invoices(){
+        $apt_id = $this->session->userdata('apt_id');
+        
+        $this->load->model('admin_model');
+        $invoices['advertiser_inv'] = $this->admin_model->get_adv_inv($apt_id);
+
+        if($invoices['advertiser_inv'] == 'N'){
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/no_inv.php', $data);
+            $this->load->view('edit/footer.php');
+        }else{
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/these_adv_inv.php', $invoices);
+            $this->load->view('edit/footer.php');
+        }
+    }
+
+    public function invoi(){
+        $apt_id = $this->session->userdata('apt_id');
+        
+        $this->load->model('admin_model');
+        $invoices['advertiser_inv'] = $this->admin_model->get_adv_inv($apt_id);
+
+        if($invoices['advertiser_inv'] == 'N'){
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/no_inv.php', $data);
+            $this->load->view('edit/footer.php');
+        }else{
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/these_adv_inv.php', $invoices);
+            $this->load->view('edit/footer.php');
+        }
+    }
+
+
+    public function left_banner_upload(){
+        $apt_id = $this->session->userdata('apt_id');
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+        $count_data['apt_name'] = $main_info[0]['property_search_name'];
+        $count_data['apt_id'] = $apt_id;
+
+        $data['error'] = $error;
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/upload_left_banner', $data);
+        $this->load->view('edit/footer.php');
+    }
+
+
+    public function right_banner_upload(){
+        $apt_id = $this->session->userdata('apt_id');
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+        $count_data['apt_name'] = $main_info[0]['property_search_name'];
+        $count_data['apt_id'] = $apt_id;
+
+        $data['error'] = $error;
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/upload_right_banner', $data);
+        $this->load->view('edit/footer.php');
+    }
+
+    public function top_banner_upload(){
+        $apt_id = $this->session->userdata('apt_id');
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+        $count_data['apt_name'] = $main_info[0]['property_search_name'];
+        $count_data['apt_id'] = $apt_id;
+
+        $data['error'] = $error;
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/upload_top_banner', $data);
+        $this->load->view('edit/footer.php');
+    }
+
+    public function mobile_banner_upload(){
+        $apt_id = $this->session->userdata('apt_id');
+        $this->load->model('edit_model');
+        $main_info = $this->edit_model->get_main_info($apt_id);
+
+        $count_data['views_all'] = $main_info[0]['views_all'];
+        $count_data['views_year'] = $main_info[0]['views_year'];
+        $count_data['views_month'] = $main_info[0]['views_month'];
+        $count_data['views_day'] = $main_info[0]['views_day'];
+        $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+        $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+        $count_data['apt_name'] = $main_info[0]['property_search_name'];
+        $count_data['apt_id'] = $apt_id;
+
+        $data['error'] = $error;
+        $this->load->view('edit/header.php', $count_data);
+        $this->load->view('edit/upload_mobile_banner', $data);
+        $this->load->view('edit/footer.php');
+    }
+
+
+
+public function do_upload_left_banner(){
+    $apt_id = $this->session->userdata('apt_id');
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+    $count_data['apt_name'] = $main_info[0]['property_search_name'];
+    $count_data['apt_id'] = $apt_id;
+
+    $config['upload_path'] = './images/takeover/left/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = '1000';
+    $config['max_width']  = '180';
+    $config['max_height']  = '710';
+    $config['min_width'] = '160';
+    $config['min_height'] = '690';
+    $this->load->library('upload', $config);
+
+    $this->load->model('admin_model');
+    $banner_names = $this->admin_model->get_banner_names($apt_id);
+
+    $this->load->helper('file');
+
+    $file = "./images/takeover/left/".$banner_names['left_takeover_name'];
+    if($banner_names['left_takeover_name'] != ''){
+            unlink($file); 
+        }
+
+    if ( ! $this->upload->do_upload())
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->model('edit_model');
+            $main_info = $this->edit_model->get_main_info($apt_id);
+
+            $count_data['views_all'] = $main_info[0]['views_all'];
+            $count_data['views_year'] = $main_info[0]['views_year'];
+            $count_data['views_month'] = $main_info[0]['views_month'];
+            $count_data['views_day'] = $main_info[0]['views_day'];
+            $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+            $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+            $count_data['apt_name'] = $main_info[0]['property_search_name'];
+            $count_data['apt_id'] = $apt_id;
+
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/upload_left_banner', $data);
+            $this->load->view('edit/footer.php');
+        }
+        else
+        {   
+            $data = array('upload_data' => $this->upload->data());
+
+            $file_name = $data['upload_data']['file_name'];
+            $data_b['left_takeover_name'] = $file_name;
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->where('item', 'site_takeover');
+            $this->db->update('upcoming_sales', $data_b);
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->update('sales', $data_b);
+         
+            redirect(base_url().'edit/your_ads/');
+        }
+    }
+
+
+public function do_upload_right_banner(){
+    $apt_id = $this->session->userdata('apt_id');
+
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+    $count_data['apt_name'] = $main_info[0]['property_search_name'];
+    $count_data['apt_id'] = $apt_id;
+
+    $config['upload_path'] = './images/takeover/right/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = '1000';
+    $config['max_width']  = '180';
+    $config['max_height']  = '710';
+    $config['min_width'] = '160';
+    $config['min_height'] = '690';
+    $this->load->library('upload', $config);
+
+    $this->load->model('admin_model');
+    $banner_names = $this->admin_model->get_banner_names($apt_id);
+
+    $this->load->helper('file');
+
+    $file = "./images/takeover/right/".$banner_names['right_takeover_name'];
+    if($banner_names['right_takeover_name'] != ''){
+            unlink($file); 
+        }
+
+    if ( ! $this->upload->do_upload())
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->model('edit_model');
+            $main_info = $this->edit_model->get_main_info($apt_id);
+
+            $count_data['views_all'] = $main_info[0]['views_all'];
+            $count_data['views_year'] = $main_info[0]['views_year'];
+            $count_data['views_month'] = $main_info[0]['views_month'];
+            $count_data['views_day'] = $main_info[0]['views_day'];
+            $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+            $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+            $count_data['apt_name'] = $main_info[0]['property_search_name'];
+            $count_data['apt_id'] = $apt_id;
+
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/upload_right_banner', $data);
+            $this->load->view('edit/footer.php');
+        }
+        else
+        {   
+            $data = array('upload_data' => $this->upload->data());
+
+            $file_name = $data['upload_data']['file_name'];
+            $data_b['right_takeover_name'] = $file_name;
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->where('item', 'site_takeover');
+            $this->db->update('upcoming_sales', $data_b);
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->update('sales', $data_b);
+         
+            redirect(base_url().'edit/your_ads/');
+        }
+    }
+
+
+public function do_upload_top_banner(){
+    $apt_id = $this->session->userdata('apt_id');
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+    $count_data['apt_name'] = $main_info[0]['property_search_name'];
+    $count_data['apt_id'] = $apt_id;
+
+    $config['upload_path'] = './images/takeover/top/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = '1000';
+    $config['max_width']  = '890';
+    $config['max_height']  = '90';
+    $config['min_width'] = '860';
+    $config['min_height'] = '70';
+    $this->load->library('upload', $config);
+
+    $this->load->model('admin_model');
+    $banner_names = $this->admin_model->get_banner_names($apt_id);
+
+    $this->load->helper('file');
+
+    $file = "./images/takeover/top/".$banner_names['top_takeover_name'];
+    if($banner_names['top_takeover_name'] != ''){
+            unlink($file); 
+        }
+
+    if ( ! $this->upload->do_upload())
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->model('edit_model');
+            $main_info = $this->edit_model->get_main_info($apt_id);
+
+            $count_data['views_all'] = $main_info[0]['views_all'];
+            $count_data['views_year'] = $main_info[0]['views_year'];
+            $count_data['views_month'] = $main_info[0]['views_month'];
+            $count_data['views_day'] = $main_info[0]['views_day'];
+            $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+            $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+            $count_data['apt_name'] = $main_info[0]['property_search_name'];
+            $count_data['apt_id'] = $apt_id;
+
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/upload_top_banner', $data);
+            $this->load->view('edit/footer.php');
+        }
+        else
+        {   
+            $data = array('upload_data' => $this->upload->data());
+
+            $file_name = $data['upload_data']['file_name'];
+            $data_b['top_takeover_name'] = $file_name;
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->where('item', 'site_takeover');
+            $this->db->update('upcoming_sales', $data_b);
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->update('sales', $data_b);
+         
+            redirect(base_url().'edit/your_ads/');
+        }
+    }
+
+public function do_upload_mobile_banner(){
+    $apt_id = $this->session->userdata('apt_id');
+    $this->load->model('edit_model');
+    $main_info = $this->edit_model->get_main_info($apt_id);
+
+    $count_data['views_all'] = $main_info[0]['views_all'];
+    $count_data['views_year'] = $main_info[0]['views_year'];
+    $count_data['views_month'] = $main_info[0]['views_month'];
+    $count_data['views_day'] = $main_info[0]['views_day'];
+    $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+    $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+    $count_data['apt_name'] = $main_info[0]['property_search_name'];
+    $count_data['apt_id'] = $apt_id;
+
+    $config['upload_path'] = './images/takeover/mobile/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = '1000';
+    $config['max_width']  = '410';
+    $config['max_height']  = '185';
+    $config['min_width'] = '390';
+    $config['min_height'] = '165';
+    $this->load->library('upload', $config);
+
+    $this->load->model('admin_model');
+    $banner_names = $this->admin_model->get_banner_names($apt_id);
+
+    $this->load->helper('file');
+
+    $file = "./images/takeover/mobile/".$banner_names['mobile_takeover_name'];
+    if($banner_names['mobile_takeover_name'] != ''){
+            unlink($file); 
+        }
+
+    if ( ! $this->upload->do_upload())
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->model('edit_model');
+            $main_info = $this->edit_model->get_main_info($apt_id);
+
+            $count_data['views_all'] = $main_info[0]['views_all'];
+            $count_data['views_year'] = $main_info[0]['views_year'];
+            $count_data['views_month'] = $main_info[0]['views_month'];
+            $count_data['views_day'] = $main_info[0]['views_day'];
+            $count_data['views_last_month'] = $main_info[0]['views_last_month'];
+            $count_data['views_last_day'] = $main_info[0]['views_last_day'];
+            $count_data['apt_name'] = $main_info[0]['property_search_name'];
+            $count_data['apt_id'] = $apt_id;
+
+            $this->load->view('edit/header.php', $count_data);
+            $this->load->view('edit/upload_mobile_banner', $data);
+            $this->load->view('edit/footer.php');
+        }
+        else
+        {   
+            $data = array('upload_data' => $this->upload->data());
+
+            $file_name = $data['upload_data']['file_name'];
+            $data_b['mobile_takeover_name'] = $file_name;
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->where('item', 'site_takeover');
+            $this->db->update('upcoming_sales', $data_b);
+
+            $this->db->where('apt_id', $apt_id);
+            $this->db->update('sales', $data_b);
+         
+            redirect(base_url().'edit/your_ads/');
+        }
     }
 
 

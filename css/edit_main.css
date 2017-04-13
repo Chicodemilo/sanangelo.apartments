@@ -900,11 +900,6 @@ footer {padding: 5px;
     font-size: .9em;
 }
 
-/* .small_ul{
-    font-size: .9em;
-    line-height: .1em;
-} */
-
 .item_block_one{
     background-image: url('../images/thumbsmall.jpg');
     background-repeat: no-repeat;
@@ -937,6 +932,7 @@ footer {padding: 5px;
     object-fit: contain;
 }
 
+
 /******************************** ALL APTS PAGE ***************************/
 
 .all_apts_row:hover{
@@ -961,13 +957,49 @@ footer {padding: 5px;
     font-size: .8em;
 }
 
+#banner_table{
+    width: 40%;
+    margin: auto;
+}
 
+/******************************** INVOICE PAGE ***************************/
 
+.inv_table tr td{
+    font-size: .8em !important;
+}
 
+.inv_table tr th{
+    font-size: .8em !important;
+}
 
+.inv_bg_A{
+    background-color: #FFFCE6;
+}
 
+.inv_bg_B{
+    background-color: #E6FFF1;
+}
 
+.inv_bg_c{
+    background-color: #737373;
+}
 
+.edit_inv_input{
+    width: 90%;
+}
+
+.lil_padder{
+    display: block;
+    width: 100%;
+    height: 10px;
+}
+#start_date_sto{
+    background-color: #BFD9FF;
+    color: #0059B8;
+    font-weight: bolder;
+    position: relative;
+    left: -5px;
+}
 
 
 

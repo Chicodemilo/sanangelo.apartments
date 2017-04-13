@@ -92,6 +92,7 @@ class Model_user extends CI_Model {
 
 		if($found_user){
 			$data['password'] = hash('sha256', $temp_pw.SALT);
+			$data['temp_pw'] = $temp_pw;
 
 			$this->db->where('username', $username);
 			$this->db->update('users', $data);
@@ -100,8 +101,21 @@ class Model_user extends CI_Model {
 			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
 			$this->email->to($email);
 			$this->email->subject('SANANGELO.APARTMENTS: Password Reset');
-			$this->email->message('Your temporary password is: '.$temp_pw.'  We recommend resetting your password once you are back in.');
+			$this->email->message('Your Username Is: '.$username.'<br>Your new temporary password is: '.$temp_pw.'<br>We recommend resetting your password once you are back in.<br> <a href="'.base_url().'login/login_user">Login Here</a>');
 			$sent = $this->email->send();
+
+			for ($i=2; $i <= 4; $i++){
+				if($found_user[0]['email_'.$i] != ''){
+					$this->load->library('email');
+					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->to($found_user[0]['email_'.$i]);
+					$this->email->subject('SANANGELO.APARTMENTS: Password Reset');
+					$this->email->message('Your Username Is: '.$username.'<br>Your new temporary password is: '.$temp_pw.'<br>We recommend resetting your password once you are back in.<br> <a href="'.base_url().'login/login_user">Login Here</a>');
+					$sent = $this->email->send();
+				}
+				
+			}
+
 
 			return true;
 		}else{

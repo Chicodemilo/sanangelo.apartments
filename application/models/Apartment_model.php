@@ -6,9 +6,6 @@ class Apartment_model extends CI_Model {
 		parent::__construct();
 	}
 
-	//GIT PULL TEST
-	//now pushing
-
 	public function get_top_of_nav(){
 		$this->db->where('main_page_top', 'Y');
 		$this->db->where('suspend !=', 'Y');
@@ -566,6 +563,7 @@ class Apartment_model extends CI_Model {
 
 		#get all aptment floorplan data and figure average cost per sq. foot
 		$this->db->where('suspend !=', 'Y');
+		$this->db->where('rent >', 0);
 		$all_apts = $this->db->get('floorplans')->result_array();
 		$all_rent = 0;
 		$all_sq_ft = 0;
@@ -589,6 +587,7 @@ class Apartment_model extends CI_Model {
 		#get the average rent for one bedroom apartments
 		$this->db->where('bedroom', 1);
 		$this->db->where('suspend !=', 'Y');
+		$this->db->where('rent >', 0);
 		$one_bed = $this->db->get('floorplans')->result_array();
 
 		$all_rent = 0;
@@ -610,6 +609,7 @@ class Apartment_model extends CI_Model {
 		#get the average rent for two bedroom apartments
 		$this->db->where('bedroom', 2);
 		$this->db->where('suspend !=', 'Y');
+		$this->db->where('rent >', 0);
 		$two_bed = $this->db->get('floorplans')->result_array();
 
 		$all_rent = 0;
@@ -1253,16 +1253,30 @@ class Apartment_model extends CI_Model {
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
 				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>FROM: '.$data['email'].'<br><br>MESSAGE: '.$data['message']);
+				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>EMAIL: '.$data['email'].'<br><br>NAME: '.$data['first_name'].'<br><br>MESSAGE: '.$data['message']);
 				$sent = $this->email->send();
  			}else{
 
- 				//git check ********************************************************************************git*******
+				$message = '<body style="font-family:Arial, Helvetica, sans-serif;">'.
+				'<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>'
+				.'<h3 style="color:#3F79C9;">To have leads sent directly to you, consider a PREMIUM MEMBERSHIP</h3>'.
+					        '<br>A Premium Membership Means...
+									<ul style="line-height: 1.9;">
+										<li>'.$apt_name.' appears ABOVE the Basic Level Apartments</li>
+										<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member page has NO phone number listed</span></li>
+										<li>A LINK To Your Property Website Is On Your Page - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member pages has NO links to your website.</span></li>
+										<li>A LINK & Logo of your Property Management Company</li>
+										<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></span></li>
+										<li>All LEADS Are Emailed Directly To You - <span style="font-style: italic; font-size:.8em; font-weight:bold;">You don\'t have to login to see your leads</span></li>
+									</ul>'.
+					        '<br><br>Thanks,<br>
+					        SANANGELO.APARTMENTS'
+							;
  				$this->email->clear();
 				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
 				$this->email->to($value);
 				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>.' );
+				$this->email->message($message);
 				$sent = $this->email->send();
  			}
 			
@@ -2047,27 +2061,19 @@ class Apartment_model extends CI_Model {
 
 		}
 
-
-		// print_r($all_emails);
-		// //for testing environment
-		// $all_emails = [
-		// 	0 => ['apt_name' => 'Red Sonja Apartments', 'email' => 'mileschick@gmail.com'],
-		// 	1 => ['apt_name' => 'Bay Rum Apartments', 'email' => 'miles@bayrummedia.com'],
-		// 	];
-
 		$this->load->library('email');
 		foreach ($all_emails as $key => $value) {
- 			
-			$this->email->clear();
-			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
-			$this->email->to($value['email']);
-			$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
-			$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br>'.$value['apt_name'].' will not show up.<br>Why? Because you do not have any floorplans listed on the site.<br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
-			$sent = $this->email->send();
-		}
+			if($value['email'] != ''){
+				// echo $value['email']." : ".$value['apt_name']."<br>";
+				$this->email->clear();
+				$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+				$this->email->to($value['email']);
+				$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
+				$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br><br>'.$value['apt_name'].' will not show up because you do not have any models listed on the site.<br><br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br><br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
+				$sent = $this->email->send();
+			}
 
-		$fp_remind['sent_floorplan_reminder'] = date('Y-m-d');
-		$this->db->insert('reminders', $fp_remind);
+		}
 	}
 
 	public function email_login_remind(){
@@ -2076,19 +2082,27 @@ class Apartment_model extends CI_Model {
 
 		$need_reminder_ids = [];
 		date_default_timezone_set("America/Chicago");
-		$date = date('d');
+		$date = date('z');
 
 		foreach ($all_users as $key => $value) {
-
 			$this->db->where('user_id', $value['ID']);
 			$this->db->order_by('login_time', 'desc');
 			$logins = $this->db->get('session_data')->result_array();
 
-			$recent_login_date = date('d', strtotime($logins[0]['login_time']));
+			$recent_login_date = date('z', strtotime($logins[0]['login_time']));
 			$last_login = date('m-d-Y', strtotime($logins[0]['login_time']));
 			$login_test = $date - $recent_login_date;
 
+			if($login_test < 0){
+				$recent_login_date = 0;
+				$last_login = date('m-d-Y', strtotime($logins[0]['login_time']));
+				$login_test = $date - $recent_login_date;
+			}
+
+			// echo $value['ID']." : ".$date." - ".$recent_login_date." = ".$login_test."<br>";
+
 			if($login_test > 25){
+				$emails = '';
 				$username = $value['username'];
 
 				$emails[0] = $value['email'];
@@ -2113,39 +2127,626 @@ class Apartment_model extends CI_Model {
 
 				$this->load->library('email');
 				foreach ($emails as $key => $value) {
-		 			
-					$this->email->clear();
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
-					$this->email->to($value);
-					$this->email->subject('Update Your Info On SANANGELO.APARTMENTS for '.$apt_name);
-					$this->email->message('<h3 style="color:#3F79C9;">It\'s been a while since you logged in to SANANGELO.APARTMENTS</h3>
-						<br>Your last login for '.$apt_name.' was on: '.$last_login.' 
+					if($value != ''){
+						// echo $username." : ".$last_login." : ".$value." : ".$apt_name."<br>";
+						$this->email->clear();
+						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+						$this->email->to($value);
+						$this->email->subject('Update Your Info On SANANGELO.APARTMENTS for '.$apt_name);
+						$this->email->message('<h3 style="color:#3F79C9;">It\'s been a while since you logged in to SANANGELO.APARTMENTS</h3>
+							<br>Your last login for '.$apt_name.' was on: '.$last_login.' 
 
-						<br><br>Here are some things you may need to do... 
-						<br><br>&bull; Update your prices
-						<br>&bull; Run a special
-						<br>&bull; Update your Office Hours or Pet Policy
-						<br>&bull; Put up some fresh pictures
-						<br>&bull; Add or delete an amenity
-						<br>&bull; Add floorplan diagrams to your floorplans
-						<br>&bull; Edit your property description
+							<br><br>Here are some things you may need to do... 
+							<br><br>&bull; Update your prices
+							<br>&bull; Run a special
+							<br>&bull; Update your Office Hours or Pet Policy
+							<br>&bull; Put up some fresh pictures
+							<br>&bull; Add or delete an amenity
+							<br>&bull; Add floorplan diagrams to your floorplans
+							<br>&bull; Edit your property description
 
-						<br><br>Login here to update your apartment: <a href="'.base_url().'login/login_user">LOGIN</a>.
+							<br><br>Login here to update your apartment: <a href="'.base_url().'login/login_user">LOGIN</a>.
 
-						<br><br>Your username is: '.$username.'
+							<br><br>Your username is: '.$username.'
 
-						<br><br>If you forgot your password, reset it here: <a href="'.base_url().'login/reset_password">RESET PASSWORD</a>.
+							<br><br>If you forgot your password, reset it here: <a href="'.base_url().'login/reset_password">RESET PASSWORD</a>.
 
-						<br><br>PS. This is an automated email... once you login we\'ll stop bothering you. For a while at least :)');
-					$sent = $this->email->send();
+							<br><br>PS. This is an automated email... once you login we\'ll stop bothering you. For a while at least :)');
+						$sent = $this->email->send();
+
+					}
+
 				}
 
 			}
 		}
-
-		$login_remind['sent_login_reminder'] = date('Y-m-d');
-		$this->db->insert('reminders', $login_remind);
 	}
+
+
+	public function email_no_banner(){
+		$this->load->library('email');
+		date_default_timezone_set("America/Chicago");
+		$today = date('Y-m-d');
+		$five_days_from_now = date('Y-m-d', strtotime('+5 day', strtotime($today)));
+
+		$this->db->where('item', 'site_takeover');
+		$this->db->where('start_date >=', $today);
+		$this->db->where('start_date <=', $five_days_from_now);
+		$stos = $this->db->get('upcoming_sales')->result_array();
+
+		$sto_date = date('m-d-Y', strtotime($stos[0]['start_date']));
+
+		foreach ($stos as $key => $value) {
+
+			if(
+				$value['left_takeover_name'] != '' ||
+				$value['right_takeover_name'] != '' ||
+				$value['top_takeover_name'] != '' ||
+				$value['moblie_takeover_name'] != ''
+				)
+				{	}else{
+				$this->db->where('ID', $value['apt_id']);
+				$this_apt = $this->db->get('apartment_main')->result_array();
+				// echo $this_apt[0]['verified_user_id']." : ".$this_apt[0]['property_name']."<br>";
+
+				$apt_name = $this_apt[0]['property_name'];
+
+				$this->db->where('ID', $this_apt[0]['verified_user_id']);
+				$user_info = $this->db->get('users')->result_array();
+
+				foreach ($user_info as $key_b => $value_b) {
+					$emails = '';
+					$username = $value_b['username'];
+					// echo $username."<br>";
+
+					$emails[0] = $value_b['email'];
+
+					if($value_b['email_2'] != ''){
+						array_push($emails, $value['email_2']);
+					}
+					if($value_b['email_3'] != ''){
+						array_push($emails, $value['email_3']);
+					}
+					if($value_b['email_4'] != ''){
+						array_push($emails, $value['email_4']);
+					}
+
+					foreach ($emails as $key_c => $value_c) {
+						if($value_c != ''){     
+							// echo $apt_name." : ".$username." : ".$sto_date." : ".$value_c."<br>";
+							$this->email->clear();
+							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->to($value_c);
+							$this->email->subject('Your Site Takeover Banners Are Missing For '.$apt_name);
+							$this->email->message('<h3 style="color:#3F79C9;">You Are Missing Some Banners For Your SITE TAKEOVER</h3>
+								<br>You have a SITE TAKEOVER for '.$apt_name.' scheduled on: '.$sto_date.
+								'<br><br>It looks like you still need to upload your banners for your promotion.'.
+								'<br><br>&bull; File types .jpg .gif and .png are accepted for banners.'.
+				                '<br>&bull; Left and Right banners are 170px wide by 700px tall.'.
+				                '<br>&bull; Top banner is 870px wide by 80px tall.'.
+				                '<br>&bull; Mobile banner is 400px wide by 175px tall.'.
+				                '<br><br>Your SITE TAKEOVER will run even if you have not uploaded your banners.'.
+				                '<br>If you need help with your banners please contact us.'.
+				                '<br><br>Login to SANANGELO.APARTMENTS and use the "ADS & BANNERS" link on the top left of the page to go to the upload page.
+				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
+				                <br><br>Thanks,<br>
+				                SANANGELO.APARTMENTS'
+
+								);
+							$sent = $this->email->send();
+							}
+						}
+					}
+				}
+		}
+	}
+
+	public function email_page_count(){
+		$this->load->library('email');
+
+		$this->db->where('suspend', 'N');
+		$this->db->order_by('views_last_month', 'desc');
+		$all_apts = $this->db->get('apartment_main')->result_array();
+
+		$all_apts_winner = $all_apts[0]['property_name'];
+		$all_apts_winner_count = $all_apts[0]['views_last_month'];
+
+		foreach ($all_apts as $key => $value) {
+
+				$this->db->where('ID', $value['ID']);
+				$this_apt = $this->db->get('apartment_main')->result_array();
+
+				$apt_name = $this_apt[0]['property_name'];
+				$views = $this_apt[0]['views_last_month'];
+
+				$this->db->where('ID', $this_apt[0]['verified_user_id']);
+				$user_info = $this->db->get('users')->result_array();
+
+				foreach ($user_info as $key_b => $value_b) {
+					$emails = '';
+					$username = $value_b['username'];
+
+					$emails[0] = $value_b['email'];
+
+					if($value_b['email_2'] != ''){
+						array_push($emails, $value['email_2']);
+					}
+					if($value_b['email_3'] != ''){
+						array_push($emails, $value['email_3']);
+					}
+					if($value_b['email_4'] != ''){
+						array_push($emails, $value['email_4']);
+					}
+
+					foreach ($emails as $key_c => $value_c) {
+						if($value_c != ''){     
+							$this->email->clear();
+							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->to($value_c);
+							$this->email->subject($apt_name.' Page Views On SANANGELO.APARTMENTS');
+							$this->email->message('<h3 style="color:#3F79C9;">Your Page Was Viewed '.$views.' Times Last Month</h3>
+								<br>That\'s right, '.$views.' visitors took a look at your page last month!'.
+								'<br><br>The page with the highest views last month was '.$all_apts_winner.' with '.$all_apts_winner_count.' views.'.
+								' Congratulations!'.
+				                '<br><br>If you\'d like more page views take a look at our site promotions...'.
+				                '<br>&bull; PREMIUM MEMBERSHIP'.
+				                '<br>&bull; SITE TAKEOVER'.
+				                '<br>&bull; TOP 3 BANNER'.
+				                '<br><br>Login to your account to learn more about these.
+				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
+				                <br><br>Thanks,<br>
+				                SANANGELO.APARTMENTS'
+
+								);
+							$sent = $this->email->send();
+							}
+						}
+					}
+				
+		}
+	}
+
+	public function email_page_count_year(){
+		$this->load->library('email');
+
+		$this->db->where('suspend', 'N');
+		$this->db->order_by('views_last_year', 'desc');
+		$all_apts = $this->db->get('apartment_main')->result_array();
+
+		$all_apts_winner = $all_apts[0]['property_name'];
+		$all_apts_winner_count = $all_apts[0]['views_last_year'];
+
+		foreach ($all_apts as $key => $value) {
+
+				$this->db->where('ID', $value['ID']);
+				$this_apt = $this->db->get('apartment_main')->result_array();
+
+				$apt_name = $this_apt[0]['property_name'];
+				$views = $this_apt[0]['views_last_year'];
+
+				$this->db->where('ID', $this_apt[0]['verified_user_id']);
+				$user_info = $this->db->get('users')->result_array();
+
+				foreach ($user_info as $key_b => $value_b) {
+					$emails = '';
+					$username = $value_b['username'];
+
+					$emails[0] = $value_b['email'];
+
+					if($value_b['email_2'] != ''){
+						array_push($emails, $value['email_2']);
+					}
+					if($value_b['email_3'] != ''){
+						array_push($emails, $value['email_3']);
+					}
+					if($value_b['email_4'] != ''){
+						array_push($emails, $value['email_4']);
+					}
+
+					foreach ($emails as $key_c => $value_c) {
+						if($value_c != ''){     
+							$this->email->clear();
+							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->to($value_c);
+							$this->email->subject($apt_name.' Last Years Page Views On SANANGELO.APARTMENTS');
+							$this->email->message('<h3 style="color:#3F79C9;">Last Year, Your Page Was Viewed '.$views.' Times</h3>
+								<br>Over the course of the year, '.$views.' visitors took a look at your page!'.
+								'<br><br>The page with the highest views last year was '.$all_apts_winner.' with '.$all_apts_winner_count.' views.'.
+								' Congratulations!'.
+				                '<br><br>If you\'d like more page views take a look at our site promotions...'.
+				                '<br>&bull; PREMIUM MEMBERSHIP'.
+				                '<br>&bull; SITE TAKEOVER'.
+				                '<br>&bull; TOP 3 BANNER'.
+				                '<br><br>Login to your account to learn more about these.
+				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
+				                <br><br>Thanks,<br>
+				                SANANGELO.APARTMENTS'
+
+								);
+							$sent = $this->email->send();
+							}
+						}
+					}
+				
+		}
+	}
+
+	public function email_expire_prem(){
+		
+			$this->load->library('email');
+			date_default_timezone_set("America/Chicago");
+			$today = date('Y-m-d');
+			$fifty_days_from_now = date('Y-m-d', strtotime('+30 day', strtotime($today)));
+
+			$this->db->where('item', 'premium_level');
+			$this->db->where('end_date <=', $fifty_days_from_now);
+			$this->db->where('end_date >=', $today);
+			$exp_ads = $this->db->get('upcoming_sales')->result_array();
+
+			foreach($exp_ads as $key => $value){
+				$apt_id = $value['apt_id'];
+				$exp_date = date('m-d-Y', strtotime($value['end_date']));
+
+				$this->db->where('ID', $apt_id);
+				$this_apt = $this->db->get('apartment_main')->result_array();
+				$apt_name = $this_apt[0]['property_name'];
+				$user_number = $this_apt[0]['verified_user_id'];
+
+				$this->db->where('ID', $user_number);
+				$user_data = $this->db->get('users')->result_array();
+
+				// echo $apt_name." : ".$apt_id." : ".$exp_date."<br>";
+				// print_r($user_data);
+				// echo "<br>***************************<br>";
+
+				foreach($user_data as $key => $value){
+						$emails = '';
+
+						$emails[0] = $value['email'];
+
+						if($value['email_2'] != ''){
+							array_push($emails, $value['email_2']);
+						}
+						if($value['email_3'] != ''){
+							array_push($emails, $value['email_3']);
+						}
+						if($value['email_4'] != ''){
+							array_push($emails, $value['email_4']);
+						}
+
+						foreach ($emails as $key => $value) {
+							if($value != ''){
+
+								$message = '<h3 style="color:#3F79C9;">Renew Your PREMIUM MEMBERSHIP On SANANGELO.APARTMENTS</h3>'.
+						        '<br>Your Premium Membership for '.$apt_name.' is will expire on '.$exp_date.
+						        '<br><br>A Premium Membership Means...
+										<ul style="line-height: 1.9;">
+											<li>'.$apt_name.' appears ABOVE the BASIC Level Apartments On...
+												<ul>
+													<li>The Home Page</li>
+													<li>The Map Page</li>
+													<li>Search Results Pages</li>
+													<li>List Of Open Apartments</li>
+													<li>List Of Monthly Specials</li>
+												</ul>
+
+											</li>
+											<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic;">Basic Member pages have NO phone number listed</span></li>
+											<li>A LINK To Your Property Website Is On Your Page</li>
+											<li>A LINK & Logo of your Property Management Company</li>
+											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+											<li>All LEADS Are Emailed Directly To You</li>
+										</ul>'.
+						        '<br>Login to SANANGELO.APARTMENTS to continue your PREMIUM MEMBERSHIP: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        <br><br>Thanks,<br>
+						        SANANGELO.APARTMENTS
+						        <br><br>
+						        PS.<br>
+						        There\'s Nothing To Pay Today!<br>
+								We will send you an invoice at the end of each month of your PREMIUM MEMBERSHIP.<br>
+								<span style="font-size:.7em">Premium Memberships are a twelve month commitment.<br>
+								Invoices will be emailed to the addresses listed on your account.<br></span>'
+								;
+								$this->email->clear();
+								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->to($value);
+								$this->email->subject('Renew Your Premium Membership On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->message($message);
+								$sent = $this->email->send();
+
+							}
+					}
+				}
+			}
+	}
+
+
+	public function email_expire_top3(){
+		
+			$this->load->library('email');
+			date_default_timezone_set("America/Chicago");
+			$today = date('Y-m-d');
+			$eight_days_from_now = date('Y-m-d', strtotime('+8 day', strtotime($today)));
+
+			$this->db->where('item', 'top_3');
+			$this->db->where('end_date <=', $eight_days_from_now);
+			$this->db->where('end_date >=', $today);
+			$exp_ads = $this->db->get('upcoming_sales')->result_array();
+
+			foreach($exp_ads as $key => $value){
+				$apt_id = $value['apt_id'];
+				$exp_date = date('m-d-Y', strtotime($value['end_date']));
+
+				$this->db->where('ID', $apt_id);
+				$this_apt = $this->db->get('apartment_main')->result_array();
+				$apt_name = $this_apt[0]['property_name'];
+				$user_number = $this_apt[0]['verified_user_id'];
+
+				$this->db->where('ID', $user_number);
+				$user_data = $this->db->get('users')->result_array();
+
+				// echo $apt_name." : ".$apt_id." : ".$exp_date."<br>";
+				// print_r($user_data);
+				// echo "<br>***************************<br>";
+
+				foreach($user_data as $key => $value){
+						$emails = '';
+
+						$emails[0] = $value['email'];
+
+						if($value['email_2'] != ''){
+							array_push($emails, $value['email_2']);
+						}
+						if($value['email_3'] != ''){
+							array_push($emails, $value['email_3']);
+						}
+						if($value['email_4'] != ''){
+							array_push($emails, $value['email_4']);
+						}
+
+						foreach ($emails as $key => $value) {
+							if($value != ''){
+								// echo $value.'<br>';
+
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Renew Your TOP 3 BANNER On SANANGELO.APARTMENTS</h3>'.
+						        '<br>Your Top 3 Banner for '.$apt_name.' is will expire on '.$exp_date.
+						        '<br><br>A Top 3 Banner Means...
+										<ul style="line-height: 1.9;">
+											<li>'.$apt_name.'\'s Name And Picture is ON THE TOP BANNER on theses pages...
+												<ul>
+													<li>The Home Page</li>
+													<li>The Map Page</li>
+													<li>Search Results Pages</li>
+													<li>List Of Open Apartments</li>
+													<li>List Of Monthly Specials</li>
+												</ul>
+
+											</li>
+											<li>The Banner Is A LINK Directly To Your Page</li>
+											<li>Commitment Free! Top 3 Banner is One Month At A Time</li>
+										</ul>'.
+						        '<br>Login to SANANGELO.APARTMENTS to continue your TOP 3 BANNER: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        <br><br>Thanks,<br>
+						        SANANGELO.APARTMENTS
+						        <br><br>
+						        PS.<br>
+						        There\'s Nothing To Pay Today!<br>
+								We will send you an invoice at the end the month of your TOP 3 BANNER.<br></body>'
+								;
+								$this->email->clear();
+								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->to($value);
+								$this->email->subject('Renew Your Top 3 Banner On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->message($message);
+								$sent = $this->email->send();
+
+							}
+					}
+				}
+			}
+	}
+
+
+
+	public function sto_avail(){
+			$this->load->library('email');
+			date_default_timezone_set("America/Chicago");
+			$today = date('Y-m-d');
+
+			$this->db->where('suspend', 'N');
+			$all_users = $this->db->get('apartment_main')->result_array();
+
+			foreach($all_users as $key => $value){
+				// echo "here";
+				$apt_id = $value['ID'];
+				$apt_name = $value['property_name'];
+				$user_number = $value['verified_user_id'];
+
+				$this->db->where('ID', $user_number);
+				$user_data = $this->db->get('users')->result_array();
+
+				$prices = $this->db->get('cost')->result_array();
+
+				$sto_cost = $prices[0]['site_takeover_cost'];
+
+				foreach($user_data as $key => $value){
+						$emails = '';
+
+						$emails[0] = $value['email'];
+
+						if($value['email_2'] != ''){
+							array_push($emails, $value['email_2']);
+						}
+						if($value['email_3'] != ''){
+							array_push($emails, $value['email_3']);
+						}
+						if($value['email_4'] != ''){
+							array_push($emails, $value['email_4']);
+						}
+
+						foreach ($emails as $key => $value) {
+							if($value != ''){
+								// echo $value.'<br>';
+
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;"> SITE TAKEOVERS are available on SANANGELO.APARTMENTS!</h3>'.
+						        '<br>An easy, inexpensive way to promote your community is with a Site Takeover.'.
+						        '<br><br>Only $'.$sto_cost.' A DAY! So check your budget for next month.
+										</div>
+										<ul style="line-height: 1.9;">
+											<li>Your Apartment Is Listed FIRST All Day Long On...
+												<ul class="small_ul">
+													<li>The Home Page</li>
+													<li>The Map Page</li>
+													<li>Search Results Pages</li>
+													<li>List Of Open Apartments</li>
+													<li>List Of Monthly Specials</li>
+												</ul>
+
+											</li>
+											<li>Your Advertising BANNERS On the Left, Right & Center Of Our Homepage - And Links To Your Website!</li>
+											<li>Your Mobile Banner Appears On Our MOBILE Site</li>
+											<li>A FACEBOOK Promotion On Our FB Page On The Day Of Your Takeover... <a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+											<li>We\'ll Help You Make Your Banner Ads If You Need It</li>
+											<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
+										</ul>'.
+						        '<br>Mondays and Thursdays are high traffic days for our site - so grab those in first.
+						        <br><br>Once you schedule a Site Takeover - it\'s yours! Everyone else is locked out from securing it.
+						        <br><br>Login to SANANGELO.APARTMENTS to see your options for site promotions: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        <br><br>Thanks,<br>
+						        SANANGELO.APARTMENTS
+						        <br><br>
+						        PS.<br>
+						        There\'s Nothing To Pay Today!<br>
+								We will send you an invoice at the end the month of your SITE TAKEOVER runs.<br></body>'
+								;
+								$this->email->clear();
+								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->to($value);
+								$this->email->subject('SITE TAKEOVERS Are Available Next Month On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->message($message);
+								$sent = $this->email->send();
+
+							}
+					}
+				}
+			}
+	}
+
+
+	public function email_consid_prem(){
+			$this->load->library('email');
+			date_default_timezone_set("America/Chicago");
+			$today = date('Y-m-d');
+
+			$this->db->where('item', 'premium_level');
+			$this->db->where('end_date >=', $today);
+			$have_prem = $this->db->get('upcoming_sales')->result_array();
+
+			$dont_include = array();
+
+			foreach ($have_prem as $key => $value) {
+				array_push($dont_include, $value['apt_id']);
+			}
+
+			$this->db->where_not_in('ID', $dont_include);
+			$this->db->where('suspend !=', 'Y');
+			$these_apts = $this->db->get('apartment_main')->result_array();
+
+			foreach($these_apts as $key => $value){
+				// echo "here";
+				$apt_id = $value['ID'];
+				$apt_name = $value['property_name'];
+				$user_number = $value['verified_user_id'];
+
+				$this->db->where('ID', $user_number);
+				$user_data = $this->db->get('users')->result_array();
+
+				$prices = $this->db->get('cost')->result_array();
+
+				$prem_cost = $prices[0]['premium_cost'];
+
+				// echo $apt_id." : ".$apt_name." : ".$prem_cost."<br>";
+
+				foreach($user_data as $key => $value){
+						$emails = '';
+
+						$emails[0] = $value['email'];
+
+						if($value['email_2'] != ''){
+							array_push($emails, $value['email_2']);
+						}
+						if($value['email_3'] != ''){
+							array_push($emails, $value['email_3']);
+						}
+						if($value['email_4'] != ''){
+							array_push($emails, $value['email_4']);
+						}
+
+						foreach ($emails as $key => $value) {
+							if($value != ''){
+								// echo $value.'<br>';
+
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Upgrade To A PREMIUM MEMBERSHIP On SANANGELO.APARTMENTS for $'.$prem_cost.'/month</h3>'.
+						        '<br>A Premium Membership Means...
+										<ul style="line-height: 1.9;">
+											<li>'.$apt_name.' appears ABOVE the Basic Level Apartments</li>
+											<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member page has NO phone number listed</span></li>
+											<li>A LINK To Your Property Website Is On Your Page - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member pages has NO links to your website.</span></li>
+											<li>A LINK & Logo of your Property Management Company</li>
+											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></span></li>
+											<li>All LEADS Are Emailed Directly To You - <span style="font-style: italic; font-size:.8em; font-weight:bold;">You don\'t have to login to see your leads</span></li>
+										</ul>'.
+						        '<br>Login to SANANGELO.APARTMENTS to upgrade: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        <br><br>Thanks,<br>
+						        SANANGELO.APARTMENTS
+						        <br><br>
+						        PS.<br>
+						        There\'s Nothing To Pay Today!<br>
+								We will send you an invoice at the end of each month of your PREMIUM MEMBERSHIP.<br>
+								<span style="font-size:.7em">Premium Memberships are a twelve month commitment.<br>
+								Invoices will be emailed to the addresses listed on your account.<br></span></body>'
+								;
+								$this->email->clear();
+								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->to($value);
+								$this->email->subject('Consider Upgrading To A Premium Membeership On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->message($message);
+								$sent = $this->email->send();
+							}
+					}
+				}
+			}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

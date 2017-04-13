@@ -83,6 +83,7 @@
 
 						 ?>
 					</select>
+					<a href="<?php echo base_url() ?>admin/make_new_user" class="not_fancy_dark">Make A New User</a>
 				</td>
 			</tr>
 			<tr>

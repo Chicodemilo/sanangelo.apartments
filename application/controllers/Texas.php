@@ -14,9 +14,12 @@ class Texas extends CI_Controller {
 		$day = date('D');
 		$date = date('d');
 		$hour = date('H');
+		$day_of_year = date('z');
 
 		$today = date('Y-m-d');
 
+
+		//**************** GATHERING FRONT PAGE DATA *********************
 		$this->db->where('update_date', $today);
 		$updated = $this->db->get('site_updates')->result_array();
 
@@ -81,37 +84,14 @@ class Texas extends CI_Controller {
 
 		$main_page_data['apt_count'] = count($main_page_data['all_apartments']);
 
-		
-		$day = date('D');
-		$date = date('d');
-		$hour = date('H');
 
+
+		//**************** BLOG CREATION *********************
 		if($day === 'Mon'){
 			$exists = $this->apartment_model->does_blog_exsist('SPOT');
 			if($exists == 'N'){
 				$spot_blog = $this->apartment_model->make_spot_blog();
 				$this->db->insert('blog', $spot_blog);
-			}
-		}
-
-		// ***************** OBLITERATING TILL I CAN FIX *****************************
-		// WORKS FINE LOCALLY ON SERVER. ON REMOTE SERVER WONT SET THE VARIABLE THAT DENOTES EMAIL HAS BEEN SENT... AND SENDS REPEATEDLY.
-		
-		// if($day === 'Tue'  && $hour > 10 && $hour < 11){
-		// 	$today = date('Y-m-d');
-		// 	$this->db->where('sent_floorplan_reminder', $today);
-		// 	$sent = $this->db->get('reminders')->result_array();
-		// 	if(count($sent) < 1){
-		// 		$this->apartment_model->email_no_models();
-		// 	}
-		// }
-
-		if($day === 'Fri'  && $hour > 9){
-			$today = date('Y-m-d');
-			$this->db->where('sent_login_reminder', $today);
-			$sent = $this->db->get('reminders')->result_array();
-			if(count($sent) < 1){
-				$this->apartment_model->email_login_remind();
 			}
 		}
 
@@ -155,12 +135,250 @@ class Texas extends CI_Controller {
 			}
 		}
 
+		//**************** REMINDERS TO ADVERTISERS *********************
+		$this->db->where('update_date', $today);
+		$insert_updates = $this->db->get('reminders')->result_array();
 
+		if(count($insert_updates) < 1){
+
+			$nuke_old = $this->db->get('reminders')->result_array();
+			foreach ($nuke_old as $key => $value) {
+				$this->db->where('id', $value['id']);
+				$this->db->delete('reminders');
+			}
+
+			$reminder_data = array(
+				0 => array(
+				'update_date' => $today,
+				'update_type' => 'login_remind',
+				'update_done' => 'N',
+				),
+				1 => array(
+				'update_date' => $today,
+				'update_type' => 'expire_ads',
+				'update_done' => 'N',
+				),
+				2 => array(
+				'update_date' => $today,
+				'update_type' => 'sto_avail',
+				'update_done' => 'N',
+				),
+				3 => array(
+				'update_date' => $today,
+				'update_type' => 'page_count',
+				'update_done' => 'N',
+				),
+				4 => array(
+				'update_date' => $today,
+				'update_type' => 'no_banner',
+				'update_done' => 'N',
+				),
+				5 => array(
+				'update_date' => $today,
+				'update_type' => 'consider_prem',
+				'update_done' => 'N',
+				),
+				6 => array(
+				'update_date' => $today,
+				'update_type' => 'fp_remind',
+				'update_done' => 'N',
+				),
+				7 => array(
+				'update_date' => $today,
+				'update_type' => 'page_count_year',
+				'update_done' => 'N',
+				)
+			);
+
+			foreach($reminder_data as $key => $value){
+				$this->db->insert('reminders', $value);
+			}
+		}
+
+
+		if($date === '7'  && $hour > 8 && $hour < 14){
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'login_remind');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_login_remind();
+			}
+		}
+
+		// if($date === '21'  && $hour > 8 && $hour < 14){
+		// 	$this->db->where('update_date', $today);
+		// 	$this->db->where('update_type', 'login_remind');
+		// 	$sent = $this->db->get('reminders')->result_array();
+
+		// 	if($sent[0]['update_done'] == 'N'){
+		// 		$change_status['update_done'] = 'Y';
+		// 		$this->db->where('id', $sent[0]['id']);
+		// 		$this->db->update('reminders', $change_status);
+		// 		$this->apartment_model->email_login_remind();
+		// 	}
+		// }
+
+		if($date === '17'  && $hour > 8 && $hour < 14){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'fp_remind');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_no_models();
+			}
+		}
+
+		if($hour > 8 && $hour < 18){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'no_banner');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				echo "here<br>";
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_no_banner();
+			}
+		}
+
+		if($date === '1'  && $hour > 8 && $hour < 18){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'page_count');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_page_count();
+			}
+		}
+
+		if($day_of_year === '5'  && $hour > 8 && $hour < 18){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'page_count_year');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_page_count_year();
+			}
+		}
+
+		if($day === 'Wed'  && $hour > 8 && $hour < 18){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'expire_ads');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_expire_prem();
+				$this->apartment_model->email_expire_top3();
+			}
+		}
+
+		if($date === '26'  && $hour > 8 && $hour < 18){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'sto_avail');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->sto_avail();
+			}
+		}
+
+		if($day_of_year === '122'  && $hour > 8 && $hour < 19){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'consider_prem');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_consid_prem();
+			}
+		}
+
+		if($day_of_year === '223'  && $hour > 8 && $hour < 19){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'consider_prem');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_consid_prem();
+			}
+		}
+
+		if($day_of_year === '277'  && $hour > 8 && $hour < 19){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'consider_prem');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_consid_prem();
+			}
+		}
+
+		if($day_of_year === '327'  && $hour > 8 && $hour < 19){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'consider_prem');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_consid_prem();
+			}
+		}
+
+		if($day_of_year === '356'  && $hour > 8 && $hour < 19){
+			$today = date('Y-m-d');
+			$this->db->where('update_date', $today);
+			$this->db->where('update_type', 'consider_prem');
+			$sent = $this->db->get('reminders')->result_array();
+
+			if($sent[0]['update_done'] == 'N'){
+				$change_status['update_done'] = 'Y';
+				$this->db->where('id', $sent[0]['id']);
+				$this->db->update('reminders', $change_status);
+				$this->apartment_model->email_consid_prem();
+			}
+		}
 
 		$this->load->view('apartments/main_page_header');
-		// if($signed_up == 'N'){
-		// 	$this->load->view('apartments/main_sign_up');
-		// }
 		$this->load->view('apartments/main_page_navbar', $top_of_nav);
 		$this->load->view('apartments/main_body', $main_page_data);
 		$this->load->view('apartments/main_page_footer');
@@ -369,6 +587,7 @@ class Texas extends CI_Controller {
 	    $data['email'] =  $_POST['email'];
 		$data['message'] =  $_POST['message'];
 		$data['apt_id'] =  $_POST['apt_id'];
+		$data['first_name'] = $_POST['first_name'];
 		$data['time'] = date('Y-m-d h:i:s');
 
 		if($honey_pot == ''){

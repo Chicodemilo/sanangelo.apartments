@@ -160,6 +160,12 @@ $(document).ready(function() {
            // document.getElementById('contact_box').style.zIndex =  -1;
     });
 
+    $("#inv_status_edit select.select option").each(function(){
+        if($(this).val()==num){ // EDITED THIS LINE
+            $(this).attr("selected","selected");    
+        }
+    });
+
 
  });
 

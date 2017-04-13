@@ -51,6 +51,90 @@ class Admin extends CI_Controller {
         }
     }
 
+
+// // MAKE A NEW USER *********************************************************************************
+
+    public function make_new_user(){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/make_new_user.php');
+            $this->load->view('admin/master_footer.php');
+    }
+
+    public function submit_new_user(){
+        $username = $this->input->post('username');
+        $email = $this->input->post('email');
+        $email_2 = $this->input->post('email_2');
+        $email_3 = $this->input->post('email_3');
+        $email_4 = $this->input->post('email_4');
+        $verified = $this->input->post('verified');
+        $role = $this->input->post('role');
+        date_default_timezone_set("America/Chicago");
+        $date = date('Y-m-d H:i:s');
+        $get_messages = 'Y';
+        $password = $this->input->post('password');
+        $temp_pw = $this->input->post('password');
+
+        $password = hash('sha256', $password.SALT);
+
+        $sql = "INSERT INTO users (username, password, temp_pw, email, email_2, email_3, email_4, role, verified, date_added, get_messages) 
+        VALUES ('".$username."',
+                '".$password."',
+                '".$temp_pw."',
+                '".$email."',
+                '".$email_2."',
+                '".$email_3."',
+                '".$email_4."',
+                '".$role."',
+                '".$verified."',
+                '".$date."',
+                '".$get_messages."')
+        ";
+
+        $result = $this->db->query($sql);
+
+        redirect(base_url()."admin/new_apt");
+    }
+
+    public function these_users(){
+        $this->load->model('admin_model');
+        $data['open_users'] = $this->admin_model->get_open_users();
+        $data['used_users'] = $this->admin_model->get_used_users();
+
+        $this->load->view('admin/master_header.php');
+        $this->load->view('admin/see_all_users.php', $data);
+        $this->load->view('admin/master_footer.php');
+    }
+
+    public function delete_user($user_id){
+        $this->db->where('ID', $user_id);
+        $this->db->delete('users');
+        redirect(base_url()."admin/these_users");
+    }
+
+    public function toggle_verification($user_id, $verification_status){
+        if($verification_status == 'Y'){
+            $data['verified'] = 'N';
+        }else{
+            $data['verified'] = 'Y';
+        }
+
+        $this->db->where('ID', $user_id);
+        $this->db->update('users', $data);
+        redirect(base_url()."admin/these_users");
+    }
+
+    public function reset_user_pw($user_id){
+        $this->db->where('ID', $user_id);
+        $this_user = $this->db->get('users')->result_array();
+
+        $username = $this_user[0]['username'];
+
+        $this->load->model('model_user');
+        $this->model_user->do_reset_this_password($username);
+
+        redirect(base_url()."admin/these_users");
+    }
+
 // // DELETE AN APT *********************************************************************************
 
     public function delete_apt($apt_id)
@@ -1790,15 +1874,18 @@ public function do_upload_mobile_banner($apt_id){
 // INVOICE *******************************************************************************
 
     public function main_invoice(){
+        $this->load->model('admin_model');
+        $all_apts['result'] = $this->admin_model->get_all_current_apts();
+        $all_apts['suspended'] = $this->admin_model->get_all_suspended_apts();
+
         $this->load->view('admin/master_header.php');
-        $this->load->view('admin/invoice/main_invoice.php');
+        $this->load->view('admin/invoice/main_invoice.php', $all_apts);
         $this->load->view('admin/master_footer.php');
     }
 
     public function make_invoices(){
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
-
 
         $this->load->model('admin_model');
         $all_ad_items = $this->admin_model->get_ads_for_date_range($start_date, $end_date);
@@ -1808,7 +1895,6 @@ public function do_upload_mobile_banner($apt_id){
 
         if($all_ad_items != 'N'){
             foreach ($all_ad_items as $key => $value) {
-                // echo $value[0]['apt_id']." : ".$value[0]['apt_name']." : ".$value[0]['item']." : ".$value[0]['start_date']." : ".$value[0]['end_date']." : $".$value[0]['cost']."<br>";
 
                 $this_item = array(
                     'ID' => $value[0]['ID'],
@@ -1829,16 +1915,6 @@ public function do_upload_mobile_banner($apt_id){
             }
 
             $unique_ids = array_unique($all_ids);
-
-            echo "<br><br>";
-            foreach ($all_items_clean as $key => $value) {
-                echo $value['ID']." : ".$value['apt_id']." : ".$value['item']."<br>";
-            }
-
-            echo "<br><br>";
-            foreach ($unique_ids as $key => $value) {
-                echo $value."<br>";
-            }
 
             $this->admin_model->make_these_invoices($unique_ids);
 
@@ -1908,10 +1984,6 @@ public function do_upload_mobile_banner($apt_id){
                 $data['base_cost_'.$x] = $value_b['base_cost'];
                 $data['cost_'.$x] = $value_b['cost'];
 
-                echo "<br>=================================================<br><br>";
-
-                print_r($data);
-
                 $this->db->where('inv_creation_date', $today);
                 $this->db->where('inv_sets_today', $inv_sets_today);
                 $this->db->where('apt_id', $data['apt_id']);
@@ -1926,9 +1998,6 @@ public function do_upload_mobile_banner($apt_id){
             $this->db->where('inv_sets_today', $inv_sets_today);
             $these_invoices = $this->db->get('invoice')->result_array();
             foreach ($these_invoices as $key => $value) {
-                echo "<hr>";
-                print_r($value);
-                echo "<br>";
                 $inv_bal = 0;
                 for ($i=1; $i <= 13; $i++) { 
                     $inv_bal = $inv_bal + $value['cost_'.$i];
@@ -1944,16 +2013,14 @@ public function do_upload_mobile_banner($apt_id){
 
                 if($new_main_balance >= 0){
                     $data['inv_notes'] = "Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.<br>This invoice is marked as PAID because of a previous customer payment.";
-                    $data['inv_stats'] = "PAID";
+                    $data['inv_status'] = "PAID";
                     $data['payment_1'] = $inv_bal;
-                    $date['payment_1_date'] = $today;
-                    $date['payment_1_type'] = 'EXISTING CUSTOMER BALANCE';
+                    $data['payment_1_date'] = $today;
+                    $data['payment_1_type'] = 'EXISTING CUSTOMER CREDIT';
                     $data['invoice_balance'] = 0;
 
-                    $this->db->where('inv_number', $value['inv_number']);
+                    $this->db->where('id', $value['id']);
                     $this->db->update('invoice', $data);
-
-                    echo $value['inv_number']." Exissting Balance Covered All Of the Invoice.<br>";
 
                     $data_b['balance'] = $new_main_balance;
 
@@ -1961,47 +2028,431 @@ public function do_upload_mobile_banner($apt_id){
                     $this->db->update('apartment_main', $data_b);
                 }elseif($apt_main_balance > 0 && $inv_bal > $apt_main_balance){
 
-                    $data['invoice_balance'] = $inv_bal - $apt_main_balance;
+                    $data_c['invoice_balance'] = $inv_bal - $apt_main_balance;
+                    $data_c['inv_notes'] = "Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.<br>This invoice was partialy paid by of a previous customer balance of $".$apt_main_balance.". <br>Creating a currently due amount of $".$data_c['invoice_balance'];
+                    $data_c['payment_1'] = $apt_main_balance;
+                    $data_c['payment_1_date'] = $today;
+                    $data_c['payment_1_type'] = 'EXISTING CUSTOMER CREDIT';
 
-                    $data['inv_notes'] = "Thank you for your choice to trust us with your advertising budget.<br>Please contact us with any comments or concerns.<br>This invoice was partialy paid by of a previous customer balance of $".$apt_main_balance."<br>Creating a currently due amount of $".$data['invoice_balance'];
-                    $data['payment_1'] = $apt_main_balance;
-                    $date['payment_1_date'] = $today;
-                    $date['payment_1_type'] = 'EXISTING CUSTOMER BALANCE';
+                    $this->db->where('id', $value['id']);
+                    $this->db->update('invoice', $data_c);
 
-                    $this->db->where('inv_number', $value['inv_number']);
-                    $this->db->update('invoice', $data);
-
-                     echo $value['inv_number']." Exisisting Balance Covered Some But Not All Of The Invoice.<br>";
-
-                    $data_b['balance'] = $new_main_balance;
+                    $data_d['balance'] = $new_main_balance;
 
                     $this->db->where('ID', $value['apt_id']);
-                    $this->db->update('apartment_main', $data_b);   
+                    $this->db->update('apartment_main', $data_d);   
                 }else{
-                    $data['invoice_balance'] = $inv_bal;
-                    $this->db->where('inv_number', $value['inv_number']);
-                    $this->db->update('invoice', $data); 
+                    $data_e['invoice_balance'] = $inv_bal;
+                    $this->db->where('id', $value['id']);
+                    $this->db->update('invoice', $data_e); 
 
-                    echo $value['inv_number']." There was no existing balance.<br>";
-
-                    $data_b['balance'] = $new_main_balance;
+                    $data_f['balance'] = $new_main_balance;
 
                     $this->db->where('ID', $value['apt_id']);
-                    $this->db->update('apartment_main', $data_b);                   
+                    $this->db->update('apartment_main', $data_f);                  
                 }
+            } //end of foreach $these_invoices
+            $this->admin_model->make_past_dues($today);
 
-
-            }
-
-
+            redirect(base_url()."admin/show_current_inv_set/".$today."/".$inv_sets_today);
             
         }else{
-            echo "No Ads Ran From ".$start_date." to ".$end_date;
+            $dates['start_date'] = $start_date;
+            $dates['end_date'] = $end_date;
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_ads.php', $dates);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function enter_master_payment(){
+        $data['apt_id'] = $_POST['apt_id'];
+        $data['payment_date'] = $_POST['master_payment_date'];
+        $data['payment_type'] = $_POST['master_payment_type'];
+        $data['amount'] = $_POST['amount'];
+        $data['check_number'] = $_POST['check_number'];
+        $data['notes'] = $_POST['notes'];
+
+        $this->load->model('admin_model');
+        $main_data = $this->admin_model->get_this_adv_info($data['apt_id']);
+
+        $data['property_name'] = $main_data[0]['property_name'];
+
+        $this->db->insert('master_payments', $data);
+
+        $data_b['balance'] = $main_data[0]['balance'] + $data['amount'];
+
+        $this->db->where('ID', $data['apt_id']);
+        $this->db->update('apartment_main', $data_b);
+
+        redirect(base_url().'admin/adv_master_balance/'.$data['apt_id']);
+    }
+
+    public function adv_master_balance($apt_id){
+
+        $this->load->model('admin_model');
+        $data['main_data'] = $this->admin_model->get_this_adv_info($apt_id);
+        $data['master_payments'] = $this->admin_model->get_master_payments($apt_id);
+
+        $this->load->view('admin/master_header.php');
+        $this->load->view('admin/invoice/master_payments.php', $data);
+        $this->load->view('admin/master_footer.php');
+    }
+
+    public function this_inv_edit($inv_num,$creation_date = 0,$sets = 0,$param_4 = 0){
+
+        $this->load->model('admin_model');
+        $data['this_inv'] = $this->admin_model->get_this_inv($inv_num);
+        $data['page_note'] = $page_note;
+        $data['creation_date'] = $creation_date;
+        $data['sets'] = $sets;
+        if($param_4 != 0){
+            $data['param_4'] = $param_4;
+        }
+
+        $this->load->view('admin/master_header.php');
+        $this->load->view('admin/invoice/edit_this_inv.php', $data);
+        $this->load->view('admin/master_footer.php');
+    }
+
+    public function show_current_inv_set($date, $inv_set){
+        $this->load->model('admin_model');
+        $invoices['current'] = $this->admin_model->get_inv_for_date_and_set($date, $inv_set);
+        $invoices['past_due'] = $this->admin_model->get_past_due_invoices();
+
+        if($invoices['current'] == 'N'){
+            echo "There was a problem finding your invoices";
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_invoices.php', $invoices);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function submit_this_invoice($inv_num, $creation_date = 0, $sets = 0, $param_4 = 0){
+        $data_b = $_POST;
+
+        $this->db->where('id', $data_b['id']);
+        $this->db->update('invoice', $data_b);
+
+        if($creation_date == 'past_due'){
+            redirect(base_url()."admin/see_past_due_inv");
+        }elseif($creation_date == 'this_adv'){
+            redirect(base_url()."admin/inv_by_advertiser/".$sets);
+        }elseif($creation_date == 'these_dates'){
+            redirect(base_url()."admin/inv_by_date/".$sets."/".$param_4);
+        }elseif($_POST['inv_status'] == 'PAST DUE'){
+            redirect(base_url()."admin/show_current_inv_set/".$creation_date.'/'.$sets);
+        }else{
+            redirect(base_url()."admin/show_current_inv_set/".$_POST['inv_creation_date'].'/'.$_POST['inv_sets_today']);
+        }
+    }
+
+    public function delete_this_invoice($inv_number,$creation_date,$sets,$param_4 = 0){
+        $this->db->where('inv_number', $inv_number);
+        $this->db->delete('invoice');
+
+        if($creation_date == 'past_due'){
+            redirect(base_url()."admin/see_past_due_inv");
+        }elseif($creation_date == 'this_adv'){
+            redirect(base_url()."admin/inv_by_advertiser/".$sets);
+        }elseif($creation_date == 'these_dates'){
+            redirect(base_url()."admin/inv_by_date/".$sets."/".$param_4);
+        }else{
+            redirect(base_url()."admin/show_current_inv_set/".$creation_date.'/'.$sets);
+        }
+    }
+
+    public function send_current_set_and_past_due($creation_date, $set){
+        $this->load->model('admin_model');
+        $current_sent = $this->admin_model->send_current_set($creation_date, $set);
+        $past_due_sent = $this->admin_model->send_past_due();
+
+        redirect(base_url()."admin/main_invoice");
+    }
+
+    public function send_current_set($creation_date, $set){
+        $this->load->model('admin_model');
+        $current_sent = $this->admin_model->send_current_set($creation_date, $set);
+
+        redirect(base_url()."admin/main_invoice");
+    }
+
+    public function send_past_due(){
+        $this->load->model('admin_model');
+        $past_due_sent = $this->admin_model->send_past_due();
+
+        redirect(base_url()."admin/main_invoice");
+    }
+
+    public function enter_payments(){
+        $this->load->model('admin_model');
+        $data['invoices'] = $this->admin_model->get_due_and_past_due_inv();
+
+        $this->load->view('admin/master_header.php');
+        $this->load->view('admin/invoice/enter_payments.php', $data);
+        $this->load->view('admin/master_footer.php');
+    }
+
+    public function submit_these_payments(){
+        $data = $_POST;
+        $entered_items = array();
+        foreach($data as $key => $value){
+            for ($i=0; $i < 50; $i++) { 
+                if($key == 'payment_amount_'.$i){
+                    if($value > 0){
+                       array_push($entered_items, $i); 
+                    }
+                }
+            }
+        }
+
+        foreach($entered_items as $key => $value){
+            foreach($data as $key_b => $value_b){
+                if($key_b == 'inv_number_'.$value){
+                    $data_b['invoice_number'] = $value_b;
+                }
+                if($key_b == 'pay_date_entered_'.$value){
+                    $data_b['payment_date'] = $value_b;
+                }
+                if($key_b == 'payment_'.$value.'_type_payment'){
+                    $data_b['payment_type'] = $value_b;
+                }
+                if($key_b == 'payment_check_num_'.$value){
+                    $data_b['payment_check_num'] = $value_b;
+                }
+                if($key_b == 'payment_amount_'.$value){
+                    $data_b['payment_amount'] = $value_b;
+                }
+            }
+
+            $this->db->where('inv_number', $data_b['invoice_number']);
+            $invoice_info = $this->db->get('invoice')->result_array();
+            $x = 1;
+            if($invoice_info[0]['payment_1_type'] != ''){$x=2;}
+            if($invoice_info[0]['payment_2_type'] != ''){$x=3;}
+            if($invoice_info[0]['payment_3_type'] != ''){$x=4;}
+            if($invoice_info[0]['payment_4_type'] != ''){$x=5;}
+            if($invoice_info[0]['payment_5_type'] != ''){$x=6;}
+            if($invoice_info[0]['payment_6_type'] != ''){$x=7;}
+            if($invoice_info[0]['payment_7_type'] != ''){$x8;}
+            if($invoice_info[0]['payment_8_type'] != ''){$x=9;}
+            if($invoice_info[0]['payment_9_type'] != ''){$x=10;}
+            if($invoice_info[0]['payment_10_type'] != ''){$x=11;}
+            if($invoice_info[0]['payment_11_type'] != ''){$x=12;}
+            if($invoice_info[0]['payment_12_type'] != ''){$x=13;}
+
+            $data_c['invoice_balance'] = $invoice_info[0]['invoice_balance'] - $data_b['payment_amount'];
+            $old_inv_status = $invoice_info[0]['inv_status'];
+            if($data_c['invoice_balance'] <= 1){
+                $data_c['inv_status'] = 'PAID';
+            }else{
+                $data_c['inv_status'] = $old_inv_status;
+            }
+            $data_c['payment_'.$x] = $data_b['payment_amount'];
+            $data_c['payment_'.$x.'_date'] = $data_b['payment_date'];
+            $data_c['payment_'.$x.'_type'] = $data_b['payment_type'];
+            $data_c['payment_'.$x.'_check_num'] = $data_b['payment_check_num'];
+            $inv_num = $data_b['invoice_number'];
+
+            $this->db->where('inv_number', $inv_num);
+            $this->db->update('invoice', $data_c);
+
+            $this->db->where('ID', $invoice_info[0]['apt_id']);
+            $apt_main_info = $this->db->get('apartment_main')->result_array();
+
+            $data_d['balance'] = $apt_main_info[0]['balance'] + $data_b['payment_amount'];
+            $this->db->where('ID', $invoice_info[0]['apt_id']);
+            $this->db->update('apartment_main', $data_d);
+        }
+
+        redirect(base_url()."admin/main_invoice");
+    }
+
+    public function inv_by_advertiser($this_apt_id = 0){
+        if($this_apt_id == 0){
+            $apt_id = $_POST['apt_id'];
+        }else{
+            $apt_id = $this_apt_id;
+        }
+        
+        $this->load->model('admin_model');
+        $invoices['advertiser_inv'] = $this->admin_model->get_adv_inv($apt_id);
+
+        if($invoices['advertiser_inv'] == 'N'){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_inv.php');
+            $this->load->view('admin/master_footer.php');
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_adv_inv.php', $invoices);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function pay_by_advertiser($this_apt_id = 0){
+        if($this_apt_id == 0){
+            $apt_id = $_POST['apt_id'];
+        }else{
+            $apt_id = $this_apt_id;
+        }
+        
+        $this->load->model('admin_model');
+        $invoices['advertiser_inv'] = $this->admin_model->get_adv_inv($apt_id);
+
+        if($invoices['advertiser_inv'] == 'N'){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_pay.php');
+            $this->load->view('admin/master_footer.php');
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_adv_pay.php', $invoices);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function delete_this_payment($inv_num, $pay_num, $apt_id){
+        $this->db->where('inv_number', $inv_num);
+        $inv_info = $this->db->get('invoice')->result_array();
+
+        $data['invoice_balance'] = $inv_info[0]['invoice_balance'] + $inv_info[0]['payment_'.$pay_num];
+
+        $this->db->where('ID', $apt_id);
+        $apt_info = $this->db->get('apartment_main')->result_array();
+        $data_b['balance'] = $apt_info[0]['balance'] - $inv_info[0]['payment_'.$pay_num];
+
+        $this->db->where('ID', $apt_id);
+        $this->db->update('apartment_main', $data_b);
+
+        $data['payment_'.$pay_num] = '';
+        $data['payment_'.$pay_num.'_date'] = '';
+        $data['payment_'.$pay_num.'_type'] = '';
+        $data['payment_'.$pay_num.'_check_num'] = '';
+        // print_r($data);
+        $this->db->where('inv_number', $inv_num);
+        $this->db->update('invoice', $data);
+
+        redirect(base_url().'admin/pay_by_advertiser/'.$apt_id);
+    }
+
+    public function inv_by_date($start_date = 0, $end_date = 0){
+        if($start_date == 0){
+            $see_inv_start_date = $_POST['see_inv_start_date'];
+        }else{
+            $see_inv_start_date = $start_date;
+        }
+        if($end_date == 0){
+            $see_inv_end_date = $_POST['see_inv_end_date'];
+        }else{
+            $see_inv_end_date = $end_date;
+        }
+
+        // echo $see_inv_start_date." ; ";
+        // echo $see_inv_end_date;
+
+        $this->load->model('admin_model');
+        $invoices['dates_inv'] = $this->admin_model->get_dates_inv($see_inv_start_date, $see_inv_end_date);
+        $invoices['see_inv_start_date'] = $see_inv_start_date;
+        $invoices['see_inv_end_date'] = $see_inv_end_date;
+
+        // print_r($invoices['dates_inv']);
+
+        if($invoices['dates_inv'] == 'N'){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_inv.php');
+            $this->load->view('admin/master_footer.php');
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_dates_inv.php', $invoices);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function see_past_due_inv(){
+        date_default_timezone_set("America/Chicago");
+        $today = date('Y-m-d');
+        $this->load->model('admin_model');
+        $this->admin_model->make_past_dues($today);
+        $invoices['past_due'] = $this->admin_model->get_past_due_invoices();
+        // print_r($invoices['past_due']);
+
+        if($invoices['past_due'] == 'N'){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_inv.php');
+            $this->load->view('admin/master_footer.php');
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_past_due_inv.php', $invoices);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function send_this_invoice($inv_number, $redirect_type = 0, $param_1 = 0, $param_2 = 0){
+        $this->load->model('admin_model');
+        $this->admin_model->send_one_invoice($inv_number);
+        
+        if($redirect_type == 'this_adv'){
+            redirect(base_url()."admin/inv_by_advertiser/".$param_1);
+        }elseif($redirect_type == 'these_dates'){
+            redirect(base_url()."admin/inv_by_date/".$param_1."/".$param_2);
+        }elseif($redirect_type == 'past_due'){
+            redirect(base_url()."admin/see_past_due_inv");
+        }else{
+            redirect(base_url."admin/main_invoice");
         }
     }
 
 
+    public function enter_item(){
+        $this->load->model('admin_model');
+        $all_apts['result'] = $this->admin_model->get_all_current_apts();
+        $all_apts['suspended'] = $this->admin_model->get_all_suspended_apts();
 
+        $this->load->view('admin/master_header.php');
+        $this->load->view('admin/invoice/enter_item.php', $all_apts);
+        $this->load->view('admin/master_footer.php');
+    }
+
+    public function enter_this_item(){
+        $data = $_POST;
+
+        $data['end_date'] = $data['start_date'];
+
+        $this->load->model('admin_model');
+        $advertiser_info = $this->admin_model->get_this_adv_info($data['apt_id']);
+        $data['apt_name'] = $advertiser_info[0]['property_search_name'];
+
+        $this->db->insert('upcoming_sales', $data);
+
+        redirect(base_url().'admin/see_adv_custom_items/'.$data['apt_id']);
+    }
+
+    public function see_adv_custom_items($apt_id){
+        $this->db->where('apt_id', $apt_id);
+        $this->db->where('custom_item', 'Y');
+        $data['custom_items'] = $this->db->get('upcoming_sales')->result_array();
+
+        if(count($data['custom_items']) < 1){
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/no_items.php');
+            $this->load->view('admin/master_footer.php');
+        }else{
+            $this->load->view('admin/master_header.php');
+            $this->load->view('admin/invoice/these_adv_items.php', $data);
+            $this->load->view('admin/master_footer.php');
+        }
+    }
+
+    public function custom_item_delete($item_id, $apt_id){
+        $this->db->where('ID', $item_id);
+        $this->db->delete('upcoming_sales');
+        redirect(base_url()."admin/see_adv_custom_items/".$apt_id);
+    }
+
+    public function see_these_cust_items(){
+        $apt_id = $_POST['apt_id'];
+        redirect(base_url().'admin/see_adv_custom_items/'.$apt_id);
+    }
 
 
 

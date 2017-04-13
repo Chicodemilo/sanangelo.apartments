@@ -37,23 +37,6 @@
 			}
 		?>
 	</div>
-	<div class="takeover_top_banner">
-		<?php 
-			if($background_data != 'N'){
-				if($background_data['takeover_link'] != 'N'){
-					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
-				}
-
-				if($background_data['takeover_top'] != ''){
-					echo '<img src="'.base_url().'images/takeover/top/'.$background_data['takeover_top'].'">';
-				}
-
-				if($background_data['takeover_link'] != 'N'){
-					echo '</a>';
-				}
-			}
-		?>
-	</div>
 	<div class="takeover_banner_mobile">
 		<?php 
 			if($background_data != 'N'){
@@ -73,6 +56,24 @@
 	</div>
 
 	<div class="body_wrapper">
+	
+		<?php 
+			if($background_data != 'N'){
+				echo '<div class="takeover_top_banner">';
+				if($background_data['takeover_link'] != 'N'){
+					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
+				}
+
+				if($background_data['takeover_top'] != ''){
+					echo '<img src="'.base_url().'images/takeover/top/'.$background_data['takeover_top'].'">';
+				}
+
+				if($background_data['takeover_link'] != 'N'){
+					echo '</a>';
+				}
+				echo '</div>';
+			}
+		?>
 		<div class="left_col">
 			<div id="market_table">
 				<table class="left_tab" id="fixed_head">

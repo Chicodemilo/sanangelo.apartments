@@ -32,7 +32,7 @@
 	 	</tr>
 	 <?php 
 	 	foreach ($all_ads as $key => $value) {
-	 		echo "<tr>";
+	 		echo "<tr class='all_apts_row'>";
 	 			echo "<td>";
 	 				echo $value['ID'];
 	 			echo "</td>";

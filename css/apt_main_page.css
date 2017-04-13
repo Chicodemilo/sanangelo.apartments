@@ -263,12 +263,18 @@ hr {
 }
 
 .blog_pic{
-    width: 320px;
-    max-height: 400px;
+    width: 100%;
+    max-height: 500px;
     float: right;
     overflow: hidden;
     margin-bottom: 20px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
+}
+
+.blog_pic img{
+    position: relative;
+  top: 50%;
+  /* transform: translateY(-50%); */
 }
 
 .entry{
@@ -643,11 +649,11 @@ hr {
 /******************************** MAIN BODY  ***************************/
 
 .takeover_top_banner{
-    position:fixed;
+    /* position:fixed; */
     bottom: 0px;
     height:80px;
-    width:870px;
-    margin-left:190px;
+    width:847px;
+    margin-bottom:5px;
     z-index:400;
     /* display:none; */
 }
@@ -655,7 +661,7 @@ hr {
 .body_wrapper{
     box-sizing:border-box;
     width:870px;
-    min-height: 930px;
+    min-height: 1070px;
     margin:auto;
     box-shadow:0px 0px 15px rgba(100, 100, 100, 0.8);
     background:white;
@@ -672,9 +678,9 @@ hr {
 
 .search_results_box{
     width:600px;
-    height:897px;
+    height:947px;
     float:right;
-    border:1px solid #C2C2C2;
+    border:1px solid #C8C8C8;
     padding:3px;
 }
 
@@ -793,7 +799,8 @@ hr {
 .pic_box{
     box-sizing:border-box;
     width:100%;
-    height:340px;
+    height:305px;
+    margin-bottom: 15px;
     background:#F8EEE9;
     z-index:-100;
     padding:20px;
@@ -873,7 +880,7 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size:.95em;
+    font-size:1.3em;
     line-height: 1.6em;
     letter-spacing:.05em;
     padding:5px;
@@ -1207,17 +1214,27 @@ section {
     resize: none;
 }
 
+#first_name{
+    width:260px;
+    height: 25px;
+}
+
+#email{
+    width:260px;
+    height: 25px;
+}
+
 .message_sent{
     display:none;
     position:absolute;
     left:2px;
-    top:140px;
+    top:175px;
     color:#8BB2E1;
     font-family: 'Lobster', sans-serif;
-    font-size: 2em;
-    -ms-transform: rotate(-7deg); /* IE 9 */
-    -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
-    transform: rotate(-7deg);
+    font-size: 1.8em;
+    -ms-transform: rotate(-4deg); /* IE 9 */
+    -webkit-transform: rotate(-4deg); /* Chrome, Safari, Opera */
+    transform: rotate(-4deg);
 }
 
 .apt_hour_amen{

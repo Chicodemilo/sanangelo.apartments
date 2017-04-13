@@ -13,15 +13,15 @@ jQuery(document).ready(function($) {
 
         		// alert("width: "+$(window).width()+" topper: "+topper+" srolltop: "+scrollTop);
         		if($(window).scrollTop() >= scrollTop){
-        			$('.navbar').css({
-        				position : 'fixed',
-        				top : topper
-        			});
+        			// $('.navbar').css({
+        			// 	position : 'fixed',
+        			// 	top : topper
+        			// });
 
-        			$('.most_viewed_window').css({
-        				position : 'fixed',
-        				top : topper
-        			});
+        			// $('.most_viewed_window').css({
+        			// 	position : 'fixed',
+        			// 	top : topper
+        			// });
         			
         			right_dist = ($(window).width() - 1250) / 2;
         			$('.left_takeover_banner').addClass('left_takeover_banner_fixed');
@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
         				top: '70',
         				right: right_dist
         			});
-        			$('.inner_main_bg').css('margin-top', '70px');
+        			// $('.inner_main_bg').css('margin-top', '70px');
 
         		}
         		
@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
 	if($(window).width() > 900){
 			
 		}else{
-			$('.takeover_banner_mobile').delay(3000).slideDown(150).delay(5000).slideUp(150);
+			$('.takeover_banner_mobile').delay(2000).slideDown(150).delay(4000).slideUp(150);
     }
 
 });

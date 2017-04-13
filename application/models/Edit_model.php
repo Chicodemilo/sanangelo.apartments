@@ -275,6 +275,200 @@ class Edit_model extends CI_Model {
 		return $data;
 	}
 
+	public function send_thanks_email($email_data){
+		$this->load->library('email');
+        $this->email->clear();
+        $this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+        $this->email->to('miles@bayrummedia.com');
+        $this->email->subject($email_data['apt_name'].' Purchased A '.$email_data['item'].' on SANANGELO.APARTMENTS');
+        $this->email->message(
+                            'Username: '.$this->session->userdata('username').
+                            '<br>Apartment Name: '.$email_data['apt_name'].
+                            '<br>Item: '.$email_data['item'].
+                            '<br>Start Date: '.$email_data['start_date'].
+                            '<br>End Date: '.$email_data['end_date'].
+                            '<br>Cost: $'.$email_data['cost'].
+                            '<br>Left Banner: '.$email_data['left_takeover_name'].
+                            '<br>Right Banner: '.$email_data['right_takeover_name'].
+                            '<br>Top Banner: '.$email_data['top_takeover_name'].
+                            '<br>Mobile Banner: '.$email_data['mobile_takeover_name']
+                            );
+        $sent = $this->email->send();
+
+        $this->db->where('ID', $this->session->userdata('user_id'));
+		$user_emails = $this->db->get('users')->result_array();
+
+		if($user_emails[0]['email'] != ''){
+			$send['email_one'] = $user_emails[0]['email'];
+		}
+		if($user_emails[0]['email_2'] != ''){
+			$send['email_two'] = $user_emails[0]['email_2'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_three'] = $user_emails[0]['email_3'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_four'] = $user_emails[0]['email_4'];
+		}
+
+		foreach ($send as $key => $value) {
+
+			if($email_data['item'] == 'top_3'){
+				$message = '<h3 style="color:#3F79C9;">'.$email_data['apt_name'].' has a scheduled a TOP 3 BANNER on SANANGELO.APARTMENTS</h3>'.
+                '<br>Start Date: '.$email_data['start_date'].
+                '<br>End Date: '.$email_data['end_date'].
+                '<br>Cost: $'.$email_data['cost'].
+                '<br>Your invoice will be emailed to you at the end of the month that your TOP 3 BANNER runs.
+                <br>Login to SANANGELO.APARTMENTS to see this and your other ads: <a href="'.base_url().'login/login_user">LOGIN</a>.
+                <br><br>Thanks,<br>
+                SANANGELO.APARTMENTS'
+				;
+			}elseif($email_data['item'] == 'premium_level'){
+				$message = '<h3 style="color:#3F79C9;">'.$email_data['apt_name'].' has a scheduled PREMIUM MEMBERSHIP on SANANGELO.APARTMENTS</h3>'.
+                '<br>Start Date: '.$email_data['start_date'].
+                '<br>End Date: '.$email_data['end_date'].
+                '<br>Cost: $'.$email_data['cost'].'/month'.
+                '<br>Your invoice will be emailed to you at the end of each month that your PREMIUM MEMBERSHIP runs.
+                <br>Login to SANANGELO.APARTMENTS to see this and your other ads: <a href="'.base_url().'login/login_user">LOGIN</a>.
+                <br><br>Thanks,<br>
+                SANANGELO.APARTMENTS'
+				;
+			}elseif($email_data['item'] == 'site_takeover'){
+				$message = '<h3 style="color:#3F79C9;">'.$email_data['apt_name'].' has a scheduled SITE TAKEOVER on SANANGELO.APARTMENTS</h3>'.
+                '<br>Run Date: '.$email_data['start_date'].
+                '<br>Cost: $'.$email_data['cost'].'/day'.
+                '<br>Left Banner Name: '.$email_data['left_takeover_name'].
+                '<br>Right Banner Name: '.$email_data['right_takeover_name'].
+                '<br>Top Banner Name: '.$email_data['top_takeover_name'].
+                '<br>Mobile Banner Name: '.$email_data['mobile_takeover_name'].
+                '<br><br> *** If any Banner Names are blank, please login to your account and upload a banner before the day your SITE TAKEOVER runs. ***'.
+                '<br><br>&bull; File types .jpg .gif and .png are accepted for banners.'.
+                '<br>&bull; Left and Right banners are 170px wide by 700px tall.'.
+                '<br>&bull; Top banner is 870px wide by 80px tall.'.
+                '<br>&bull; Mobile banner is 400px wide by 175px tall.'.
+                '<br><br>Your SITE TAKEOVER will run even if you have not uploaded your banners.'.
+                '<br>If you need help with your banners please contact us'.
+                '<br><br>Your invoice will be emailed to you at the end of the month that your SITE TAKEOVER runs.
+                <br>Login to SANANGELO.APARTMENTS to see this and your other ads: <a href="'.base_url().'login/login_user">LOGIN</a>.
+                <br><br>Thanks,<br>
+                SANANGELO.APARTMENTS'
+				;
+			}
+
+			$this->email->clear();
+			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+			$this->email->to($value);
+			$this->email->subject('Your Scheduled Ad On SANANGELO.APARTMENTS');
+			$this->email->message($message);
+			$sent = $this->email->send();
+		}
+	}
+
+
+	public function send_special_sto_email($email_data){
+		$this->load->library('email');
+
+        $this->db->where('ID', $this->session->userdata('user_id'));
+		$user_emails = $this->db->get('users')->result_array();
+
+		if($user_emails[0]['email'] != ''){
+			$send['email_one'] = $user_emails[0]['email'];
+		}
+		if($user_emails[0]['email_2'] != ''){
+			$send['email_two'] = $user_emails[0]['email_2'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_three'] = $user_emails[0]['email_3'];
+		}
+		if($user_emails[0]['email'] != ''){
+			$send['email_four'] = $user_emails[0]['email_4'];
+		}
+
+		foreach ($send as $key => $value) {
+			$message = '<h3 style="color:#3F79C9;"> Promote your special on SANANGELO.APARTMENTS!</h3>'.
+	        '<br>We have a few different ways to promote your new special on our site.'.
+	        '<br><br>Consider a SITE TAKEOVER...
+			Only <span class="adv_stickout">$'.$email_data['site_takeover'].' A DAY</span>!
+					</div>
+					<ul style="line-height: 1.9;">
+						<li>Your Apartment Is Listed FIRST All Day Long On...
+							<ul class="small_ul">
+								<li>The Home Page</li>
+								<li>The Map Page</li>
+								<li>Search Results Pages</li>
+								<li>List Of Open Apartments</li>
+								<li>List Of Monthly Specials</li>
+							</ul>
+
+						</li>
+						<li>Your Advertising BANNERS On the Left, Right & Center Of Our Homepage - All Link To Your Website!</li>
+						<li>Your Mobile Banner Appears and Disolves On Our MOBILE Site</li>
+						<li>A FACEBOOK Promotion On OUR FB Page On The Day Of Your Takeover... <a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+						<li>We\'ll Help You Make Your Banner Ads</li>
+						<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
+					</ul>'.
+	        '<br>Login to SANANGELO.APARTMENTS to see your options for site promotions: <a href="'.base_url().'login/login_user">LOGIN</a>.
+	        <br><br>Thanks,<br>
+	        SANANGELO.APARTMENTS
+	        <br><br>
+	        PS.<br>
+	        There\'s Nothing To Pay Today!<br>
+			We will send you an invoice at the end the month of your SITE TAKEOVER runs.<br>'
+			;
+
+			$this->email->clear();
+			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+			$this->email->to($value);
+			$this->email->subject('Promote Your New Special On SANANGELO.APARTMENTS');
+			$this->email->message($message);
+			$sent = $this->email->send();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

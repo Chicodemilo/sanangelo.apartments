@@ -37,9 +37,10 @@
 			}
 		?>
 	</div>
-	<div class="takeover_top_banner">
+	<div class="body_wrapper">
 		<?php 
 			if($background_data != 'N'){
+				echo '<div class="takeover_top_banner">';
 				if($background_data['takeover_link'] != 'N'){
 					echo '<a target="blank" rel="nofollow" href="http://'.$background_data['takeover_link'].'">';
 				}
@@ -51,11 +52,9 @@
 				if($background_data['takeover_link'] != 'N'){
 					echo '</a>';
 				}
+				echo '</div>';
 			}
 		?>
-	</div>
-
-	<div class="body_wrapper">
 		<?php
             foreach ($blog_list->result() as $blog) {
         ?>

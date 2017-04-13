@@ -57,6 +57,7 @@
                                 <li><a href="<?php echo base_url() ?>admin" class="">MAIN ADMIN LINKS</a></li>
                                 <li><a href="<?php echo base_url(); ?>admin/new_apt" >MAKE NEW APT</a></li>
                                 <li><a href="<?php echo base_url(); ?>admin/all_apts" >SEE ALL APTS</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/these_users" >SEE ALL USERS</a></li>
                                 <li><a href="<?php echo base_url(); ?>admin/send_email_all">MESSAGE TO ALL APTS</a></li>
                                 <li><a href="<?php echo base_url(); ?>admin/see_all_ads">SEE ALL ADS</a></li>
                                 <li><a href="<?php echo base_url(); ?>admin/main_invoice">INVOICING</a></li>

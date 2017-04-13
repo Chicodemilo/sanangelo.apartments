@@ -20,7 +20,7 @@
 			</tr>
 			<tr>	
 				<td class="righter" width="20%">Email:</td>
-				<td><input type="email"  name="email" id="email" style="width:90%;"placeholder="Enter The Last Name" value="<?php echo $user[0]['email'] ?>"></td>
+				<td><input type="email"  name="email" id="email" style="width:90%;"placeholder="Enter An Email Address" value="<?php echo $user[0]['email'] ?>"></td>
 			</tr>
 			<tr>	
 				<td class="righter" width="20%">Email 2:</td>

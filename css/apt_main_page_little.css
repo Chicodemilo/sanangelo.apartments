@@ -160,14 +160,14 @@ hr {
 .nav_bar_pics{
     width: 100%;
     margin: 0px;
-    height: 200px;
+    height: 170px;
     overflow: hidden;
     font-size:0px;
     /* border:1px dotted #A3B0F8; */
 }
 
 .inner_pics{
-    height: 200px;
+    height: 170px;
     display: inline-block;
     background: #F1F4F6;
     font-size:8px;
@@ -175,7 +175,7 @@ hr {
 }
 
 .inner_pics img{
-    height: 200px;
+    height: 170px;
     width:100%;
     object-fit: cover;
     transition:.2s;
@@ -197,7 +197,7 @@ hr {
     pointer-events: none;
     box-sizing:border-box;
     padding: 7px;
-    font-size:1.78em;
+    font-size:2em;
     line-height:1.1em;
     letter-spacing:0em;
     color:white;
@@ -206,7 +206,7 @@ hr {
     position:absolute;
     top:55px;
     z-index: 10;
-    text-shadow: 0px 0px 6px rgba(0, 0, 50, 0.8);
+    text-shadow: 0px 0px 6px rgba(0, 0, 50, 1);
     overflow:hidden;
     font-family:'Oswald', sans-serif;
 }
@@ -656,6 +656,9 @@ hr {
     z-index:400;
     display:none;
     text-align: center;
+    border-top: 4px solid #222222;
+    background-color: rgba(255, 255, 255, .6);
+    box-shadow:0px 0px 20px rgba(0, 0, 0, .9);
 }
 
 
@@ -663,12 +666,13 @@ hr {
 /******************************** MAIN BODY  ***************************/
 
 .takeover_top_banner{
-    position:absolute;
-    height:80px;
-    width:870px;
-    margin-left:-900px;
-    z-index:-20;
-    display:none;
+    /* position:fixed; */
+    bottom: 0px;
+    /* height:80px; */
+    width:100%;
+    margin-bottom:15px;
+    z-index:400;
+    /* display:none; */
 }
 
 .body_wrapper{
@@ -806,13 +810,14 @@ hr {
 .pic_box{
     box-sizing:border-box;
     width:100%;
-    height:150px;
+    height:140px;
     background:#F8EEE9;
     z-index:-100;
     padding:5px;
     color:white;
     font-family:'Oswald', sans-serif;
     background-position: center; 
+    margin-bottom: 10px;
 }
 
 .pic_box hr {
@@ -823,20 +828,20 @@ hr {
 
 
 #pic_box_name{
-    font-size:1.7em;
+    font-size:1.9em;
     line-height:1.05em;
     letter-spacing:.05em;
-    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    text-shadow:0px 0px 8px rgba(0, 0, 0, .9);
     color:#EED9C6;
     font-family:'Lobster', sans-serif;
 }
 
 #pic_box_slogan{
-    font-size:.9em;
+    font-size:1.2em;
     line-height:1.1em;
     letter-spacing:.05em;
     font-family:'Oswald', sans-serif;
-    text-shadow:0px 0px 7px rgba(0, 0, 0, .8);
+    text-shadow:0px 0px 8px rgba(0, 0, 0, .9);
 }
 
 #pic_box_address{
@@ -887,7 +892,7 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size:.75em;
+    font-size:.9em;
     line-height: 1.6em;
     letter-spacing:.05em;
     padding:5px;
@@ -896,7 +901,7 @@ section {
 }
     
 .search_param_bold{
-    font-size:1.5em;
+    font-size:1.4em;
     line-height:1em;
     font-weight:bold;
     color:#FEC063;
@@ -936,12 +941,12 @@ section {
 }
 
 .table_name{
-    font-size:15px;
-    line-height: 1.1em;
+    font-size:17px;
+    line-height: 1.2em;
     font-weight:bold;
     letter-spacing:.05em;
-    color:white;
-    text-shadow:0px 0px 10px rgba(73, 137, 201, 0.7);
+    color:#000778;
+    /* text-shadow:0px 0px 10px rgba(59, 100, 160, 1); */
     font-family:'Oswald', sans-serif;
     padding-left: 10px;
 }
@@ -1227,6 +1232,16 @@ section {
 #message{
     width:260px;
     resize: none;
+}
+
+#first_name{
+    width:260px;
+    height: 25px;
+}
+
+#email{
+    width:260px;
+    height: 25px;
 }
 
 .message_sent{
