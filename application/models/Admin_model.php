@@ -294,34 +294,41 @@ class Admin_model extends CI_Model {
 	}
 
 	public function get_all_current_apts(){
-		$servername = "localhost";
-		$username = "root";
-		$password = "test";
-		$dbname = "sanangelo_apartments";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		$sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend != 'Y'";
-		$result = $conn->query($sql);
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "test";
+		// $dbname = "sanangelo_apartments";
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// $sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend != 'Y'";
+		// $result = $conn->query($sql);
 
-		if ($result->num_rows > 0) {
-			return $result;
-		}
-		$conn->close();
+		$this->db->where('suspend', 'N');
+		$result = $this->db->get('apartment_main')->result_array();
+
+		// print_r($result);
+
+		
+		return $result;
+		
+		// $conn->close();
 	}
 
 
 	public function get_all_suspended_apts(){
-		$servername = "localhost";
-		$username = "root";
-		$password = "test";
-		$dbname = "sanangelo_apartments";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		$sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend = 'Y'";
-		$result = $conn->query($sql);
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "test";
+		// $dbname = "sanangelo_apartments";
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// $sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend = 'Y'";
+		// $result = $conn->query($sql);
 
-		if ($result->num_rows > 0) {
-			return $result;
-		}
-		$conn->close();
+		$this->db->where('suspend', 'Y');
+		$result = $this->db->get('apartment_main')->result_array();
+		
+		return $result;
+		
+		// $conn->close();
 	}
 
 	public function get_prices()

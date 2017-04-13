@@ -243,7 +243,7 @@ class Texas extends CI_Controller {
 			$sent = $this->db->get('reminders')->result_array();
 
 			if($sent[0]['update_done'] == 'N'){
-				echo "here<br>";
+				// echo "here<br>";
 				$change_status['update_done'] = 'Y';
 				$this->db->where('id', $sent[0]['id']);
 				$this->db->update('reminders', $change_status);

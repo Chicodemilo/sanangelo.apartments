@@ -1436,9 +1436,11 @@ public function man_logo_delete($apt_id){
     }
 
     public function submit_cost(){
+        
         $data = $_POST;
+        // print_r($data);
         $this->db->where('ID', $_POST['ID']);
-        $this->db->update('cost', $data);
+        $this->db->update('cost', $data);echo "here";
         redirect(base_url().'admin/edit_cost');
     }
 
