@@ -892,16 +892,17 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size:.9em;
+    font-size: 1em;
     line-height: 1.6em;
-    letter-spacing:.05em;
+    letter-spacing: -.01em;
     padding:5px;
     border-top: 3px solid white;
     border-bottom: 3px solid white;
 }
     
 .search_param_bold{
-    font-size:1.4em;
+    font-size:1.2em;
+    /* letter-spacing: .02em; */
     line-height:1em;
     font-weight:bold;
     color:#FEC063;
