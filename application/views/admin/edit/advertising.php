@@ -18,7 +18,7 @@
 	 ?>
 </div>
 	<div class="big_advertising_wrapper">
-		<div class="adv_page_title"><span id="title_text">GET MORE FROM &nbsp;</span><img id="ad_page_logo" src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments"></div>
+		<div class="adv_page_title"><span id="title_text">GET MORE FROM &nbsp;</span><img id="ad_page_logo" src="<?php echo base_url(); ?>images/ogo_lil.svg" alt="<?php echo WEBSITELOWER; ?>"></div>
 		<hr>
 		<div class="adv_item_block item_block_one">
 			<span class="adv_page_sm_title"><span style="color:gray;">BASIC</span> TO <span style='color:#EF7007'>PREMIUM</span></span>
@@ -41,11 +41,11 @@
 				<li>A <span class="adv_stickout">TRACKABLE</span> Toll-Free Phone Number... <span class="smaller_indent">you can see how many calls you're getting</span></li>
 				<li>A <span class="adv_stickout">LINK</span> To Your Property Website</li>
 				<li>A <span class="adv_stickout">LINK</span>  &amp; <span class="adv_stickout">Logo</span> of your Property Management Company</li>
-				<li><span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+				<li><span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="<?php echo FBPAGE; ?>" target="blank">See Our FB Page</a></li>
 				<li>All <span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don't have to log on to see them!</span></li>
 			</ul>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> <?php echo BILLINGPHONE; ?> For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=<?php echo WEBSITE; ?>%20Advertising">Email</a>
 			</div>
 		</div>
 		<hr>
@@ -73,13 +73,13 @@
 					</li>
 					<li><span class="adv_stickout">BANNERS</span> On the Left, Right &amp; Center - All Link To Your Site!</span></li>
 					<li>Your Mobile Banner Appears and Disolves On Our <span class="adv_stickout">MOBILE</span> Site</li>
-					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">Facebook Page</a></li>
+					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="<?php echo FBPAGE; ?>" target="blank">Facebook Page</a></li>
 					<li>We'll Help You Make Your Banner Ads</li>
 					<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
 				</ul>
 			</div>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> <?php echo BILLINGPHONE; ?> For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=<?php echo WEBSITE; ?>%20Advertising">Email</a>
 			</div>
 		</div>
 		<hr>
@@ -110,7 +110,7 @@
 				</ul>
 			</div>
 			<div class="moreinfo">
-				<span class="adv_stickout">CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">CALL:</span> <?php echo BILLINGPHONE; ?> For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=<?php echo WEBSITE; ?>%20Advertising">Email</a>
 			</div>
 		</div>
 

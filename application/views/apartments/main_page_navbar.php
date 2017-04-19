@@ -57,7 +57,7 @@
 <div class="navbar">
 	<div class="inner_navbar">
 		<a href="<?php echo base_url(); ?>">
-			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
+			<img src="<?php echo base_url(); ?>images/logo_lil.svg" alt="<?php echo WEBSITELOWER; ?>">
 		</a>
 		<a class="blog_link" href="<?php echo base_url(); ?>texas/blog"><span class='mob_hide'>SEE OUR </span>BLOG</a>
 		
@@ -75,7 +75,7 @@
 				<img src="<?php echo base_url(); ?>images/trending.svg" alt="trending icon">
 
 			</div>
-			<a href="http://www.facebook.com/therentersanangelo" target="blank">
+			<a href="<?php echo FBPAGE; ?>" target="blank">
 				<div class="little_links" id="little_link4">
 					<img src="<?php echo base_url(); ?>images/fb.svg" alt="facebook icon">
 				</div>

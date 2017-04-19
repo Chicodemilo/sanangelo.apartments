@@ -23,7 +23,7 @@
 			Total Logins: <?php echo $this->session->userdata('login_count'); ?>
 		</div>
 		<div class="footer_logo">
-			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
+			<img src="<?php echo base_url(); ?>images/logo_lil.svg" alt="<?php echo WEBSITELOWER; ?>">
 		</div>
         <div id="footer_info">
         	<?php echo $this->session->userdata('apt_name'); ?>

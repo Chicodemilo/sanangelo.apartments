@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
 <head>
-	<title><?php echo $property_name; ?> San Angelo Texas : SANANGELO.APARTMENTS</title>
+	<title><?php echo $property_name.' '.MARKET.' '.STATE.' : '.WEBSITE; ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="<?php echo $property_name.'- San Angelo, Texas- '.$property_slogan.'- '; ?>- See our pictures, amenities, rent and deposit prices, pet policy, apartment floorplans, and office hours. Use the Contact form to get in touch with us.">
-    <meta name="keywords" content="<?php echo $property_name; ?>, San Angelo, Texas">
+    <meta name="description" content="<?php echo $property_name.'- '.MARKET.', '.STATE.'- '.$property_slogan.'- '; ?>- See our pictures, amenities, rent and deposit prices, pet policy, apartment floorplans, and office hours. Use the Contact form to get in touch with us.">
+    <meta name="keywords" content="<?php echo $property_name.', '.MARKET.', '.STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     

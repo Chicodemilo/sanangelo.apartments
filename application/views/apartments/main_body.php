@@ -284,7 +284,7 @@
 					<span id="pic_box_slogan"><?php if($all_apartments[0]['property_slogan'] != ''){echo $all_apartments[0]['property_slogan']."<br>";} ?></span>
 				</div>
 			<div class="search_param_box">
-						<h1 class="search_param_bold">SAN ANGELO APARTMENTS SEARCH RESULTS:</h1><br>APARTMENTS FOUND: <?php echo $apt_count; ?><br>
+						<h1 class="search_param_bold"><?php echo MARKETCAPS; ?> APARTMENTS SEARCH RESULTS:</h1><br>APARTMENTS FOUND: <?php echo $apt_count; ?><br>
 						BD:
 						<?php 
 							if(!isset($bedroom)){
@@ -408,7 +408,7 @@
 
 </div>
 <div class="footer">
-	<div class="footer_bold">To Advertise On SANANGELO.APARTMENTS<br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=SANANGELO.APARTMENTS%20Contact">EMAIL</a></div>
+	<div class="footer_bold">To Advertise On <?php echo WEBSITE; ?><br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=<?php echo WEBSITE; ?>%20Contact">EMAIL</a></div>
 	<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
 	&nbsp;&bull;&nbsp;
 	<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>

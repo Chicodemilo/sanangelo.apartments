@@ -115,7 +115,7 @@
 
 </div>
 <div class="footer">
-	<div class="footer_bold">To Advertise On SANANGELO.APARTMENTS<br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=SANANGELO.APARTMENTS%20Contact">EMAIL</a></div>
+	<div class="footer_bold">To Advertise On <?php echo WEBSITE; ?><br>call: 866-866-4727 or <a target="_blank" href="mailto:miles@bayrummedia.com?Subject=<?php echo WEBSITE; ?>%20Contact">EMAIL</a></div>
 	<a href="<?php echo base_url(); ?>login/login_user">Advertiser Login</a>
 	&nbsp;&bull;&nbsp;
 	<a href="<?php echo base_url(); ?>login/register">Register A New Account</a>

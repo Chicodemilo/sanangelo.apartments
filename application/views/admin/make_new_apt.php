@@ -19,17 +19,17 @@
 			</tr>
 			<tr>
 				<td class="righter">Phone Number:</td>
-				<td colspan="2"><input type="text" style="width:90%" name="property_phone" id="property_phone" placeholder="Enter The Main Phone Number. Ex: (325) 340-9310"></td>
+				<td colspan="2"><input type="text" style="width:90%" name="property_phone" id="property_phone" placeholder="Enter The Main Phone Number. Ex: <?php echo BILLINGPHONE; ?>"></td>
 
 				<td class="righter">Street Address:</td>
 				<td colspan="2"><input type="text" style="width:90%" name="property_address" id="property_address" placeholder="Enter The Street Address"></td>
 			</tr>
 			<tr>
 				<td class="righter">City:</td>
-				<td><input type="text" style="width:90%" name="property_city" id="property_city" placeholder="Enter The City" value="San Angelo"> </td>
+				<td><input type="text" style="width:90%" name="property_city" id="property_city" placeholder="Enter The City" value="<?php echo MARKET; ?>"> </td>
 			
 				<td class="righter">State:</td>
-				<td><input type="text" style="width:90%" name="property_state" id="property_state" placeholder="Enter The State" maxlength="2" value="TX"></td>
+				<td><input type="text" style="width:90%" name="property_state" id="property_state" placeholder="Enter The State" maxlength="2" value="<?php echo STATE; ?>"></td>
 			
 				<td class="righter">Zip Code:</td>
 				<td><input type="text" style="width:90%" name="property_zip" id="property_zip" placeholder="Enter The Zip Code" value="7690"></td>

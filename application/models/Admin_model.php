@@ -58,7 +58,7 @@ class Admin_model extends CI_Model {
 
 						
 					}
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' Admin');
 					$this->email->to($value['email']);
 					$this->email->subject($subject);
 					$this->email->message($text.$all_the_stuff);
@@ -86,7 +86,7 @@ class Admin_model extends CI_Model {
 							$all_the_stuff .= $link;
 						}
 					}
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' Admin');
 					$this->email->to($value['email_2']);
 					$this->email->subject($subject);
 					$this->email->message($text.$all_the_stuff);
@@ -114,7 +114,7 @@ class Admin_model extends CI_Model {
 							$all_the_stuff .= $link;
 						}
 					}
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' Admin');
 					$this->email->to($value['email_3']);
 					$this->email->subject($subject);
 					$this->email->message($text.$all_the_stuff);
@@ -142,7 +142,7 @@ class Admin_model extends CI_Model {
 							$all_the_stuff .= $link;
 						}
 					}
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' Admin');
 					$this->email->to($value['email_4']);
 					$this->email->subject($subject);
 					$this->email->message($text.$all_the_stuff);
@@ -297,7 +297,7 @@ class Admin_model extends CI_Model {
 		// $servername = "localhost";
 		// $username = "root";
 		// $password = "test";
-		// $dbname = "sanangelo_apartments";
+		// $dbname = "beaumont_apartments";
 		// $conn = new mysqli($servername, $username, $password, $dbname);
 		// $sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend != 'Y'";
 		// $result = $conn->query($sql);
@@ -318,7 +318,7 @@ class Admin_model extends CI_Model {
 		// $servername = "localhost";
 		// $username = "root";
 		// $password = "test";
-		// $dbname = "sanangelo_apartments";
+		// $dbname = "beaumont_apartments";
 		// $conn = new mysqli($servername, $username, $password, $dbname);
 		// $sql = "SELECT ID, property_name, property_search_name, verified_user_id, property_phone FROM apartment_main WHERE suspend = 'Y'";
 		// $result = $conn->query($sql);
@@ -849,10 +849,10 @@ class Admin_model extends CI_Model {
 			foreach ($current_set as $key => $value) {
 				for ($i=1; $i < 5; $i++) { 
 					if($value['apt_contact_email_'.$i] != ''){
-						$subject = 'INVOICE FROM SANANGELO.APARTMENTS '.$value['inv_creation_date'];
+						$subject = 'INVOICE FROM '.WEBSITE.' '.$value['inv_creation_date'];
 						$message = '
 							<body style="font-family:arial">
-							<h3>SANANGELO.APARTMENTS<br>INVOICE</h3>
+							<h3>'.WEBSITE.'<br>INVOICE</h3>
 							<h4>DATE: '.$value['inv_creation_date'].'</h4>
 							<h4>INVOICE NUMBER: '.$value['inv_number'].'</h4>
 							<h4>INVOICE STATUS: '.$value['inv_status'].'</h4>
@@ -910,18 +910,15 @@ class Admin_model extends CI_Model {
 						$message_foot = 
 						'<h3>AMOUNT CURRENTLY DUE: $'.$value['invoice_balance'].'</h3>
 						<hr style="height:3px; border:none; color:#000; background-color:#4286f4;">
-						Please Send Payment To:<br>
-						Bay Rum Media<br>
-						PO Box 2584<br>
-						San Angelo, TX<br>
-						76902
+						Please Send Payment To:<br>'.
+						BILLING.'
 						<hr style="height:3px; border:none; color:#000; background-color:#4286f4;">
 						<br><br><br><br>
 						</body>';
 
 						$message .= $message_foot;
 
-						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS BILLING');
+						$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' BILLING');
 						$this->email->to($value['apt_contact_email_'.$i]);
 						$this->email->subject($subject);
 						$this->email->message($message);
@@ -953,10 +950,10 @@ class Admin_model extends CI_Model {
 
 				for ($i=1; $i < 5; $i++) { 
 					if($value['apt_contact_email_'.$i] != ''){
-						$subject = 'PAST DUE INVOICE FROM SANANGELO.APARTMENTS';
+						$subject = 'PAST DUE INVOICE FROM '.WEBSITE;
 						$message = '
 							<body style="font-family:arial">
-							<h3>SANANGELO.APARTMENTS<br><span style="color:red">PAST DUE INVOICE</span></h3>
+							<h3>'.WEBSITE.'<br><span style="color:red">PAST DUE INVOICE</span></h3>
 							<h4>DATE: '.$value['inv_creation_date'].'</h4>
 							<h4>INVOICE NUMBER: '.$value['inv_number'].'</h4>
 							<h4>INVOICE STATUS: '.$value['inv_status'].'</h4>
@@ -1015,18 +1012,15 @@ class Admin_model extends CI_Model {
 						$message_foot = 
 						'<h3>AMOUNT CURRENTLY DUE: $'.$value['invoice_balance'].'</h3>
 						<hr style="height:3px; border:none; color:#000; background-color:red;">
-						Please Send Payment To:<br>
-						Bay Rum Media<br>
-						PO Box 2584<br>
-						San Angelo, TX<br>
-						76902
+						Please Send Payment To:<br>'.
+						BILLING.'
 						<hr style="height:3px; border:none; color:#000; background-color:red;">
 						<br><br><br><br>
 						</body>';
 
 						$message .= $message_foot;
 
-						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS BILLING');
+						$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' BILLING');
 						$this->email->to($value['apt_contact_email_'.$i]);
 						$this->email->subject($subject);
 						$this->email->message($message);
@@ -1057,10 +1051,10 @@ class Admin_model extends CI_Model {
 
 				for ($i=1; $i < 5; $i++) { 
 					if($value['apt_contact_email_'.$i] != ''){
-						$subject = 'PAST DUE INVOICE FROM SANANGELO.APARTMENTS';
+						$subject = 'PAST DUE INVOICE FROM '.WEBSITE;
 						$message = '
 							<body style="font-family:arial">
-							<h3>SANANGELO.APARTMENTS<br><span style="color:red">PAST DUE INVOICE</span></h3>
+							<h3>'.WEBSITE.'<br><span style="color:red">PAST DUE INVOICE</span></h3>
 							<h4>DATE: '.$value['inv_creation_date'].'</h4>
 							<h4>INVOICE NUMBER: '.$value['inv_number'].'</h4>
 							<h4>INVOICE STATUS: '.$value['inv_status'].'</h4>
@@ -1119,18 +1113,15 @@ class Admin_model extends CI_Model {
 						$message_foot = 
 						'<h3>AMOUNT CURRENTLY DUE: $'.$value['invoice_balance'].'</h3>
 						<hr style="height:3px; border:none; color:#000; background-color:red;">
-						Please Send Payment To:<br>
-						Bay Rum Media<br>
-						PO Box 2584<br>
-						San Angelo, TX<br>
-						76902
+						Please Send Payment To:<br>'.
+						BILLING.'
 						<hr style="height:3px; border:none; color:#000; background-color:red;">
 						<br><br><br><br>
 						</body>';
 
 						$message .= $message_foot;
 
-						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS BILLING');
+						$this->email->from('donotreply@s'.WEBSITELOWER, WEBSITE.' BILLING');
 						$this->email->to($value['apt_contact_email_'.$i]);
 						$this->email->subject($subject);
 						$this->email->message($message);
@@ -1145,10 +1136,10 @@ class Admin_model extends CI_Model {
 			foreach ($current_set as $key => $value) {
 				for ($i=1; $i < 5; $i++) { 
 					if($value['apt_contact_email_'.$i] != ''){
-						$subject = 'INVOICE FROM SANANGELO.APARTMENTS '.$value['inv_creation_date'];
+						$subject = 'INVOICE FROM '.WEBSITE.' '.$value['inv_creation_date'];
 						$message = '
 							<body style="font-family:arial">
-							<h3>SANANGELO.APARTMENTS<br>INVOICE</h3>
+							<h3>'.WEBSITE.'<br>INVOICE</h3>
 							<h4>DATE: '.$value['inv_creation_date'].'</h4>
 							<h4>INVOICE NUMBER: '.$value['inv_number'].'</h4>
 							<h4>INVOICE STATUS: '.$value['inv_status'].'</h4>
@@ -1206,18 +1197,15 @@ class Admin_model extends CI_Model {
 						$message_foot = 
 						'<h3>AMOUNT CURRENTLY DUE: $'.$value['invoice_balance'].'</h3>
 						<hr style="height:3px; border:none; color:#000; background-color:#4286f4;">
-						Please Send Payment To:<br>
-						Bay Rum Media<br>
-						PO Box 2584<br>
-						San Angelo, TX<br>
-						76902
+						Please Send Payment To:<br>'.
+						BILLING.'
 						<hr style="height:3px; border:none; color:#000; background-color:#4286f4;">
 						<br><br><br><br>
 						</body>';
 
 						$message .= $message_foot;
 
-						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS BILLING');
+						$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' BILLING');
 						$this->email->to($value['apt_contact_email_'.$i]);
 						$this->email->subject($subject);
 						$this->email->message($message);

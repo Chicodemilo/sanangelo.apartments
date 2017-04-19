@@ -522,9 +522,9 @@ class Edit extends CI_Controller {
 
         $this->load->library('email');
         $this->email->clear();
-        $this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+        $this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
         $this->email->to('miles@bayrummedia.com');
-        $this->email->subject('User Made A Special On SANANGELO.APARTMENTS');
+        $this->email->subject('User Made A Special On '.WEBSITE);
         $this->email->message(
                             'Username: '.$this->session->userdata('username').
                             '<br>Apartment Name: '.$this->session->userdata('property_name').

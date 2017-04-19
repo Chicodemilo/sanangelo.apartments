@@ -18,4 +18,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 </head>
 <body>
-<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
+<img src="<?php echo base_url(); ?>images/logo_lil.svg" alt="<?php echo WEBSITELOWER; ?>">

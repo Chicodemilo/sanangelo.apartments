@@ -1250,15 +1250,15 @@ class Apartment_model extends CI_Model {
 		foreach ($send as $key => $value) {
  			if($data['free'] != 'Y'){
  				$this->email->clear();
-				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
+				$this->email->from('donotreply@'.WEBSITELOWERWWW, 'CONTACT FORM '.WEBSITE);
 				$this->email->to($value);
-				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
-				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br><br>DATE: '.$data['time'].'<br><br>EMAIL: '.$data['email'].'<br><br>NAME: '.$data['first_name'].'<br><br>MESSAGE: '.$data['message']);
+				$this->email->subject(WEBSITE.': CONTACT FORM');
+				$this->email->message('<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from '.WEBSITE.'</h3><br><br>DATE: '.$data['time'].'<br><br>EMAIL: '.$data['email'].'<br><br>NAME: '.$data['first_name'].'<br><br>MESSAGE: '.$data['message']);
 				$sent = $this->email->send();
  			}else{
 
 				$message = '<body style="font-family:Arial, Helvetica, sans-serif;">'.
-				'<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from SANANGELO.APARTMENTS</h3><br>Login to SANANGELO.APARTMENTS to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>'
+				'<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from '.WEBSITE.'</h3><br>Login to '.WEBSITE.' to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>'
 				.'<h3 style="color:#3F79C9;">To have leads sent directly to you, consider a PREMIUM MEMBERSHIP</h3>'.
 					        '<br>A Premium Membership Means...
 									<ul style="line-height: 1.9;">
@@ -1266,16 +1266,16 @@ class Apartment_model extends CI_Model {
 										<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member page has NO phone number listed</span></li>
 										<li>A LINK To Your Property Website Is On Your Page - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member pages has NO links to your website.</span></li>
 										<li>A LINK & Logo of your Property Management Company</li>
-										<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></span></li>
+										<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="'.FBPAGE.'" target="blank">See Our FB Page</a></span></li>
 										<li>All LEADS Are Emailed Directly To You - <span style="font-style: italic; font-size:.8em; font-weight:bold;">You don\'t have to login to see your leads</span></li>
 									</ul>'.
 					        '<br><br>Thanks,<br>
-					        SANANGELO.APARTMENTS'
+					        '.WEBSITE
 							;
  				$this->email->clear();
-				$this->email->from('donotreply@sanangelo.apartments', 'CONTACT FORM SANANGELO.APARTMENTS');
+				$this->email->from('donotreply@'.WEBSITELOWER, 'CONTACT FORM '.WEBSITE);
 				$this->email->to($value);
-				$this->email->subject('SANANGELO.APARTMENTS: CONTACT FORM');
+				$this->email->subject(WEBSITE.': CONTACT FORM');
 				$this->email->message($message);
 				$sent = $this->email->send();
  			}
@@ -1448,7 +1448,7 @@ class Apartment_model extends CI_Model {
 		$this->db->limit(1);
 		$apt = $this->db->get('apartment_main')->result_array();
 
-		$data['post_title'] = 'San Angelo Apartment Spotlight : '.$apt[0]['property_name'];
+		$data['post_title'] = MARKET.' Apartment Spotlight : '.$apt[0]['property_name'];
 		$name = $apt[0]['property_name'];
 		$address = $apt[0]['property_address'];
 		$city = $apt[0]['property_city'];
@@ -1553,7 +1553,7 @@ class Apartment_model extends CI_Model {
 	public function make_spec_blog($main_page_data){
 		$data['post_date'] = date('Y-m-d');
 		$data['post_type'] = 'SPEC';
-		$data['post_title'] = 'San Angelo Apartment Specials Roundup : '.date('F jS, Y');
+		$data['post_title'] = MARKET.' Apartment Specials Roundup : '.date('F jS, Y');
 
 		$special_takeover = $main_page_data['special_takeover'];
 		$special_basic = $main_page_data['special_basic'];
@@ -1659,7 +1659,7 @@ class Apartment_model extends CI_Model {
 	public function make_pric_blog(){
 		$data['post_date'] = date('Y-m-d');
 		$data['post_type'] = 'PRIC';
-		$data['post_title'] = 'Average San Angelo Apartment Rent for '.date('F, Y');
+		$data['post_title'] = 'Average '.MARKET.' Apartment Rent for '.date('F, Y');
 
 		$this->db->order_by('id', 'desc');
 		$this->db->limit(1);
@@ -1684,16 +1684,16 @@ class Apartment_model extends CI_Model {
 		$rand = rand(0,3);
 
 		if($current_ave_one > $last_ave_one && $current_ave_two > $last_ave_two && $current_ave_sq_ft > $last_ave_sq_ft){
-			$data['post_title'] = 'Apartment Rents '.$up[$rand].' In San Angelo for '.date('F, Y');
+			$data['post_title'] = 'Apartment Rents '.$up[$rand].' In '.MARKET.' for '.date('F, Y');
 			$change = 'UP';
 		}elseif($current_ave_one < $last_ave_one && $current_ave_two < $last_ave_two && $current_ave_sq_ft < $last_ave_sq_ft){
-			$data['post_title'] = 'Apartment Rents '.$down[$rand].' In San Angelo for '.date('F, Y');
+			$data['post_title'] = 'Apartment Rents '.$down[$rand].' In '.MARKET.' for '.date('F, Y');
 			$change = 'DOWN';
 		}elseif($current_ave_one == $last_ave_one && $current_ave_two == $last_ave_two && $current_ave_sq_ft == $last_ave_sq_ft){
-			$data['post_title'] = 'Apartment Rents '.$steady[$rand].' In San Angelo for '.date('F, Y');
+			$data['post_title'] = 'Apartment Rents '.$steady[$rand].' In '.MARKET.' for '.date('F, Y');
 			$change = 'STEADY';
 		}else{
-			$data['post_title'] = 'Apartment Rents '.$mixed[$rand].' In San Angelo for '.date('F, Y');
+			$data['post_title'] = 'Apartment Rents '.$mixed[$rand].' In '.MARKET.' for '.date('F, Y');
 			$change = 'MIXED';
 		}
 
@@ -1879,7 +1879,7 @@ class Apartment_model extends CI_Model {
 		foreach ($all_emails as $key => $value) {
  			
 			$this->email->clear();
-			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+			$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 			$this->email->to($value);
 			$this->email->subject('Are Rents Up or Down This Month?');
 			$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'texas/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
@@ -1936,7 +1936,7 @@ class Apartment_model extends CI_Model {
 			
 		}
 
-		$data['post_title'] = count($apt_ids).' San Angelo Apartments Have The Amenitiy: '.$amen[$rand].'!';
+		$data['post_title'] = count($apt_ids).' '.MARKET.' Apartments Have The Amenitiy: '.$amen[$rand].'!';
 
 		$rand_one = rand(0,3);
 		$rand_two = rand(0,3);
@@ -1984,9 +1984,9 @@ class Apartment_model extends CI_Model {
 		$text .= "</ul>";
 
 		if(count($apt_ids) == 1){
-			$data['post_title'] = 'Only '.count($apt_ids).' San Angelo Apartment Has The Amenitiy: '.$amen[$rand];
+			$data['post_title'] = 'Only '.count($apt_ids).' '.MARKET.' Apartment Has The Amenitiy: '.$amen[$rand];
 		}else{
-			$data['post_title'] = count($apt_ids).' San Angelo Apartments Have The Amenitiy: '.$amen[$rand];
+			$data['post_title'] = count($apt_ids).' '.MARKET.' Apartments Have The Amenitiy: '.$amen[$rand];
 		}
 
 		
@@ -2006,7 +2006,7 @@ class Apartment_model extends CI_Model {
 		// foreach ($all_emails as $key => $value) {
  			
 		// 	$this->email->clear();
-		// 	$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+		// 	$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 		// 	$this->email->to($value);
 		// 	$this->email->subject('Are Rents Up or Down This Month?');
 		// 	$this->email->message('<h3 style="color:#3F79C9;">WHERE ARE RENTS HEADED?</h3><br>Our monthly blog report on rent trends is online. Take a look at it <a href="'.base_url().'texas/blog">here</a>. <br><br>While you\'re there, take a look at your own rents and make sure they\'re current! Login <a href="'.base_url().'login/login_user">here</a>.');
@@ -2064,12 +2064,11 @@ class Apartment_model extends CI_Model {
 		$this->load->library('email');
 		foreach ($all_emails as $key => $value) {
 			if($value['email'] != ''){
-				// echo $value['email']." : ".$value['apt_name']."<br>";
 				$this->email->clear();
-				$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+				$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 				$this->email->to($value['email']);
-				$this->email->subject('Enter Your Floorplans On SANANGELO.APARTMENTS for '.$value['apt_name']);
-				$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search SANANGELO.APARTMENTS is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br><br>'.$value['apt_name'].' will not show up because you do not have any models listed on the site.<br><br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br><br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
+				$this->email->subject('Enter Your Floorplans On '.WEBSITE.' for '.$value['apt_name']);
+				$this->email->message('<h3 style="color:#3F79C9;">PLEASE! Take Some Time To Enter Floorplans For '.$value['apt_name'].'</h3><br>One of the best ways to search '.WEBSITE.' is by looking for specific floorplans and prices. <br><br>So, for example, if an apartment hunter comes to our site looking for a 1 bedroom, 1 bath between $400 and $1200 a month... <br><br>'.$value['apt_name'].' will not show up because you do not have any models listed on the site.<br><br>YOU\'RE MISSING TRAFFIC!<br><br>Login and fix this here: <a href="'.base_url().'login/login_user">LOGIN</a>.<br><br>Use the \'EDIT APARTMENT INFO\' link on the right of the screen and follow the \'FLOORPLANS\' link under that to add, edit and delete Flooplans and Prices.<br><br>PS. This is an automated email and you will stop getting it after you enter your floorplans!');
 				$sent = $this->email->send();
 			}
 
@@ -2130,10 +2129,10 @@ class Apartment_model extends CI_Model {
 					if($value != ''){
 						// echo $username." : ".$last_login." : ".$value." : ".$apt_name."<br>";
 						$this->email->clear();
-						$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+						$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 						$this->email->to($value);
-						$this->email->subject('Update Your Info On SANANGELO.APARTMENTS for '.$apt_name);
-						$this->email->message('<h3 style="color:#3F79C9;">It\'s been a while since you logged in to SANANGELO.APARTMENTS</h3>
+						$this->email->subject('Update Your Info On '.WEBSITE.' for '.$apt_name);
+						$this->email->message('<h3 style="color:#3F79C9;">It\'s been a while since you logged in to '.WEBSITE.'</h3>
 							<br>Your last login for '.$apt_name.' was on: '.$last_login.' 
 
 							<br><br>Here are some things you may need to do... 
@@ -2215,7 +2214,7 @@ class Apartment_model extends CI_Model {
 						if($value_c != ''){     
 							// echo $apt_name." : ".$username." : ".$sto_date." : ".$value_c."<br>";
 							$this->email->clear();
-							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 							$this->email->to($value_c);
 							$this->email->subject('Your Site Takeover Banners Are Missing For '.$apt_name);
 							$this->email->message('<h3 style="color:#3F79C9;">You Are Missing Some Banners For Your SITE TAKEOVER</h3>
@@ -2227,10 +2226,10 @@ class Apartment_model extends CI_Model {
 				                '<br>&bull; Mobile banner is 400px wide by 175px tall.'.
 				                '<br><br>Your SITE TAKEOVER will run even if you have not uploaded your banners.'.
 				                '<br>If you need help with your banners please contact us.'.
-				                '<br><br>Login to SANANGELO.APARTMENTS and use the "ADS & BANNERS" link on the top left of the page to go to the upload page.
+				                '<br><br>Login to '.WEBSITE.' and use the "ADS & BANNERS" link on the top left of the page to go to the upload page.
 				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
 				                <br><br>Thanks,<br>
-				                SANANGELO.APARTMENTS'
+				                '.WEBSITE
 
 								);
 							$sent = $this->email->send();
@@ -2281,9 +2280,9 @@ class Apartment_model extends CI_Model {
 					foreach ($emails as $key_c => $value_c) {
 						if($value_c != ''){     
 							$this->email->clear();
-							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 							$this->email->to($value_c);
-							$this->email->subject($apt_name.' Page Views On SANANGELO.APARTMENTS');
+							$this->email->subject($apt_name.' Page Views On '.WEBSITE);
 							$this->email->message('<h3 style="color:#3F79C9;">Your Page Was Viewed '.$views.' Times Last Month</h3>
 								<br>That\'s right, '.$views.' visitors took a look at your page last month!'.
 								'<br><br>The page with the highest views last month was '.$all_apts_winner.' with '.$all_apts_winner_count.' views.'.
@@ -2295,7 +2294,7 @@ class Apartment_model extends CI_Model {
 				                '<br><br>Login to your account to learn more about these.
 				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
 				                <br><br>Thanks,<br>
-				                SANANGELO.APARTMENTS'
+				                '.WEBSITE
 
 								);
 							$sent = $this->email->send();
@@ -2346,9 +2345,9 @@ class Apartment_model extends CI_Model {
 					foreach ($emails as $key_c => $value_c) {
 						if($value_c != ''){     
 							$this->email->clear();
-							$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+							$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 							$this->email->to($value_c);
-							$this->email->subject($apt_name.' Last Years Page Views On SANANGELO.APARTMENTS');
+							$this->email->subject($apt_name.' Last Years Page Views On '.WEBSITE);
 							$this->email->message('<h3 style="color:#3F79C9;">Last Year, Your Page Was Viewed '.$views.' Times</h3>
 								<br>Over the course of the year, '.$views.' visitors took a look at your page!'.
 								'<br><br>The page with the highest views last year was '.$all_apts_winner.' with '.$all_apts_winner_count.' views.'.
@@ -2360,7 +2359,7 @@ class Apartment_model extends CI_Model {
 				                '<br><br>Login to your account to learn more about these.
 				                <br><a href="'.base_url().'login/login_user">LOGIN</a>
 				                <br><br>Thanks,<br>
-				                SANANGELO.APARTMENTS'
+				                '.WEBSITE
 
 								);
 							$sent = $this->email->send();
@@ -2417,7 +2416,7 @@ class Apartment_model extends CI_Model {
 						foreach ($emails as $key => $value) {
 							if($value != ''){
 
-								$message = '<h3 style="color:#3F79C9;">Renew Your PREMIUM MEMBERSHIP On SANANGELO.APARTMENTS</h3>'.
+								$message = '<h3 style="color:#3F79C9;">Renew Your PREMIUM MEMBERSHIP On '.WEBSITE.'</h3>'.
 						        '<br>Your Premium Membership for '.$apt_name.' is will expire on '.$exp_date.
 						        '<br><br>A Premium Membership Means...
 										<ul style="line-height: 1.9;">
@@ -2434,12 +2433,12 @@ class Apartment_model extends CI_Model {
 											<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic;">Basic Member pages have NO phone number listed</span></li>
 											<li>A LINK To Your Property Website Is On Your Page</li>
 											<li>A LINK & Logo of your Property Management Company</li>
-											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <a href="'.FBPAGE.'" target="blank">See Our FB Page</a></li>
 											<li>All LEADS Are Emailed Directly To You</li>
 										</ul>'.
-						        '<br>Login to SANANGELO.APARTMENTS to continue your PREMIUM MEMBERSHIP: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        '<br>Login to '.WEBSITE.' to continue your PREMIUM MEMBERSHIP: <a href="'.base_url().'login/login_user">LOGIN</a>
 						        <br><br>Thanks,<br>
-						        SANANGELO.APARTMENTS
+						        '.WEBSITE.'
 						        <br><br>
 						        PS.<br>
 						        There\'s Nothing To Pay Today!<br>
@@ -2448,9 +2447,9 @@ class Apartment_model extends CI_Model {
 								Invoices will be emailed to the addresses listed on your account.<br></span>'
 								;
 								$this->email->clear();
-								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 								$this->email->to($value);
-								$this->email->subject('Renew Your Premium Membership On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->subject('Renew Your Premium Membership On '.WEBSITE.' for '.$apt_name);
 								$this->email->message($message);
 								$sent = $this->email->send();
 
@@ -2508,7 +2507,7 @@ class Apartment_model extends CI_Model {
 							if($value != ''){
 								// echo $value.'<br>';
 
-								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Renew Your TOP 3 BANNER On SANANGELO.APARTMENTS</h3>'.
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Renew Your TOP 3 BANNER On '.WEBSITE.'</h3>'.
 						        '<br>Your Top 3 Banner for '.$apt_name.' is will expire on '.$exp_date.
 						        '<br><br>A Top 3 Banner Means...
 										<ul style="line-height: 1.9;">
@@ -2525,18 +2524,18 @@ class Apartment_model extends CI_Model {
 											<li>The Banner Is A LINK Directly To Your Page</li>
 											<li>Commitment Free! Top 3 Banner is One Month At A Time</li>
 										</ul>'.
-						        '<br>Login to SANANGELO.APARTMENTS to continue your TOP 3 BANNER: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        '<br>Login to '.WEBSITE.' to continue your TOP 3 BANNER: <a href="'.base_url().'login/login_user">LOGIN</a>
 						        <br><br>Thanks,<br>
-						        SANANGELO.APARTMENTS
+						        '.WEBSITE.'
 						        <br><br>
 						        PS.<br>
 						        There\'s Nothing To Pay Today!<br>
 								We will send you an invoice at the end the month of your TOP 3 BANNER.<br></body>'
 								;
 								$this->email->clear();
-								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 								$this->email->to($value);
-								$this->email->subject('Renew Your Top 3 Banner On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->subject('Renew Your Top 3 Banner On '.WEBSITE.' for '.$apt_name);
 								$this->email->message($message);
 								$sent = $this->email->send();
 
@@ -2588,7 +2587,7 @@ class Apartment_model extends CI_Model {
 							if($value != ''){
 								// echo $value.'<br>';
 
-								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;"> SITE TAKEOVERS are available on SANANGELO.APARTMENTS!</h3>'.
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;"> SITE TAKEOVERS are available on '.WEBSITE.'!</h3>'.
 						        '<br>An easy, inexpensive way to promote your community is with a Site Takeover.'.
 						        '<br><br>Only $'.$sto_cost.' A DAY! So check your budget for next month.
 										</div>
@@ -2605,24 +2604,24 @@ class Apartment_model extends CI_Model {
 											</li>
 											<li>Your Advertising BANNERS On the Left, Right & Center Of Our Homepage - And Links To Your Website!</li>
 											<li>Your Mobile Banner Appears On Our MOBILE Site</li>
-											<li>A FACEBOOK Promotion On Our FB Page On The Day Of Your Takeover... <a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+											<li>A FACEBOOK Promotion On Our FB Page On The Day Of Your Takeover... <a href="'.FBPAGE.'" target="blank">See Our FB Page</a></li>
 											<li>We\'ll Help You Make Your Banner Ads If You Need It</li>
 											<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
 										</ul>'.
 						        '<br>Mondays and Thursdays are high traffic days for our site - so grab those in first.
 						        <br><br>Once you schedule a Site Takeover - it\'s yours! Everyone else is locked out from securing it.
-						        <br><br>Login to SANANGELO.APARTMENTS to see your options for site promotions: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        <br><br>Login to '.WEBSITE.' to see your options for site promotions: <a href="'.base_url().'login/login_user">LOGIN</a>
 						        <br><br>Thanks,<br>
-						        SANANGELO.APARTMENTS
+						        '.WEBSITE.'
 						        <br><br>
 						        PS.<br>
 						        There\'s Nothing To Pay Today!<br>
 								We will send you an invoice at the end the month of your SITE TAKEOVER runs.<br></body>'
 								;
 								$this->email->clear();
-								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 								$this->email->to($value);
-								$this->email->subject('SITE TAKEOVERS Are Available Next Month On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->subject('SITE TAKEOVERS Are Available Next Month On '.WEBSITE.' for '.$apt_name);
 								$this->email->message($message);
 								$sent = $this->email->send();
 
@@ -2686,19 +2685,19 @@ class Apartment_model extends CI_Model {
 							if($value != ''){
 								// echo $value.'<br>';
 
-								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Upgrade To A PREMIUM MEMBERSHIP On SANANGELO.APARTMENTS for $'.$prem_cost.'/month</h3>'.
+								$message = '<body style="font-family:Arial, Helvetica, sans-serif;"><h3 style="color:#3F79C9;">Upgrade To A PREMIUM MEMBERSHIP On '.WEBSITE.' for $'.$prem_cost.'/month</h3>'.
 						        '<br>A Premium Membership Means...
 										<ul style="line-height: 1.9;">
 											<li>'.$apt_name.' appears ABOVE the Basic Level Apartments</li>
 											<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member page has NO phone number listed</span></li>
 											<li>A LINK To Your Property Website Is On Your Page - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member pages has NO links to your website.</span></li>
 											<li>A LINK & Logo of your Property Management Company</li>
-											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></span></li>
+											<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="'.FBPAGE.'" target="blank">See Our FB Page</a></span></li>
 											<li>All LEADS Are Emailed Directly To You - <span style="font-style: italic; font-size:.8em; font-weight:bold;">You don\'t have to login to see your leads</span></li>
 										</ul>'.
-						        '<br>Login to SANANGELO.APARTMENTS to upgrade: <a href="'.base_url().'login/login_user">LOGIN</a>
+						        '<br>Login to '.WEBSITE.' to upgrade: <a href="'.base_url().'login/login_user">LOGIN</a>
 						        <br><br>Thanks,<br>
-						        SANANGELO.APARTMENTS
+						        '.WEBSITE.'
 						        <br><br>
 						        PS.<br>
 						        There\'s Nothing To Pay Today!<br>
@@ -2707,9 +2706,9 @@ class Apartment_model extends CI_Model {
 								Invoices will be emailed to the addresses listed on your account.<br></span></body>'
 								;
 								$this->email->clear();
-								$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+								$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 								$this->email->to($value);
-								$this->email->subject('Consider Upgrading To A Premium Membeership On SANANGELO.APARTMENTS for '.$apt_name);
+								$this->email->subject('Consider Upgrading To A Premium Membeership On '.WEBSITE.' for '.$apt_name);
 								$this->email->message($message);
 								$sent = $this->email->send();
 							}
@@ -2719,99 +2718,4 @@ class Apartment_model extends CI_Model {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

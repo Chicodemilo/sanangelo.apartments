@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td class="righter">Phone Number:</td>
-				<td colspan="2"><input type="text" style="width:90%" name="property_phone" id="property_phone" placeholder="Enter The Main Phone Number. Ex: (325) 340-9310" value="<?php echo $main_info[0]['property_phone'] ?>"></td>
+				<td colspan="2"><input type="text" style="width:90%" name="property_phone" id="property_phone" placeholder="Enter The Main Phone Number. Ex: <?php echo BILLINGPHONE; ?>" value="<?php echo $main_info[0]['property_phone'] ?>"></td>
 
 				<td class="righter">Street Address:</td>
 				<td colspan="2"><input type="text" style="width:90%" name="property_address" id="property_address" placeholder="Enter The Street Address" value="<?php echo $main_info[0]['property_address'] ?>"></td>

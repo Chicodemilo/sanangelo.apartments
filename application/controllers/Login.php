@@ -44,9 +44,9 @@ class Login extends CI_Controller {
 
 				$this->load->library('email');
 				$this->email->clear();
-				$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+				$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 				$this->email->to('miles@bayrummedia.com');
-				$this->email->subject('New User Created On SANANGELO.APARTMENTS');
+				$this->email->subject('New User Created On '.WEBSITE);
 				$this->email->message('Username: '.$result['username'].'<br>Email: '.$result['email'].'<br>Date: '.$result['date']);
 				$sent = $this->email->send();
 
@@ -57,9 +57,9 @@ class Login extends CI_Controller {
 				echo 'There seems to be a problem with the website. Please contact admin@greatsite.apartments and let them know. Thanks!';
 				$this->load->library('email');
 				$this->email->clear();
-				$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+				$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 				$this->email->to('miles@bayrummedia.com');
-				$this->email->subject('There Was A Problem Creating A User On SANANGELO.APARTMENTS');
+				$this->email->subject('There Was A Problem Creating A User On '.WEBSITE);
 				$this->email->message('Not sure what the error is but something when wrong when someone tried to reate a user');
 				$sent = $this->email->send();
 			}
@@ -174,9 +174,9 @@ class Login extends CI_Controller {
 
 					$this->load->library('email');
 					$this->email->clear();
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 					$this->email->to('miles@bayrummedia.com');
-					$this->email->subject('User Logged On To SANANGELO.APARTMENTS');
+					$this->email->subject('User Logged On To '.WEBSITE);
 					$this->email->message(
 										'Username: '.$user_data[0]['username'].
 										'<br>Logged On: '.$saved_session_data['login_time'].

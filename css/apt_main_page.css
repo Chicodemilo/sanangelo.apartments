@@ -166,6 +166,15 @@ hr {
     /* border:1px dotted #A3B0F8; */
 }
 
+.nav_bar_pics_apt{
+    width: 100%;
+    margin: 0px;
+    height: 200px;
+    overflow: hidden;
+    font-size:0px;
+    /* border:1px dotted #A3B0F8; */
+}
+
 .inner_pics{
     height: 200px;
     display: inline-block;
@@ -245,6 +254,7 @@ hr {
 
 .inner_navbar img{
     float: left;
+    max-width: 370px;
 }
 
 .blog_link{
@@ -437,6 +447,7 @@ hr {
     overflow:hidden;
     font-size:.8em;
     z-index:300;
+    
 }
 
 .most_viewed_closer{

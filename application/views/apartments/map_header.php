@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
 <head>
-	<title>SANANGELO.APARTMENTS SUPER MAP</title>
+	<title><?php echo WEBSITE; ?> SUPER MAP</title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="The SANANGELO.APARTMENTS Super Map is an indespensable tool for searching for your new apartment home. Use the search box to define your price or amenities and watch the results on the map.">
-    <meta name="keywords" content="Apartment, Map, San Angelo, Texas">
+    <meta name="description" content="The <?php echo WEBSITE; ?> Super Map is an indespensable tool for searching for your new apartment home. Use the search box to define your price or amenities and watch the results on the map.">
+    <meta name="keywords" content="Apartment, Map, <?php echo MARKET; ?>, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
     
     

@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>SANANGELO.APARTMENTS</title>
+	<title><?php echo WEBSITE; ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
     <meta name="description" content="">

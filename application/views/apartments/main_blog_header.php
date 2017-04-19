@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
 <head>
-	<title>SANANGELO.APARTMENTS Blog - Current News and Information About Apartments In San Angelo Texas</title>
+	<title><?php echo WEBSITE; ?> Blog - Current News and Information About Apartments In <?php echo MARKET.' '.STATE; ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="The only blog focused on news about San Angelo Apartments. We tell you what's new and happening with Apartments in San Angelo.">
-    <meta name="keywords" content="Apartments, Rentals, San Angelo, Greater San Angelo Renter, Texas">
+    <meta name="description" content="The only blog focused on news about <?php echo MARKET; ?> Apartments. We tell you what's new and happening with Apartments in <?php echo MARKET; ?>.">
+    <meta name="keywords" content="Apartments, Rentals, <?php echo MARKET; ?>, Greater <?php echo MARKET; ?> Renter, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
     
     <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>

@@ -8,7 +8,7 @@
 	?>
 							
 		<span class="sign_up_title">Sign Up! </span>
-		<span class="sign_up_text">&amp; We'll Send San Angelo Apartment Specials Right To You!</span>
+		<span class="sign_up_text">&amp; We'll Send <?php echo MARKET; ?> Apartment Specials Right To You!</span>
 		
 		<form action=" <?php echo base_url(); ?>texas/sign_up" method="POST">
 			<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />

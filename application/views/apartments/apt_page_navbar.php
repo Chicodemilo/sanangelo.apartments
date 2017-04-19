@@ -20,7 +20,7 @@
 
  ?>
 
-<div class="nav_bar_pics">
+<div class="nav_bar_pics_apt">
 
 	<div class="apt_page_header_pic">
 
@@ -31,7 +31,7 @@
 <div class="navbar">
 	<div class="inner_navbar">
 		<a href="<?php echo base_url(); ?>">
-			<img src="<?php echo base_url(); ?>images/sanangelo_logo_lil.svg" alt="sanangelo.apartments">
+			<img src="<?php echo base_url(); ?>images/logo_lil.svg" alt="<?php echo WEBSITELOWER; ?>">
 		</a>
 		<div class="navbar_links">
 			<div class="little_links" id="little_link1">
@@ -46,7 +46,7 @@
 			<div class="little_links" id="little_link3">
 				<img src="<?php echo base_url(); ?>images/trending.svg" alt="trending icon">
 			</div>
-			<a href="http://www.facebook.com/therentersanangelo" target="blank">
+			<a href="<?php echo FBPAGE; ?>" target="blank">
 				<div class="little_links" id="little_link4">
 					<img src="<?php echo base_url(); ?>images/fb.svg" alt="facebook icon">
 				</div>

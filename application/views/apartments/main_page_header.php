@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
 <head>
-	<title>SANANGELO.APARTMENTS - Find An Apartment In San Angelo Texas</title>
+	<title><?php echo WEBSITE; ?> - Find An Apartment In <?php echo MARKET.' '.STATE; ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>images/favicon.ico">
     <meta charset="utf-8" />
-    <meta name="description" content="SANANGELO.APARTMENTS is the most comprehensive site for finding an apartment in San Angelo Texas. We have great tools to help you search for your new apartment, townhome or rental property.  Everything from Luxury Apartments to Affordable Housing.">
-    <meta name="keywords" content="Apartments, Rentals, San Angelo, Greater San Angelo Renter, Texas">
+    <meta name="description" content="<?php echo WEBSITE; ?> is the most comprehensive site for finding an apartment in <?php echo MARKET.' '.STATE; ?>. We have great tools to help you search for your new apartment, townhome or rental property.  Everything from Luxury Apartments to Affordable Housing.">
+    <meta name="keywords" content="Apartments, Rentals, <?php echo MARKET; ?>, Greater <?php echo MARKET; ?> Renter, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
     
     <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>

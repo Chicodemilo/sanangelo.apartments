@@ -69,7 +69,7 @@
 			}
 			echo "<span class='smaller bold'><a class='not_fancy_dark' href='".base_url()."edit/your_ads'>ADS & BANNERS</a>&nbsp;&nbsp;&nbsp;<a class='not_fancy_dark' href='".base_url()."edit/invoi'>INVOICES</a></span>";
 			
-			echo '<div class="adv_page_title"><span id="title_text">GET MORE FROM &nbsp;</span><img id="ad_page_logo" src="'.base_url().'images/sanangelo_logo_lil.svg" alt="sanangelo.apartments"></div>
+			echo '<div class="adv_page_title"><span id="title_text">GET MORE FROM &nbsp;</span><img id="ad_page_logo" src="'.base_url().'images/logo_lil.svg" alt="'.WEBSITELOWER.'"></div>
 				<hr>';
 
 			if($feedback !=''){
@@ -101,7 +101,7 @@
 						</span></li>
 						<li>A <span class="adv_stickout">LINK</span> To Your Property Website</li>
 						<li>A <span class="adv_stickout">LINK</span>  &amp; <span class="adv_stickout">Logo</span> of your Property Management Company</li>
-						<li><span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+						<li><span class="adv_stickout">FACEBOOK</span> Promotion For Your Property Once a Quarter... <a class="not_fancy_dark" href="'.FBPAGE.'" target="blank">See Our FB Page</a></li>
 						<li><span class="adv_stickout">LEADS</span> Are Emailed Directly To You... <span class="smaller_indent">you don\'t have to log on to see them!</span></li>
 					</ul>
 					<hr>
@@ -166,7 +166,7 @@
 					</li>
 					<li><span class="adv_stickout">BANNERS</span> On the Left, Right &amp; Center - All Link To Your Website!</span></li>
 					<li>Your Mobile Banner Appears and Disolves On Our <span class="adv_stickout">MOBILE</span> Site</li>
-					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="http://www.facebook.com/therentersanangelo" target="blank">See Our FB Page</a></li>
+					<li>A Paid <span class="adv_stickout">FACEBOOK</span> Promotion On The Day Of Your Takeover... <a class="not_fancy_dark" href="<?php echo FBPAGE; ?>" target="blank">See Our FB Page</a></li>
 					<li>We'll Help You Make Your Banner Ads</li>
 					<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
 				</ul>
@@ -191,7 +191,7 @@
 				Pick A Date For Your Site Take Over:
 				<input type="text" name="start_date" class="date-picker" id="start_date_sto" required>
 				<br>
-				<input type="submit" value="TAKEOVER SANANGELO.APARTMENTS">
+				<input type="submit" value="TAKEOVER <?php echo WEBSITE; ?>">
 				<br>
 				<br>
 				<span class="adv_stickout smaller">Nothing To Pay Today!</span><br>
@@ -280,7 +280,7 @@
 			
 		</div>
 		<div class="moreinfo">
-				<span class="adv_stickout">QUESTIONS? CALL:</span> (325) 340-9310 For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=SANANGELO.APARTMENTS%20Advertising">Email</a>
+				<span class="adv_stickout">QUESTIONS? CALL:</span> <?php echo BILLINGPHONE; ?> For More Info :: Or Send Us An <a class="not_fancy_dark" href="mailto:miles@bayrummedia.com?subject=<?php echo WEBSITE; ?>%20Advertising">Email</a>
 			</div>
 
 		<form action="<?php echo base_url(); ?>edit/submit_advertising_edits" method="post">

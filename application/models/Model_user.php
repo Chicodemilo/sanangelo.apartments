@@ -98,18 +98,18 @@ class Model_user extends CI_Model {
 			$this->db->update('users', $data);
 
 			$this->load->library('email');
-			$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+			$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE);
 			$this->email->to($email);
-			$this->email->subject('SANANGELO.APARTMENTS: Password Reset');
+			$this->email->subject(WEBSITE.': Password Reset');
 			$this->email->message('Your Username Is: '.$username.'<br>Your new temporary password is: '.$temp_pw.'<br>We recommend resetting your password once you are back in.<br> <a href="'.base_url().'login/login_user">Login Here</a>');
 			$sent = $this->email->send();
 
 			for ($i=2; $i <= 4; $i++){
 				if($found_user[0]['email_'.$i] != ''){
 					$this->load->library('email');
-					$this->email->from('donotreply@sanangelo.apartments', 'SANANGELO.APARTMENTS Admin');
+					$this->email->from('donotreply@'.WEBSITELOWER, WEBSITE.' Admin');
 					$this->email->to($found_user[0]['email_'.$i]);
-					$this->email->subject('SANANGELO.APARTMENTS: Password Reset');
+					$this->email->subject(WEBSITE.': Password Reset');
 					$this->email->message('Your Username Is: '.$username.'<br>Your new temporary password is: '.$temp_pw.'<br>We recommend resetting your password once you are back in.<br> <a href="'.base_url().'login/login_user">Login Here</a>');
 					$sent = $this->email->send();
 				}
