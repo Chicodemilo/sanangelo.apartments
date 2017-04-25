@@ -7,6 +7,7 @@
 			); 
 		?>
 		<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+		<input type="hidden" name="suspend" value="N">
 		<table>
 			<tr>
 				<th colspan="6">
