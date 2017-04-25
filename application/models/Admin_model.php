@@ -234,7 +234,7 @@ class Admin_model extends CI_Model {
 	}
 
 	public function make_amen($apt_id){
-		echo $apt_id;
+		// echo $apt_id;
 		$amenities = array(
 				'65+ Community',
 				'Accepts Credit Card Payments',
