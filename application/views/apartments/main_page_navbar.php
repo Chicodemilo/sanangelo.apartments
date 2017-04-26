@@ -11,7 +11,7 @@
 						echo 'images/pictures/'.$pos_1['ID'].'/'.$pos_1['picture_id'].'/'.$pos_1['picture_name']; 
 					}else{
 						echo base_url();
-						echo 'images/'.$pos_1['picture_name']; 
+						echo 'images/pictures/generic/generic.jpg'; 
 					}
 					
 				?>" alt="">
@@ -26,7 +26,7 @@
 				<?php
 					if($pos_2['picture_id'] == 'generic'){
 						echo base_url();
-						echo 'images/'.$pos_2['picture_name'];
+						echo 'images/pictures/generic/generic.jpg';
 					}else{ 
 						echo base_url();
 						echo 'images/pictures/'.$pos_2['ID'].'/'.$pos_2['picture_id'].'/'.$pos_2['picture_name']; 
@@ -47,7 +47,7 @@
 						echo 'images/pictures/'.$pos_3['ID'].'/'.$pos_3['picture_id'].'/'.$pos_3['picture_name']; 
 					}else{
 						echo base_url();
-						echo 'images/'.$pos_3['picture_name']; 
+						echo 'images/pictures/generic/generic.jpg';
 					}
 					
 				?>" alt="">

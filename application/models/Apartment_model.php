@@ -31,7 +31,7 @@ class Apartment_model extends CI_Model {
 			$data['pos_2']['property_name'] = $result[1]['property_name'];
 			$data['pos_3']['property_name'] = $result[2]['property_name'];
    			
-   			//Put their Search Name into the return Data
+   			//Put their Search Name into the return Datasto
 			$data['pos_1']['property_search_name'] = $result[0]['property_search_name'];
 			$data['pos_2']['property_search_name'] = $result[1]['property_search_name'];
 			$data['pos_3']['property_search_name'] = $result[2]['property_search_name'];
@@ -2602,10 +2602,10 @@ class Apartment_model extends CI_Model {
 												</ul>
 
 											</li>
-											<li>Your Advertising BANNERS On the Left, Right & Center Of Our Homepage - And Links To Your Website!</li>
-											<li>Your Mobile Banner Appears On Our MOBILE Site</li>
+											<li>BANNER ADS On the Left, Right & Center Of Our Homepage - All Link To Your Website!</li>
+											<li>MOBILE BANNER AD Appears On Our MOBILE Site</li>
 											<li>A FACEBOOK Promotion On Our FB Page On The Day Of Your Takeover... <a href="'.FBPAGE.'" target="blank">See Our FB Page</a></li>
-											<li>We\'ll Help You Make Your Banner Ads If You Need It</li>
+											<li>We\'ll Help You Make Your Banner Ads</li>
 											<li>Commitment Free! A Site Takeover Is One Day At A Time</li>
 										</ul>'.
 						        '<br>Mondays and Thursdays are high traffic days for our site - so grab those in first.
