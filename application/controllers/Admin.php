@@ -1012,7 +1012,7 @@ public function do_upload_picture($apt_id){
         $config['max_width']  = '10000';
         $config['max_height']  = '10000';
         $config['min_width'] = '500';
-        $config['min_height'] = '500';
+        $config['min_height'] = '300';
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload())
