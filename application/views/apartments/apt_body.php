@@ -271,7 +271,16 @@
 
 
 
-					echo '</td><td class="fp_data bolder">$'.$value['deposit'].'</td><td class="fp_data bolder">$'.$per_sq_ft;
+					echo '</td><td class="fp_data bolder">';
+
+
+					if($value['deposit'] > 0){
+						echo '$'.$value['deposit'];
+					}else{
+						echo '&nbsp';
+					}
+
+					echo '</td><td class="fp_data bolder">$'.$per_sq_ft;
 
 					if($per_sq_ft > $market_data['ave_sq_ft']){
 						echo '<span class="above" id="average_'.$value['id'].'">&nbsp;&#9650;</span>';
