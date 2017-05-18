@@ -33,7 +33,7 @@
 				<td><input type="text" style="width:90%" name="property_state" id="property_state" placeholder="Enter The State" maxlength="2" value="<?php echo STATE; ?>"></td>
 			
 				<td class="righter">Zip Code:</td>
-				<td><input type="text" style="width:90%" name="property_zip" id="property_zip" placeholder="Enter The Zip Code" value="7690"></td>
+				<td><input type="text" style="width:90%" name="property_zip" id="property_zip" placeholder="Enter The Zip Code"></td>
 			</tr>
 			<th colspan="6"></th>
 			<tr>
