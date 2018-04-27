@@ -58,6 +58,20 @@
 	?>
 
 	<div class="body_wrapper">
+	<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo MARKET.', '.STATE ?></span>
+				<meta itemprop="position" content="1" />
+			</a> > 
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Apartments</span>
+				<meta itemprop="position" content="2" />
+			</a> >
+			<a href="<?php echo base_url(); ?>texas/apartment/<?php echo $property_search_name ?>/<?php echo $apt_id ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo $property_name; ?></span>
+				<meta itemprop="position" content="3" />
+			</a>
+	</div>
 		<?php 
 			if($background_data != 'N'){
 				echo '<div class="takeover_top_banner">';

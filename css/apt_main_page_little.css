@@ -822,6 +822,7 @@ hr {
 }
 
 .pic_box{
+    display:none;
     box-sizing:border-box;
     width:100%;
     height:140px;
@@ -906,7 +907,7 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size: 1em;
+    font-size: 1.2em;
     line-height: 1.6em;
     letter-spacing: -.01em;
     padding:5px;
@@ -956,7 +957,7 @@ section {
 }
 
 .table_name{
-    font-size:17px;
+    font-size:20px;
     line-height: 1.2em;
     font-weight:bold;
     letter-spacing:.05em;

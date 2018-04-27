@@ -524,6 +524,7 @@ class Texas extends CI_Controller {
 
 			$main_page_data['open_takeover_apt'] = $this->apartment_model->get_open_takeover_apt();
 			$main_page_data['property_phone'] = $main_data[0]['property_phone'];
+			$main_page_data['property_search_name'] = $main_data[0]['property_search_name'];
 			$main_page_data['property_address'] = $main_data[0]['property_address'];
 			$main_page_data['property_city'] = $main_data[0]['property_city'];
 			$main_page_data['property_state'] = $main_data[0]['property_state'];

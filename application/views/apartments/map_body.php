@@ -1,4 +1,18 @@
 <div class="search_results_box_map">
+	<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo MARKET.', '.STATE ?></span>
+				<meta itemprop="position" content="1" />
+			</a> > 
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Apartments</span>
+				<meta itemprop="position" content="2" />
+			</a> >
+			<a href="<?php echo base_url(); ?>texas/map" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Map</span>
+				<meta itemprop="position" content="3" />
+			</a>
+	</div>
 	<div class="search_param_box_map">
 				<span class="search_param_bold_map">SEARCH RESULTS</span><br>APARTMENTS FOUND: <?php echo $apt_count; ?><br>
 				BD:

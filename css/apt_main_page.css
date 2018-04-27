@@ -670,26 +670,33 @@ hr {
 }
 
 .body_wrapper{
+    overflow: auto;
+    /* clear: both; */
     box-sizing:border-box;
     width:870px;
-    min-height: 1070px;
+    /* min-height: 1570px; */
     margin:auto;
     box-shadow:0px 0px 15px rgba(100, 100, 100, 0.8);
     background:white;
     border: 11px solid white;
     z-index:0;
+    /* display:none; */
+}
 
+.breadcrumbs{
+    font-size: .9em;
+    padding-bottom: 10px;
 }
 
 .left_col{
-    width:230px;
+    width:200px;
     height:700px;
     float:left;
 }
 
 .search_results_box{
-    width:600px;
-    height:947px;
+    width:630px;
+    /* height:947px; */
     float:right;
     border:1px solid #C8C8C8;
     padding:3px;
@@ -739,7 +746,7 @@ hr {
 }
 
 .open_table{
-    max-height:400px;
+    /* max-height:700px; */
     overflow-x:hidden;
     overflow-y:scroll;
     margin-bottom:20px;
@@ -755,7 +762,7 @@ hr {
 #fixed_head{
     border-collapse: collapse;
     position:absolute;
-    width:227px;
+    width:197px;
     padding-bottom: 5px;
 }
 
@@ -808,6 +815,7 @@ hr {
 }
 
 .pic_box{
+    display: none;
     box-sizing:border-box;
     width:100%;
     height:305px;
@@ -875,14 +883,14 @@ hr {
     font-size: 12px;
     position: relative;
     overflow-x: hidden;
-    height: 450px;
+    /* height: 450px; */
     width: 100%;
     box-sizing: border-box;
     background: #F0F0F0;
 }
 
 section {
-    height: 90px;
+    height: 140px;
 }
 
 .search_param_box{
@@ -891,16 +899,16 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size:1.3em;
+    font-size:1.5em;
     line-height: 1.6em;
     letter-spacing:.05em;
-    padding:5px;
+    padding:15px;
     border-top: 3px solid white;
     border-bottom: 3px solid white;
 }
 
 .search_param_bold{
-    font-size:1.6em;
+    font-size:1.5em;
     line-height:1em;
     font-weight:bold;
     color:#FEC063;
@@ -909,9 +917,10 @@ section {
 
 .inner_table_1{
     width:100%;
+    height: 100px;
     border-top:1px solid #C8C8C8;
     border-bottom:1px solid #C8C8C8;
-    background:#CBD8E6;
+    background:#D5E2F3;
     transition:0.2s;
     cursor:pointer;
 }
@@ -929,8 +938,8 @@ section {
 }
 
 #table_pic_box{
-    width:160px;
-    height:60px;
+    width:200px;
+    height:100px;
 }
 
 #table_pic_box img{
@@ -940,11 +949,11 @@ section {
 }
 
 .table_name{
-    font-size:19px;
+    font-size:26px;
     font-weight:bold;
     letter-spacing:.05em;
-    color:white;
-    text-shadow:0px 0px 10px rgba(73, 137, 201, 0.7);
+    color:#3C79E2;
+    /* text-shadow:0px 0px 10px rgba(73, 137, 201, 0.7); */
     font-family:'Oswald', sans-serif;
     padding-left: 10px;
 }
@@ -958,10 +967,15 @@ section {
     position:relative;
     top:-5px;
 }
+.under_fakies{
+    display: none;
+}
 
 .under_table{
     width:100%;
-    height:350px;
+    height:20px;
+    clear: both;
+    /* display: none; */
 }
 /******************************** APT MAIN BODY ***************************/
 .mobile_map_logo{
@@ -1401,7 +1415,7 @@ section {
     font-size:.85em;
     line-height: 1.9em;
     letter-spacing:.05em;
-    padding:5px;
+    padding:10px;
     border-top: 4px solid white;
     border-bottom: 4px solid white;
 }

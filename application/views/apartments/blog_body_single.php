@@ -57,6 +57,7 @@
 		}
 	?>
 	<div class="body_wrapper">
+
 		<?php 
 			if($background_data != 'N'){
 				echo '<div class="takeover_top_banner">';
@@ -74,6 +75,37 @@
 				echo '</div>';
 			}
 		?>
+
+		<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo MARKET.', '.STATE ?></span>
+				<meta itemprop="position" content="1" />
+			</a> > 
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Apartments</span>
+				<meta itemprop="position" content="2" />
+			</a> >
+			<a href="<?php echo base_url(); ?>texas/blog" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Blog</span>
+				<meta itemprop="position" content="3" />
+			</a> >
+			<a href="<?php 
+					foreach ($blog_list->result() as $blog) {
+						// print_r($blog);
+						$clean_title = str_replace(' ', '_', $blog->post_title);
+	            		$clean_title = str_replace(',', '', $clean_title);
+	            		$clean_title = preg_replace('/[\/|+ -]+/', '', $clean_title);
+
+	            		echo base_url().'texas/this_blog/'.$blog->id.'/'.$clean_title; 
+					}
+					?>" 
+				itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo $blog->post_title; ?></span>
+				<meta itemprop="position" content="4" />
+			</a>
+		</div>
+
+
 		<?php
             foreach ($blog_list->result() as $blog) {
         ?>

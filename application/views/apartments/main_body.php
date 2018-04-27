@@ -55,9 +55,18 @@
 				echo "</div>";
 			}
 		?>
-
-	<div class="body_wrapper">
 	
+	<div class="body_wrapper">
+		<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name"><?php echo MARKET.', '.STATE ?></span>
+				<meta itemprop="position" content="1" />
+			</a> > 
+			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
+				<span itemprop="name">Apartments</span>
+				<meta itemprop="position" content="2" />
+			</a>
+		</div>
 		<?php 
 			if($background_data != 'N'){
 				echo '<div class="takeover_top_banner">';
@@ -369,7 +378,8 @@
 									echo "<table id='inner_table_".$value['apt_id']."' class='inner_table_".$table_class."'>";
 										echo "<tr>";
 										echo "<td rowspan='2' id='table_pic_box'>";
-										echo "<img src='".base_url()."images/pictures/".$value['apt_id']."/".$value['pic_id']."/".$value['pic_name']."'>";
+										$exp_pic_name = explode('.', $value['pic_name']);
+										echo "<img src='".base_url()."images/pictures/".$value['apt_id']."/".$value['pic_id']."/".$exp_pic_name[0]."_med_small.".$exp_pic_name[1]."'>";
 										echo "</td>";
 										echo "<td class='table_name'>";
 										echo $value['property_name'];
@@ -403,8 +413,7 @@
 	        </div>
 
 		</div>
-
-	</div>
+	</div> <!-- END BODY WRAPPER -->
 
 </div>
 <div class="footer">
