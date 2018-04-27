@@ -1039,25 +1039,25 @@ public function do_upload_picture($apt_id){
             $this->db->update('pictures', $data_b);  
 
             $this->make_many_pics($apt_id, $id);   
-            // redirect(base_url().'admin/picture_edit/'.$apt_id.'/'.$id);
+            redirect(base_url().'admin/picture_edit/'.$apt_id.'/'.$id);
         }
 }
 
+
+
 public function make_many_pics($apt_id, $id){
-    // echo "Here0";
-    // include('picure_mutator.php');
-    echo "here1";
-    $pics = scandir(base_url().'images/pictures/'.$apt_id.'/'.$id);
-    foreach ($pics as $key_c => $value_c) {
-        $pic_parts = explode('.', $value_c);
-        if( $pic_parts[count($pic_parts) -1] == 'jpg' || 
-            $pic_parts[count($pic_parts) -1] == 'JPG' ||
-            $pic_parts[count($pic_parts) -1] == 'png' ||
-            $pic_parts[count($pic_parts) -1] == 'PNG' ||
-            ){
-            // echo "-----------".$value_c."<br>";
-            $file = "images/pictures/".$apt_id."/".$id."/".$value_c;
-            // echo $file;
+    $url = 'images/pictures/'.$apt_id.'/'.$id.'/';
+    $pics = scandir($url);
+
+    $pic_parts = explode('.', $pics[2]);
+    var_dump($pic_parts[count($pic_parts) -1]);
+    if( $pic_parts[count($pic_parts) -1] == 'jpg' || 
+        $pic_parts[count($pic_parts) -1] == 'JPG' ||
+        $pic_parts[count($pic_parts) -1] == 'png' ||
+        $pic_parts[count($pic_parts) -1] == 'PNG' 
+        ){
+            $file = "images/pictures/".$apt_id."/".$id."/".$pics[2];
+            echo $file;
             $exp_file = explode("/", $file);
 
             $x = 0;
@@ -1073,23 +1073,25 @@ public function make_many_pics($apt_id, $id){
                 }
                 $x++;
             }
-
-            $tiny_file = $front_path.$exp_type[0]."_tiny.".$type;
-            $small_file = $front_path.$exp_type[0]."_small.".$type;
-            $med_small_file = $front_path.$exp_type[0]."_med_small.".$type;
-            $med_file = $front_path.$exp_type[0]."_med.".$type;
-            $big_file = $front_path.$exp_type[0]."_big.".$type;
-            $huge_file = $front_path.$exp_type[0]."_huge.".$type;
-
-            $tiny_image = smart_resize_image($file, null, 0, 60, true, $tiny_file, false, false, 70, false);
-            $small_image = smart_resize_image($file, null, 150, 0, true, $small_file, false, false, 70, false);
-            $med_small_image = smart_resize_image($file, null, 0, 210, true, $med_small_file, false, false, 90, false);
-            $med_image = smart_resize_image($file, null, 305, 0, true, $med_file, false, false, 100, false);
-            $big_image = smart_resize_image($file, null, 0, 350, true, $big_file, false, false, 100, false);
-            $huge_image = smart_resize_image($file, null, 1100, 0, true, $huge_file, false, false, 100, false);
-
         }
+
+        $tiny_file = $front_path.$exp_type[0]."_tiny.".$type;
+        $small_file = $front_path.$exp_type[0]."_small.".$type;
+        $med_small_file = $front_path.$exp_type[0]."_med_small.".$type;
+        $med_file = $front_path.$exp_type[0]."_med.".$type;
+        $big_file = $front_path.$exp_type[0]."_big.".$type;
+        $huge_file = $front_path.$exp_type[0]."_huge.".$type;
+
+        $tiny_image = $this->smart_resize_image($file, null, 0, 60, true, $tiny_file, false, false, 70, false);
+        $small_image = $this->smart_resize_image($file, null, 150, 0, true, $small_file, false, false, 70, false);
+        $med_small_image = $this->smart_resize_image($file, null, 0, 210, true, $med_small_file, false, false, 90, false);
+        $med_image = $this->smart_resize_image($file, null, 305, 0, true, $med_file, false, false, 100, false);
+        $big_image = $this->smart_resize_image($file, null, 0, 350, true, $big_file, false, false, 100, false);
+        $huge_image = $this->smart_resize_image($file, null, 1100, 0, true, $huge_file, false, false, 100, false);
+        
     }
+
+
 
 /**
  * easy image resize function
@@ -1105,7 +1107,7 @@ public function make_many_pics($apt_id, $id){
  * @param  $grayscale - if true, image will be grayscale (default is false)
  * @return boolean|resource
  */
-  function smart_resize_image($file,
+  public function smart_resize_image($file,
                               $string             = null,
                               $width              = 0, 
                               $height             = 0, 
@@ -1212,12 +1214,6 @@ public function make_many_pics($apt_id, $id){
     }
     return true;
   }
-
-
-
-
-    
-}
 
 
 
