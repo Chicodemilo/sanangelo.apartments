@@ -101,8 +101,10 @@ class Texas extends CI_Controller {
 				$data['special_takeover'] = $this->apartment_model->get_special_takeover();
 				$data['special_basic'] = $this->apartment_model->get_special_basic();
 				$data['special_free'] = $this->apartment_model->get_special_free();
-				$spot_blog = $this->apartment_model->make_spec_blog($data);
-				$this->db->insert('blog', $spot_blog);
+				if (count($data)>0){
+					$spot_blog = $this->apartment_model->make_spec_blog($data);
+					$this->db->insert('blog', $spot_blog);
+				}
 			}
 		}
 
@@ -514,6 +516,7 @@ class Texas extends CI_Controller {
 		}else{
 			$header_data['property_name'] = $main_data[0]['property_name'];
 			$header_data['property_slogan'] = $main_data[0]['property_slogan'];
+			$header_data['property_search_name'] = $main_data[0]['property_search_name'];
 			$header_data['apt_id'] = $main_data[0]['ID'];
 
 			$top_of_nav['special'] = $this->apartment_model->get_special_info($apt_id);

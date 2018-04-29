@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if(strlen($params) > 1){
               echo '<link rel="canonical" href="'.base_url().'texas/find_apts?'.$params.'">';
             }else{
-              echo '<link rel="canonical" href="https://'.WEBSITELOWERWWW.'/">';
+              echo '<link rel="canonical" href="https://'.WEBSITELOWERWWW.'">';
             }
       ?>
     

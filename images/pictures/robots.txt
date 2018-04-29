@@ -1,0 +1,9 @@
+# User-agent: *
+# Allow: /
+
+User-agent: * 
+Crawl-delay: 30 
+Disallow: /cgi-bin/ 
+Disallow: /images/ 
+Disallow: /tmp/ 
+Disallow: /private/
