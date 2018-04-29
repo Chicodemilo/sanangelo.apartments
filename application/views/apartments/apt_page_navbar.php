@@ -17,7 +17,6 @@
 		echo "</div>";
 	}
 
-
  ?>
 
 <div class="nav_bar_pics_apt">

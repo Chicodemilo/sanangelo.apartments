@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo WEBSITE; ?> Blog - Current News and Information About Apartments In <?php echo MARKET.' '.STATE; ?></title>
@@ -9,10 +10,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="The only blog focused on news about <?php echo MARKET; ?> Apartments. We tell you what's new and happening with Apartments in <?php echo MARKET; ?>.">
     <meta name="keywords" content="Apartments, Rentals, <?php echo MARKET; ?>, Greater <?php echo MARKET; ?> Renter, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://<?php echo WEBSITELOWERWWW;?>/texas/blog">
     
-    <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    <script src="<?php echo base_url(); ?>js/panelSnap.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/panelSnap.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">

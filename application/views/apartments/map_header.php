@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo WEBSITE; ?> SUPER MAP</title>
@@ -9,11 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="The <?php echo WEBSITE; ?> Super Map is an indespensable tool for searching for your new apartment home. Use the search box to define your price or amenities and watch the results on the map.">
     <meta name="keywords" content="Apartment, Map, <?php echo MARKET; ?>, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://<?php echo WEBSITELOWERWWW;?>/texas/map">
     
     
-    <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    <script src="<?php echo base_url(); ?>js/panelSnap.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/panelSnap.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">

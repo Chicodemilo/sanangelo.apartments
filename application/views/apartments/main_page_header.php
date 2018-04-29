@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo WEBSITE; ?> - Find An Apartment In <?php echo MARKET.' '.STATE; ?></title>
@@ -9,10 +10,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="<?php echo WEBSITE; ?> is the most comprehensive site for finding an apartment in <?php echo MARKET.' '.STATE; ?>. We have great tools to help you search for your new apartment, townhome or rental property.  Everything from Luxury Apartments to Affordable Housing.">
     <meta name="keywords" content="Apartments, Rentals, <?php echo MARKET; ?>, Greater <?php echo MARKET; ?> Renter, <?php echo STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
+      <?php 
+            
+            $url = current_url();
+            $params = $_SERVER['QUERY_STRING'];
+            if(strlen($params) > 1){
+              echo '<link rel="canonical" href="'.base_url().'texas/find_apts?'.$params.'">';
+            }else{
+              echo '<link rel="canonical" href="https://'.WEBSITELOWERWWW.'/">';
+            }
+      ?>
     
-    <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    <script src="<?php echo base_url(); ?>js/panelSnap.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/panelSnap.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">

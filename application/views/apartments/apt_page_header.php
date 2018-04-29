@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo $property_name.' '.MARKET.' '.STATE.' : '.WEBSITE; ?></title>
@@ -9,14 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="<?php echo $property_name.'- '.MARKET.', '.STATE.'- '.$property_slogan.'- '; ?>- See our pictures, amenities, rent and deposit prices, pet policy, apartment floorplans, and office hours. Use the Contact form to get in touch with us.">
     <meta name="keywords" content="<?php echo $property_name.', '.MARKET.', '.STATE; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
-
+    <link rel="canonical" href="https://<?php echo WEBSITELOWERWWW;?>/texas/apartment/<?php echo $property_search_name; ?>/<?php echo $apt_id; ?>">
     
-    
-    <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    <script src="<?php echo base_url(); ?>js/jquery.accordionImageMenu.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.accordionImageMenu.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
-    
 
 
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/accordionImageMenu.css">

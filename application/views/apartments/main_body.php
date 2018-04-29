@@ -66,6 +66,27 @@
 				<span itemprop="name">Apartments</span>
 				<meta itemprop="position" content="2" />
 			</a>
+			<?php 
+					if(isset($pets) || isset($pool) || isset($gated) || isset($fitness) || isset($wd) || isset($clubhouse) || isset($furnished) || isset($seniors) || isset($covered) || isset($laundry))
+					{	
+						$url = current_url();
+						$params = $_SERVER['QUERY_STRING'];
+						// var_dump($params);
+						echo " > <a href='".base_url()."texas/find_apts?".$params."'>Search ";
+
+						if(isset($pets)){echo " ".$pets." ";}
+						if(isset($pool)){echo " ".$pool." ";}
+						if(isset($gated)){echo " ".$gated." ";}
+						if(isset($fitness)){echo " ".$fitness." ";}
+						if(isset($wd)){echo " ".$wd." ";}
+						if(isset($clubhouse)){echo " ".$clubhouse." ";}
+						if(isset($furnished)){echo " ".$furnished." ";}
+						if(isset($seniors)){echo " ".$seniors." ";}
+						if(isset($covered)){echo " ".$covered." ";}
+						if(isset($laundry)){echo " ".$laundry." ";}
+						echo "</a>";
+					}
+			?>
 		</div>
 		<?php 
 			if($background_data != 'N'){
@@ -112,12 +133,12 @@
 					<?php 
 						if($open_takeover_apt != false){
 							echo "<tr><td colspan='2'><div class='left_link_box'>";
-							echo "<a href='".base_url()."texas/apartment/".$open_takeover_apt['takeover_apt']['property_search_name']."/".$open_takeover_apt['takeover_apt']['apt_id']."'>";
-							echo "<span class='open_bold'>".$open_takeover_apt['takeover_apt']['property_name']."</span>";
+							echo "<span itemscope itemtype='http://schema.org/Apartment'><a href='".base_url()."texas/apartment/".$open_takeover_apt['takeover_apt']['property_search_name']."/".$open_takeover_apt['takeover_apt']['apt_id']."'>";
+							echo "<span class='open_bold' itemprop='name'>".$open_takeover_apt['takeover_apt']['property_name']."</span>";
 							foreach ($open_takeover_apt['takeover_apt']['open_apts'] as $key => $value) {
 								foreach ($value as $key_b => $value_b) {
 									if($key_b == 'bedroom'){
-										echo $value_b."bd";
+										echo "<span itemprop='offers' itemscope itemtype='http://schema.org/Offer'><span itemprop='name'>".$value_b."bd";
 									}
 									if($key_b == 'bathroom'){
 										if($value_b == 1.00){$ba = 1;}
@@ -129,17 +150,17 @@
 										if($value_b == 4.00){$ba = 4;}
 										if($value_b == 4.50){$ba = 4.5;}
 										if($value_b == 5.00){$ba = 5;}
-										echo "/".$ba."ba";
+										echo "/".$ba."ba</span>";
 									}
 									if($key_b == 'square_footage'){
-										echo " &bull; ".$value_b." SqFt &bull; ";
+										echo " &bull; <span itemprop='floorSize'>".$value_b."</span> SqFt &bull; ";
 									}
 									if($key_b == 'rent'){
-										echo "$".$value_b."<br>";
+										echo "<span itemprop='priceCurrency' content='USD'>$</span><span itemprop='price' content='".$value_b."'>".$value_b."</span></span><br>";
 									}
 								}
 							}
-							echo "</a>";
+							echo "</a></span>";
 							echo "</div></td></tr>";
 						}
 
@@ -148,12 +169,12 @@
 
 								if(count($value) > 1){
 									echo "<tr><td colspan='2'><div class='left_link_box'>";
-									echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
-									echo "<span class='open_bold'>".$value['property_name']."</span>";
+									echo "<span itemscope itemtype='http://schema.org/Apartment'><a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<span class='open_bold' itemprop='name'>".$value['property_name']."</span>";
 									foreach ($value['open_apts'] as $key => $value) {
 										foreach ($value as $key_b => $value_b) {
 											if($key_b == 'bedroom'){
-												echo $value_b."bd";
+												echo "<span itemprop='offers' itemscope itemtype='http://schema.org/Offer'><span itemprop='name'>".$value_b."bd";
 											}
 											if($key_b == 'bathroom'){
 												if($value_b == 1.00){$ba = 1;}
@@ -165,17 +186,17 @@
 												if($value_b == 4.00){$ba = 4;}
 												if($value_b == 4.50){$ba = 4.5;}
 												if($value_b == 5.00){$ba = 5;}
-												echo "/".$ba."ba";
+												echo "/".$ba."ba</span>";
 											}
 											if($key_b == 'square_footage'){
-												echo " &bull; ".$value_b." SqFt &bull; ";
+												echo " &bull; <span itemprop='floorSize'>".$value_b."</span> SqFt &bull; ";
 											}
 											if($key_b == 'rent'){
-												echo "$".$value_b."<br>";
+												echo "<span itemprop='priceCurrency' content='USD'>$</span><span itemprop='price' content='".$value_b."'>".$value_b."</span></span><br>";
 											}
 										}
 									}
-									echo "</a>";
+									echo "</a></span>";
 									echo "</div></td></tr>";
 								}
 							}
@@ -185,12 +206,12 @@
 							foreach ($open_free_apt as $key => $value) {
 								if(count($value) > 1){
 									echo "<tr><td colspan='2'><div class='left_link_box'>";
-									echo "<a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
-									echo "<span class='open_bold'>".$value['property_name']."</span>";
+									echo "<span itemscope itemtype='http://schema.org/Apartment'><a href='".base_url()."texas/apartment/".$value['property_search_name']."/".$value['apt_id']."'>";
+									echo "<span class='open_bold' itemprop='name'>".$value['property_name']."</span>";
 									foreach ($value['open_apts'] as $key => $value) {
 										foreach ($value as $key_b => $value_b) {
 											if($key_b == 'bedroom'){
-												echo $value_b."bd";
+												echo "<span itemprop='offers' itemscope itemtype='http://schema.org/Offer'><span itemprop='name'>".$value_b."bd";
 											}
 											if($key_b == 'bathroom'){
 												if($value_b == 1.00){$ba = 1;}
@@ -202,17 +223,17 @@
 												if($value_b == 4.00){$ba = 4;}
 												if($value_b == 4.50){$ba = 4.5;}
 												if($value_b == 5.00){$ba = 5;}
-												echo "/".$ba."ba";
+												echo "/".$ba."ba</span>";
 											}
 											if($key_b == 'square_footage'){
-												echo " &bull; ".$value_b." SqFt &bull; ";
+												echo " &bull; <span itemprop='floorSize'>".$value_b."</span> SqFt &bull; ";
 											}
 											if($key_b == 'rent'){
-												echo "$".$value_b."<br>";
+												echo "<span itemprop='priceCurrency' content='USD'>$</span><span itemprop='price' content='".$value_b."'>".$value_b."</span></span><br>";
 											}
 										}
 									}
-									echo "</a>";
+									echo "</a></span>";
 									echo "</div></td></tr>";
 								}
 							}
@@ -387,6 +408,9 @@
 										echo "<tr>";
 										echo "<td class='table_little'>";
 										echo $value['property_address'].", ".$value['property_city'];
+										if($value['property_state']=='TX'){
+											echo ", Texas";
+										}
 										echo "</td>";
 										echo "</tr>";
 									echo "</table>";

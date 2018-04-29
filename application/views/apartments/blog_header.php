@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo $blog[0]['post_title']; ?>: <?php echo WEBSITE; ?> Blog</title>
@@ -9,12 +10,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="<?php echo MARKET.' '.STATE; ?> Apartment news and info blog: <?php echo $blog[0]['post_title']; ?>">
     <meta name="keywords" content="<?php echo $blog[0]['post_title']; ?>">
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <?php 
+        $clean_title = str_replace(' ', '_', $blog[0]['post_title']);
+        $clean_title = str_replace(',', '', $clean_title);
+        $clean_title = preg_replace('/[\/|+ -]+/', '', $clean_title);
+     ?>
+    <link rel="canonical" href="https://<?php echo WEBSITELOWERWWW;?>/texas/this_blog/<?php echo $blog[0]['id'] ?>/<?php echo $clean_title; ?>">
 
-    
-    
-    <script src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
-    <script src="<?php echo base_url(); ?>js/panelSnap.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>js/panelSnap.js"></script>
     
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">
