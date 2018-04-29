@@ -109,22 +109,22 @@
 		<?php
             foreach ($blog_list->result() as $blog) {
         ?>
-        <div class="post">
-            <h1 class="post_title"><?php echo $blog->post_title; ?></h1>
+        <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
+            <h1 class="post_title" iteprop="headline"><?php echo $blog->post_title; ?></h1>
             <p class="meta">
         <?php
             
             $originalDate = $blog->post_date;
 			$newDate = date("F j, Y", strtotime($originalDate));
-			echo $newDate;
+			echo "<span itemprop='datePublished'>".$newDate."</span>";
         ?>
         <?php
         	if($blog->post_pic != ''){
-        		echo "<div class='blog_pic'><img src='".base_url()."images/blog/".$blog->post_pic."'></div>";
+        		echo "<div class='blog_pic'><span itemprop='image'><img src='".base_url()."images/blog/".$blog->post_pic."'></span></div>";
         	}
         ?>
             <div class="entry">
-                <p><?php echo $blog->post_text; ?></p>
+                <p><span itemprop="articleBody"><?php echo $blog->post_text; ?></span></p>
         
             </div>
             <hr class="clear_float">

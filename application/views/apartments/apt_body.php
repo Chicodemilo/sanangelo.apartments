@@ -57,7 +57,7 @@
 		}
 	?>
 
-	<div class="body_wrapper">
+	<div class="body_wrapper" itemscope itemtype="http://schema.org/Apartment">
 	<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
 			<a href="<?php echo base_url(); ?>" itemtype="http://schema.org/ListItem" itemprop="item">
 				<span itemprop="name"><?php echo MARKET.', '.STATE ?></span>
@@ -94,9 +94,9 @@
 				<div class="map_no_load">The Map Could Not Load. Sorry!</div>
 			</div>
 			<div class="apt_contact">
-				<span class="contact_name"><?php echo $property_name; ?></span><br>
-				<span class="contact_add"><?php echo $property_address.', '.$property_city.', '.$property_state; ?></span><br>
-				<span class="contact_name"><?php if($free != 'Y'){echo $property_phone;} ?></span><hr class="move_up">
+				<span class="contact_name" itemprop="name"><?php echo $property_name; ?></span><br>
+				<span class="contact_add" itemprop="address"><?php echo $property_address.', '.$property_city.', '.$property_state; ?></span><br>
+				<span class="contact_name" itemprop="telephone"><?php if($free != 'Y'){echo $property_phone;} ?></span><hr class="move_up">
 				<div class="contact_form_div">
 					<span class="form_bold">CONTACT</span>
 					<form id="contact_form">
@@ -154,10 +154,10 @@
 				if(count($pictures) > 1){
 
 					foreach ($pictures as $key => $value) {
-						echo '<a href="#"><li><img class="apt_pics_list" src="'.base_url().'images/pictures/'.$apt_id.'/'.$value['id'].'/'.$value['name'].'"></li></a>';
+						echo '<a href="#"><li><img itemprop="photo" class="apt_pics_list" src="'.base_url().'images/pictures/'.$apt_id.'/'.$value['id'].'/'.$value['name'].'"></li></a>';
 					}
 				}else{
-					echo '<img class="solo_pic" class="apt_pics_list" src="'.base_url().'images/pictures/'.$apt_id.'/'.$pictures[0]['id'].'/'.$pictures[0]['name'].'">';
+					echo '<img itemprop="photo" class="solo_pic" class="apt_pics_list" src="'.base_url().'images/pictures/'.$apt_id.'/'.$pictures[0]['id'].'/'.$pictures[0]['name'].'">';
 				}
 			 ?>
 			</ul>
@@ -168,7 +168,7 @@
 			<?php 
 				
 					foreach ($pictures as $key => $value) {
-						echo '<img class="apt_pics_list_mob" src="'.base_url().'images/pictures/'.$apt_id.'/'.$value['id'].'/'.$value['name'].'">';
+						echo '<img itemprop="photo" class="apt_pics_list_mob" src="'.base_url().'images/pictures/'.$apt_id.'/'.$value['id'].'/'.$value['name'].'">';
 					}
 			 ?>
 
@@ -239,7 +239,7 @@
 						';
 					}
 					echo '</tr>';
-					echo '<tr><td class="fp_data bolder">'.$value['bedroom'].'</td><td class="fp_data bolder">'.$value['bathroom'].'</td><td class="fp_data bolder">'.$value['square_footage'].'</td><td class="fp_data bolder">$'.$value['rent'];
+					echo '<tr><td class="fp_data bolder">'.$value['bedroom'].'</td><td class="fp_data bolder">'.$value['bathroom'].'</td><td class="fp_data bolder"><span itemprop="floorSize">'.$value['square_footage'].'</span></td><td class="fp_data bolder">$'.$value['rent'];
 					if($value['bedroom'] == 1){
 						if($value['rent'] > $market_data['ave_one_bed_rent']){
 							echo '<span class="above" id="bed_average_'.$value['id'].'">&nbsp;&#9650;</span>';
@@ -344,7 +344,7 @@
 							$select_yes = 'N';
 							$extra_yes = 'N';
 							foreach ($amenities as $key => $value) {
-								echo '<li class="amen_item>">'.$value['name'];
+								echo '<li class="amen_item>"><span itemprop="amenityFeature">'.$value['name'];
 								if($value['select_units'] != 'N'){
 									echo '&#42;';
 									$select_yes = 'Y';
@@ -353,7 +353,7 @@
 									echo '&#43;';
 									$extra_yes = 'Y';
 								}
-								echo '</li>';
+								echo '</span></li>';
 							}
 							if($select_yes != 'N'){
 								echo '<br><span class="in_select">&#42;In Select Units</span>&nbsp;&nbsp;';
@@ -369,10 +369,10 @@
 						echo '<span class="amen_word">Pets</span>';
 						echo '<div class="pet_info_div">';
 						if($pets['pet_type'] == 'No Pets Allowed'){
-							echo '<span class="bolder">'.$pets['pet_type']."</span><br>";
+							echo '<span class="bolder" itemprop="petsAllowed">'.$pets['pet_type']."</span><br>";
 							echo '<br><span class="pet_restrict">'.$pets['pet_restrictions'].'</span>';
 						}else{
-							echo '<span class="bolder">'.$pets['pet_type']."</span><br>";
+							echo '<span class="bolder" itemprop="petsAllowed">'.$pets['pet_type']."</span><br>";
 							if($pets['pet_dep'] > 0){
 								echo 'Deposit:$'.$pets['pet_dep'].'<br>';
 								echo 'Refund Possible:$'.$pets['pet_refund'].'<br>';
@@ -392,21 +392,21 @@
 			<div class="apt_desc_hours">
 				<?php 
 					if($logo != 'N'){
-						echo '<div class="logo_block">';
+						echo '<div class="logo_block"><span itemprop="logo">';
 						echo '<img src="'.base_url().'images/logos/property/'.$apt_id.'/'.$logo['name'].'">';
-						echo '</div>';
+						echo '</span></div>';
 					}
 
 					if($property_description != 'N'){
-						echo '<div class="desc_block">';
+						echo '<div class="desc_block"><span itemprop="description">';
 						echo $property_description;
-						echo '</div>';
+						echo '</span></div>';
 						echo '<hr>';
 					}
 
 					if($hours != 'N'){
 						echo '<span class="off_word">Office Hours</span>';
-						echo '<div class="off_hour_block">';
+						echo '<div class="off_hour_block"><span itemprop="openingHoursSpecification">';
 							foreach ($hours as $key => $value) {
 								if($value['open_min'] == 0){
 									$value['open_min'] = '00';
@@ -423,7 +423,7 @@
 								
 								echo '<br>';
 							}
-						echo '</div>';
+						echo '</span></div>';
 					}
 				 ?>
 

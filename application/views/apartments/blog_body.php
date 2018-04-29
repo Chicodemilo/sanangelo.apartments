@@ -89,7 +89,7 @@
 		<?php
             foreach ($blog_list->result() as $blog) {
         ?>
-        <div class="post">
+        <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
             <h1 class="post_title"><a href=
             "<?php 
 
@@ -99,21 +99,21 @@
 
             	echo base_url().'texas/this_blog/'.$blog->id.'/'.$clean_title; 
 
-            ?>"><?php echo $blog->post_title; ?></a></h1>
+            ?>"><span itemprop="headline"><?php echo $blog->post_title; ?></span></a></h1>
             <p class="meta">
         <?php
             
             $originalDate = $blog->post_date;
 			$newDate = date("F j, Y", strtotime($originalDate));
-			echo $newDate;
+			echo "<span itemprop='dateCreated'>".$newDate."</span>";
         ?>
         <?php
         	if($blog->post_pic != ''){
-        		echo "<div class='blog_pic'><img src='".base_url()."images/blog/".$blog->post_pic."'></div>";
+        		echo "<div class='blog_pic'><span itemprop='image'><img src='".base_url()."images/blog/".$blog->post_pic."'></span></div>";
         	}
         ?>
             <div class="entry">
-                <p><?php echo $blog->post_text; ?></p>
+                <p><span itemprop="articleBody"><?php echo $blog->post_text; ?></span></p>
         
             </div>
             <hr class="clear_float">
