@@ -9,10 +9,10 @@
 					if($pos_1['picture_id'] !== 'generic'){
 						$exp_pic_name = explode('.', $pos_1['picture_name']);
 						echo base_url();
-						echo 'images/pictures/'.$pos_1['ID'].'/'.$pos_1['picture_id'].'/'.$exp_pic_name[0].'_big.'.$exp_pic_name[1]; 
+						echo 'images/pictures/'.$pos_1['ID'].'/'.$pos_1['picture_id'].'/'.$exp_pic_name[0].'_med.'.$exp_pic_name[1]; 
 					}else{
 						echo base_url();
-						echo 'images/pictures/generic/generic_big.jpg'; 
+						echo 'images/pictures/generic/generic_med.jpg'; 
 					}
 					
 				?>" alt="">
@@ -27,11 +27,11 @@
 				<?php
 					if($pos_2['picture_id'] == 'generic'){
 						echo base_url();
-						echo 'images/pictures/generic/generic_big.jpg';
+						echo 'images/pictures/generic/generic_med.jpg';
 					}else{ 
 						$exp_pic_name = explode('.', $pos_2['picture_name']);
 						echo base_url();
-						echo 'images/pictures/'.$pos_2['ID'].'/'.$pos_2['picture_id'].'/'.$exp_pic_name[0].'_big.'.$exp_pic_name[1]; 
+						echo 'images/pictures/'.$pos_2['ID'].'/'.$pos_2['picture_id'].'/'.$exp_pic_name[0].'_med.'.$exp_pic_name[1]; 
 					}
 					
 				?>" alt="">
@@ -47,10 +47,10 @@
 					if($pos_3['picture_id'] !== 'generic'){
 						$exp_pic_name = explode('.', $pos_3['picture_name']);
 						echo base_url();
-						echo 'images/pictures/'.$pos_3['ID'].'/'.$pos_3['picture_id'].'/'.$exp_pic_name[0].'_big.'.$exp_pic_name[1]; 
+						echo 'images/pictures/'.$pos_3['ID'].'/'.$pos_3['picture_id'].'/'.$exp_pic_name[0].'_med.'.$exp_pic_name[1]; 
 					}else{
 						echo base_url();
-						echo 'images/pictures/generic/generic_big.jpg';
+						echo 'images/pictures/generic/generic_med.jpg';
 					}
 					
 				?>" alt="">

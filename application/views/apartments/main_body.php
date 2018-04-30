@@ -400,7 +400,7 @@
 										echo "<tr>";
 										echo "<td rowspan='2' id='table_pic_box'>";
 										$exp_pic_name = explode('.', $value['pic_name']);
-										echo "<img src='".base_url()."images/pictures/".$value['apt_id']."/".$value['pic_id']."/".$exp_pic_name[0]."_med_small.".$exp_pic_name[1]."'>";
+										echo "<img src='".base_url()."images/pictures/".$value['apt_id']."/".$value['pic_id']."/".$exp_pic_name[0]."_small.".$exp_pic_name[1]."'>";
 										echo "</td>";
 										echo "<td class='table_name'>";
 										echo $value['property_name'];
