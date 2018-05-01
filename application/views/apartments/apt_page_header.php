@@ -12,14 +12,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="canonical" href="https://<?php echo WEBSITELOWERWWW;?>/texas/apartment/<?php echo $property_search_name; ?>/<?php echo $apt_id; ?>">
     
-    <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js "></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.accordionImageMenu.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/main_page_javascript.js"></script>
 
 
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>css/accordionImageMenu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     
     <link rel='stylesheet' media='only screen and (min-width: 901px)' href='<?php echo base_url();?>css/apt_main_page.css' />
     <link rel='stylesheet' media='only screen and (max-width: 900px)' href='<?php echo base_url();?>css/apt_main_page_little.css' />
