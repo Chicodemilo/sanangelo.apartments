@@ -908,7 +908,7 @@ section {
 }
 
 .search_param_bold{
-    font-size:1.5em;
+    font-size:1.3em;
     line-height:1em;
     font-weight:bold;
     color:#FEC063;
@@ -960,7 +960,7 @@ section {
 
 
 .table_little{
-    font-size:.7em;
+    font-size:1em;
     letter-spacing:.05em;
     color:#505050;
     padding-left: 10px;

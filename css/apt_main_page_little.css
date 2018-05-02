@@ -698,7 +698,11 @@ hr {
     background:white;
     border: 11px solid white;
     z-index:0;
+}
 
+.breadcrumbs{
+    font-size: .8em;
+    padding-bottom: 5px;
 }
 
 .left_col{
@@ -907,7 +911,7 @@ section {
     color:white;
     width:100%;
     background:#5D8BB4;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.6em;
     letter-spacing: -.01em;
     padding:5px;
@@ -916,7 +920,7 @@ section {
 }
     
 .search_param_bold{
-    font-size:1.2em;
+    font-size:1.1em;
     /* letter-spacing: .02em; */
     line-height:1em;
     font-weight:bold;
@@ -957,7 +961,7 @@ section {
 }
 
 .table_name{
-    font-size:20px;
+    font-size:18px;
     line-height: 1.2em;
     font-weight:bold;
     letter-spacing:.05em;
@@ -969,7 +973,7 @@ section {
 
 
 .table_little{
-    font-size:.7em;
+    font-size:.8em;
     letter-spacing:.05em;
     color:#505050;
     padding-left: 10px;
