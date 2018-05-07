@@ -1259,15 +1259,15 @@ class Apartment_model extends CI_Model {
 
 				$message = '<body style="font-family:Arial, Helvetica, sans-serif;">'.
 				'<h3 style="color:#3F79C9;">'.$apt_name.' has a contact from '.WEBSITE.'</h3><br>Login to '.WEBSITE.' to see this lead: <a href="'.base_url().'login/login_user">LOGIN</a>'
-				.'<h3 style="color:#3F79C9;">To have leads sent directly to you, consider a PREMIUM MEMBERSHIP</h3>'.
+				.'<h3 style="color:#3F79C9;">To see this lead, consider a PREMIUM MEMBERSHIP</h3>'.
 					        '<br>A Premium Membership Means...
 									<ul style="line-height: 1.9;">
+										<li>You get to see this lead and possibly get a new renter!</li>
 										<li>'.$apt_name.' appears ABOVE the Basic Level Apartments</li>
 										<li>Your Page Has A TRACKABLE Phone Number Listed On It - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member page has NO phone number listed</span></li>
 										<li>A LINK To Your Property Website Is On Your Page - <span style="font-style: italic; font-size:.8em; font-weight:bold;">Your Basic Member pages has NO links to your website.</span></li>
 										<li>A LINK & Logo of your Property Management Company</li>
 										<li>A FACEBOOK Promotion For Your Property Once a Quarter... <span style="font-style: italic; font-size:.8em; font-weight:bold;"><a href="'.FBPAGE.'" target="blank">See Our FB Page</a></span></li>
-										<li>All LEADS Are Emailed Directly To You - <span style="font-style: italic; font-size:.8em; font-weight:bold;">You don\'t have to login to see your leads</span></li>
 									</ul>'.
 					        '<br><br>Thanks,<br>
 					        '.WEBSITE
